@@ -1,0 +1,186 @@
+[
+ {
+  "videoId": "4cbnMJyaBDA",
+  "round": "第1節",
+  "half": "前半",
+  "date": "2026-07-11",
+  "label": "第1節・前半",
+  "cards": [
+   {
+    "teamA": "Crazy Raccoon",
+    "teamB": "ZETA DIVISION",
+    "scoreA": "3",
+    "scoreB": "1",
+    "round": "ROUND 1"
+   },
+   {
+    "teamA": "DetonatioN FocusMe",
+    "teamB": "VARREL",
+    "scoreA": "3",
+    "scoreB": "1",
+    "round": "ROUND 2"
+   }
+  ]
+ },
+ {
+  "videoId": "XeumPnnTzdQ",
+  "round": "第1節",
+  "half": "後半",
+  "date": "2026-07-12",
+  "label": "第1節・後半",
+  "cards": [
+   {
+    "teamA": "RIDDLE ORDER",
+    "teamB": "レバンガ北海道",
+    "scoreA": "1",
+    "scoreB": "3",
+    "round": "ROUND 1"
+   },
+   {
+    "teamA": "MURASH GAMING",
+    "teamB": "REJECT",
+    "scoreA": "2",
+    "scoreB": "3",
+    "round": "ROUND 2"
+   }
+  ]
+ },
+ {
+  "videoId": "wy39UNhHOqQ",
+  "round": "第2節",
+  "half": "前半",
+  "date": "2026-07-15",
+  "label": "第2節・前半",
+  "cards": [
+   {
+    "teamA": "Crazy Raccoon",
+    "teamB": "VARREL",
+    "scoreA": "4",
+    "scoreB": "0",
+    "round": "ROUND 1"
+   },
+   {
+    "teamA": "ZETA DIVISION",
+    "teamB": "レバンガ北海道",
+    "scoreA": "2",
+    "scoreB": "3",
+    "round": "ROUND 2"
+   }
+  ]
+ },
+ {
+  "videoId": "8v4bKsn0WAI",
+  "round": "第2節",
+  "half": "後半",
+  "date": "2026-07-22",
+  "label": "第2節・後半",
+  "cards": [
+   {
+    "teamA": "DetonatioN FocusMe",
+    "teamB": "REJECT",
+    "scoreA": "3",
+    "scoreB": "2",
+    "round": "ROUND 1"
+   },
+   {
+    "teamA": "RIDDLE ORDER",
+    "teamB": "MURASH GAMING",
+    "scoreA": "1",
+    "scoreB": "3",
+    "round": "ROUND 2"
+   }
+  ]
+ },
+ {
+  "videoId": "N-_eE_fa59s",
+  "round": "第3節",
+  "half": "",
+  "date": "2026-08-01",
+  "label": "第3節",
+  "cards": [
+   {
+    "teamA": "DetonatioN FocusMe",
+    "teamB": "RIDDLE ORDER",
+    "scoreA": "4",
+    "scoreB": "0",
+    "round": "ROUND 1"
+   },
+   {
+    "teamA": "VARREL",
+    "teamB": "REJECT",
+    "scoreA": "0",
+    "scoreB": "4",
+    "round": "ROUND 2"
+   }
+  ]
+ },
+ {
+  "videoId": "x6PeWkSyyV4",
+  "round": "第4節",
+  "half": "前半",
+  "date": "2026-08-05",
+  "label": "第4節・前半",
+  "cards": [
+   {
+    "teamA": "Crazy Raccoon",
+    "teamB": "REJECT",
+    "scoreA": "3",
+    "scoreB": "1",
+    "round": "ROUND 1"
+   },
+   {
+    "teamA": "レバンガ北海道",
+    "teamB": "MURASH GAMING",
+    "scoreA": "3",
+    "scoreB": "2",
+    "round": "ROUND 2"
+   }
+  ]
+ },
+ {
+  "videoId": "t5f1hh-W48E",
+  "round": "第4節",
+  "half": "後半",
+  "date": "2026-08-12",
+  "label": "第4節・後半",
+  "cards": [
+   {
+    "teamA": "VARREL",
+    "teamB": "RIDDLE ORDER",
+    "scoreA": "1",
+    "scoreB": "3",
+    "round": "ROUND 1"
+   },
+   {
+    "teamA": "ZETA DIVISION",
+    "teamB": "DetonatioN FocusMe",
+    "scoreA": "3",
+    "scoreB": "1",
+    "round": "ROUND 2"
+   }
+  ]
+ },
+ {
+  "videoId": "tFfmk5qJj98",
+  "round": "第5節",
+  "half": "前半",
+  "date": "2026-08-19",
+  "label": "第5節・前半",
+  "cards": [
+   {
+    "teamA": "Crazy Raccoon",
+    "teamB": "MURASH GAMING",
+    "scoreA": "1",
+    "scoreB": "3",
+    "round": "ROUND 1"
+   },
+   {
+    "teamA": "REJECT",
+    "teamB": "RIDDLE ORDER",
+    "scoreA": "2",
+    "scoreB": "3",
+    "round": "ROUND 2"
+   }
+  ]
+ }
+]

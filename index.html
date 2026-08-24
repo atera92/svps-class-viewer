@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SVPS クラス別ビューア</title>
+<style>
+:root{
+  --bg:#101318; --bg2:#171c24; --bg3:#1e2530; --line:#2c3542;
+  --fg:#e8edf4; --mute:#8b97a8; --accent:#e8b23a;
+  --elf:#3fae5f; --roy:#e8b23a; --wit:#7b6ff0; --dra:#d9772f;
+  --nig:#c0466b; --bis:#d9d2bd; --nem:#35b9cf;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;font-size:13px}
+button,select,input{font-family:inherit;font-size:13px}
+button{background:var(--bg3);color:var(--fg);border:1px solid var(--line);
+  border-radius:5px;padding:5px 9px;cursor:pointer}
+button:hover{background:#2a3341}
+button.pri{background:var(--accent);color:#191307;border-color:var(--accent);font-weight:700}
+button.pri:hover{filter:brightness(1.1)}
+select,input[type=text],input[type=number]{background:var(--bg3);color:var(--fg);
+  border:1px solid var(--line);border-radius:5px;padding:5px 7px}
+kbd{background:#2b3442;border:1px solid #3d4959;border-bottom-width:2px;border-radius:4px;
+  padding:0 5px;font-size:11px;font-family:ui-monospace,monospace;color:#cfd8e4}
+
+header{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  padding:8px 12px;background:var(--bg2);border-bottom:1px solid var(--line)}
+#sub{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+header h1{font-size:14px;margin:0;letter-spacing:.04em;color:var(--accent);white-space:nowrap}
+.grow{flex:1}
+
+#wrap{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(340px,1fr);
+  gap:0;height:calc(100% - 41px)}
+#left{padding:10px;overflow:auto;border-right:1px solid var(--line)}
+#right{display:flex;flex-direction:column;min-height:0}
+
+#playerbox{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden}
+#player{width:100%;height:100%}
+
+/* ---- timeline ---- */
+#tl{position:relative;height:26px;margin-top:8px;background:var(--bg3);
+  border:1px solid var(--line);border-radius:4px;cursor:pointer;overflow:hidden}
+.tlseg{position:absolute;top:0;bottom:0;opacity:.85}
+.tlseg i{position:absolute;top:0;bottom:50%;left:0;right:0}
+.tlseg u{position:absolute;top:50%;bottom:0;left:0;right:0}
+#tlcur{position:absolute;top:-2px;bottom:-2px;width:2px;background:#fff;
+  box-shadow:0 0 5px #fff;pointer-events:none}
+
+/* ---- transport ---- */
+#trans{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:8px}
+#time{font-family:ui-monospace,monospace;font-size:15px;color:var(--accent);
+  min-width:150px;letter-spacing:.02em}
+
+/* ---- tag panel ---- */
+.panel{margin-top:10px;background:var(--bg2);border:1px solid var(--line);
+  border-radius:6px;padding:10px}
+.panel h2{font-size:12px;margin:0 0 8px;color:var(--mute);letter-spacing:.08em;font-weight:600}
+.side{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:start;margin-bottom:8px}
+.sidelbl{font-size:11px;color:var(--mute);padding-top:6px;line-height:1.5}
+.clsrow{display:flex;gap:4px;flex-wrap:wrap}
+.cls{border:1px solid var(--line);border-radius:5px;padding:4px 7px;cursor:pointer;
+  background:var(--bg3);display:flex;align-items:center;gap:5px;user-select:none}
+.cls .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.cls .k{font-size:10px;color:var(--mute)}
+.cls.sel{background:#33404f;border-color:#7d8ea3;box-shadow:0 0 0 1px #7d8ea3 inset}
+.pline{display:flex;gap:6px;margin-top:6px}
+.pline input{flex:1;min-width:0}
+
+/* ---- list ---- */
+#fClsRow{flex-basis:100%;display:flex;gap:3px}
+.fc{flex:1;border:1px solid var(--line);border-radius:5px;padding:3px 2px;cursor:pointer;
+  background:var(--bg3);display:flex;align-items:center;justify-content:center;gap:3px;
+  user-select:none;font-size:11px;white-space:nowrap}
+.fc:hover{border-color:#7d8ea3}
+.fc.sel{color:#0d1116;font-weight:700;border-color:transparent}
+.fc .ord{font-size:9px;opacity:.7}
+#fMode[disabled]{opacity:.4;cursor:default}
+#filters{padding:9px 10px;background:var(--bg2);border-bottom:1px solid var(--line);
+  display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+#list{flex:1;overflow:auto;padding:6px}
+.seg{border:1px solid var(--line);border-radius:6px;margin-bottom:5px;
+  background:var(--bg2);padding:7px 9px;cursor:pointer;position:relative}
+.seg:hover{background:var(--bg3)}
+.seg.playing{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.seg .top{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--mute)}
+.seg .mid{display:flex;gap:6px;align-items:center;margin-top:4px;flex-wrap:wrap;line-height:1.9}
+.tag{display:inline-flex;align-items:center;gap:4px;border-radius:4px;padding:2px 7px;
+  font-weight:700;font-size:12px;color:#0d1116}
+.vs{color:var(--mute);font-size:11px}
+.pl{font-size:11px;color:#c3cede}
+.seg .acts{position:absolute;top:5px;right:6px;display:none;gap:3px}
+.seg:hover .acts{display:flex}
+.seg .acts button{padding:2px 6px;font-size:11px}
+.deck{font-size:10px;color:#9fb3cc;border:1px solid var(--line);border-radius:3px;
+  padding:1px 5px;text-decoration:none}
+.deck:hover{color:#fff;border-color:#7d8ea3}
+.win{font-size:10px;color:#0d1116;background:var(--accent);border-radius:3px;padding:1px 4px;font-weight:700}
+.empty{color:var(--mute);padding:24px;text-align:center;line-height:1.9}
+#count{color:var(--mute);font-size:11px}
+.hint{color:var(--mute);font-size:11px;line-height:1.8;margin-top:8px}
+.badge{background:var(--bg3);border:1px solid var(--line);border-radius:4px;
+  padding:2px 6px;font-size:11px;color:var(--mute)}
+details.panel > summary{font-size:12px;color:var(--mute);letter-spacing:.08em;
+  font-weight:600;cursor:pointer;list-style:none}
+details.panel > summary::-webkit-details-marker{display:none}
+details.panel > summary::before{content:"▾ ";color:var(--accent)}
+details.panel:not([open]) > summary::before{content:"▸ "}
+details.panel[open] > summary{margin-bottom:8px}
+
+/* ---------- スマホ・タブレット ---------- */
+@media (max-width: 900px){
+  html,body{height:auto}
+  button,select,input{font-size:15px}
+  button{padding:9px 13px;touch-action:manipulation}
+  header{gap:6px;padding:6px 8px}
+  header h1{font-size:12px}
+  header select{max-width:none;flex:1 1 140px;width:auto}
+  #sub{flex-basis:100%}
+  #sub input[type=text]{flex:1 1 120px;width:auto}
+  body.compact #sub{display:none}
+  #more{display:inline-block}
+  #wrap{display:block;height:auto}
+  #left{padding:8px;border-right:none;overflow:visible}
+  #right{display:block}
+  /* #stage は body 直下に移してから固定する（親の高さに閉じ込められないように） */
+  body > #stage{position:sticky;top:0;z-index:10;background:var(--bg);
+    padding:6px 8px;box-shadow:0 8px 14px -8px #000}
+  body > #stage #playerbox{border-radius:0 0 6px 6px}
+  #trans{gap:5px}
+  #trans button{padding:8px 10px}
+  #time{font-size:14px;min-width:100%;order:-1}
+  #trans [data-seek="-300"],#trans [data-seek="300"],
+  #trans [data-seek="-3"],#trans [data-seek="3"],#rate{display:none}
+  #filters{position:static;padding:8px}
+  #fClsRow{gap:4px;flex-wrap:wrap}
+  .fc{flex:1 1 22%;padding:8px 2px;font-size:12px}
+  #filters select{flex:1 1 28%;min-width:0}
+  #filters label{font-size:13px}
+  #count{order:99}
+  #list{overflow:visible;padding:6px 8px 40px}
+  .seg{padding:10px 11px}
+  .seg .top{font-size:12px}
+  .seg .acts{display:flex;position:static;justify-content:flex-end;margin-top:6px}
+  .seg .acts button{padding:6px 12px;font-size:13px}
+  .tag{font-size:13px;padding:3px 9px}
+  .pl,.deck{font-size:12px}
+  .deck{padding:3px 7px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SVPS クラス別ビューア</h1>
+  <select id="arcsel" style="max-width:280px"></select>
+  <button id="more" hidden>⋯</button>
+  <span class="grow"></span>
+  <span id="sub">
+    <input type="text" id="manualurl" placeholder="YouTube URL / ID を直接指定" style="width:190px">
+    <button id="loadmanual">読込</button>
+    <span id="dbinfo" class="badge"></span>
+    <button id="expo">書き出し</button>
+    <button id="impo">読み込み</button>
+  </span>
+  <input type="file" id="impf" accept="application/json" hidden>
+</header>
+
+<div id="wrap">
+  <div id="left">
+    <div id="stage">
+    <div id="playerbox"><div id="player"></div></div>
+    <div id="tl"><div id="tlcur" style="left:0"></div></div>
+
+    <div id="trans">
+      <span id="time">0:00:00 / 0:00:00</span>
+      <button data-seek="-300">−5分</button>
+      <button data-seek="-60">−60</button>
+      <button data-seek="-10">−10</button>
+      <button data-seek="-3">−3</button>
+      <button id="pp" class="pri">▶ / ⏸</button>
+      <button data-seek="3">+3</button>
+      <button data-seek="10">+10</button>
+      <button data-seek="60">+60</button>
+      <button data-seek="300">+5分</button>
+      <select id="rate">
+        <option value="1">1.0x</option><option value="1.25">1.25x</option>
+        <option value="1.5">1.5x</option><option value="2">2.0x</option>
+      </select>
+    </div>
+    </div><!-- /stage -->
+
+    <details class="panel" id="tagpanel" open>
+      <summary>タグ付け <span id="editing" style="color:var(--accent)"></span></summary>
+
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap">
+        <select id="cardsel" style="max-width:330px"></select>
+        <button id="swapside" title="左右を入れ替え">⇄ 左右入替</button>
+        <span style="color:var(--mute);font-size:11px">バトル</span>
+        <input type="text" id="memo" placeholder="メモ（例: 進化ロイヤル / 神速）" style="width:210px">
+        <select id="battleno">
+          <option>1</option><option>2</option>
+          <option>3</option><option>4</option><option>5</option><option value="">-</option>
+        </select>
+      </div>
+
+      <div class="side">
+        <div class="sidelbl">左<br><kbd>1</kbd>〜<kbd>7</kbd></div>
+        <div>
+          <div class="clsrow" id="clsL"></div>
+          <div class="pline">
+            <input type="text" id="teamL" placeholder="チーム">
+            <input type="text" id="playerL" placeholder="選手名" list="players">
+          </div>
+        </div>
+      </div>
+
+      <div class="side">
+        <div class="sidelbl">右<br><kbd>Z</kbd>〜<kbd>M</kbd></div>
+        <div>
+          <div class="clsrow" id="clsR"></div>
+          <div class="pline">
+            <input type="text" id="teamR" placeholder="チーム">
+            <input type="text" id="playerR" placeholder="選手名" list="players">
+          </div>
+        </div>
+      </div>
+      <datalist id="players"></datalist>
+
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:4px">
+        <button id="mark" class="pri">現在位置で登録 <kbd>S</kbd></button>
+        <button id="markend">ここで終了 <kbd>D</kbd></button>
+        <button id="update" hidden>更新</button>
+        <button id="cancel" hidden>編集やめる</button>
+        <span style="color:var(--mute);font-size:11px">勝者</span>
+        <button id="winL" data-w="L">左</button>
+        <button id="winR" data-w="R">右</button>
+      </div>
+
+      <div class="hint">
+        <kbd>Space</kbd>再生/停止　<kbd>←</kbd><kbd>→</kbd>±10秒　<kbd>Shift</kbd>+<kbd>←</kbd><kbd>→</kbd>±60秒　
+        <kbd>,</kbd><kbd>.</kbd>±3秒　<kbd>S</kbd>登録　<kbd>D</kbd>終了<br>
+        終了時刻を打たなければ「次のバトルの開始」までが自動的にその試合の範囲になります。
+      </div>
+    </details>
+  </div>
+
+  <div id="right">
+    <div id="filters">
+      <div id="fClsRow"></div>
+      <button id="fMode" title="2つ選んだときの絞り込み方">いずれかを含む</button>
+      <button id="fClear">クリア</button>
+      <button id="share" title="いまの絞り込みと再生位置をURLにして共有する">リンクをコピー</button>
+      <select id="fRound"><option value="">節：すべて</option></select>
+      <select id="fTeam"><option value="">チーム：すべて</option></select>
+      <select id="fPlayer"><option value="">選手：すべて</option></select>
+      <label style="display:flex;align-items:center;gap:4px;color:var(--mute)">
+        <input type="checkbox" id="fThis"> この動画のみ</label>
+      <label style="display:flex;align-items:center;gap:4px;color:var(--mute)">
+        <input type="checkbox" id="autonext" checked> 連続再生</label>
+      <span class="grow"></span>
+      <span id="count"></span>
+      <button id="playall" class="pri">上から連続再生</button>
+    </div>
+    <div id="list"></div>
+  </div>
+</div>
+
+<script>
+/* ===================== 定数 ===================== */
+const CLASSES = [
+  {n:'エルフ',   v:'--elf', k:'1', k2:'z'},
+  {n:'ロイヤル', v:'--roy', k:'2', k2:'x'},
+  {n:'ウィッチ', v:'--wit', k:'3', k2:'c'},
+  {n:'ドラゴン', v:'--dra', k:'4', k2:'v'},
+  {n:'ナイトメア',v:'--nig', k:'5', k2:'b'},
+  {n:'ビショップ',v:'--bis', k:'6', k2:'n'},
+  {n:'ネメシス', v:'--nem', k:'7', k2:'m'},
+];
+const CMAP = {}; CLASSES.forEach(c=>CMAP[c.n]=c);
+const col = n => CMAP[n] ? getComputedStyle(document.documentElement)
+                            .getPropertyValue(CMAP[n].v).trim() : '#666';
+const KEY = 'svps-segments-v1';
+
+/* ===================== 状態 ===================== */
+let archives = [];
+let DB = { segments: [] };
+let cur = { vid:null, dur:0, arc:null };
+let sel = { L:null, R:null, win:null };
+let editingId = null;
+let queue = [], qi = -1;
+let fSel = [];            // 選択中のクラス（押した順）
+let fMode = 'any';        // 'any' = いずれかを含む / 'all' = 両方を含む
+let player = null, ready = false;
+
+/* ===================== ユーティリティ ===================== */
+const $ = s => document.querySelector(s);
+const hms = t => {
+  t = Math.max(0, Math.floor(t||0));
+  const h = (t/3600|0), m = ((t%3600)/60|0), s = t%60;
+  return h + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+};
+const parseHms = s => {
+  const p = String(s).trim().split(':').map(Number);
+  if (p.some(isNaN)) return null;
+  return p.length===3 ? p[0]*3600+p[1]*60+p[2] : p.length===2 ? p[0]*60+p[1] : p[0];
+};
+const vidOf = s => {
+  const m = String(s).match(/(?:live\/|watch\?v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/);
+  if (m) return m[1];
+  return /^[A-Za-z0-9_-]{11}$/.test(String(s).trim()) ? String(s).trim() : null;
+};
+const uid = () => Math.random().toString(36).slice(2,10);
+const save = () => { localStorage.setItem(KEY, JSON.stringify(DB)); renderInfo(); };
+const arcOf = v => archives.find(a=>a.videoId===v);
+
+/* セグメントの実効的な終了時刻（未設定なら同じ動画の次のバトル開始まで） */
+function endOf(seg){
+  if (seg.end) return seg.end;
+  const sib = DB.segments.filter(s=>s.vid===seg.vid && s.start>seg.start)
+                          .sort((a,b)=>a.start-b.start);
+  if (sib.length) return sib[0].start;
+  return (seg.vid===cur.vid && cur.dur) ? cur.dur : seg.start + 900;
+}
+
+/* ===================== YouTube プレイヤー ===================== */
+window.onYouTubeIframeAPIReady = function(){
+  player = new YT.Player('player', {
+    height:'100%', width:'100%',
+    playerVars:{ rel:0, modestbranding:1, playsinline:1 },
+    events:{
+      onReady: ()=>{ ready = true; if (cur.vid) load(cur.vid, cur.want || 0); },
+      onStateChange: e=>{ if (e.data===YT.PlayerState.PLAYING) cur.dur = player.getDuration(); }
+    }
+  });
+};
+(function(){ const t=document.createElement('script');
+  t.src='https://www.youtube.com/iframe_api'; document.head.appendChild(t); })();
+
+function load(vid, at){
+  at = at || 0;
+  cur.vid = vid; cur.arc = arcOf(vid); cur.switchAt = Date.now(); cur.want = at;
+  if (!ready) { cur.deferred = true; return; }
+  cur.deferred = false;
+  player.loadVideoById({ videoId: vid, startSeconds: at });
+  // 切替直後は前の動画の再生位置が残ることがあるので、落ち着いてから合わせ直す
+  [900, 2200].forEach(ms => setTimeout(()=>{
+    if (cur.vid !== vid) return;
+    cur.dur = player.getDuration() || 0;
+    if (Math.abs(player.getCurrentTime() - at) > 4) player.seekTo(at, true);
+    drawTL();
+  }, ms));
+  fillCards(); renderList(); drawTL();
+  $('#arcsel').value = archives.some(a=>a.videoId===vid) ? vid : '';
+}
+function seek(d){ if(!ready) return; leaveQueue(); player.seekTo(Math.max(0, player.getCurrentTime()+d), true); renderList(); }
+function now(){ return ready && player.getCurrentTime ? player.getCurrentTime() : 0; }
+
+/* ===================== 描画 ===================== */
+function renderInfo(){
+  const n = DB.segments.length;
+  const v = new Set(DB.segments.map(s=>s.vid)).size;
+  $('#dbinfo').textContent = `${n} バトル / ${v} 動画`;
+}
+
+function filterButtons(){
+  const box = $('#fClsRow'); box.innerHTML = '';
+  CLASSES.forEach(c=>{
+    const b = document.createElement('div');
+    b.className = 'fc'; b.dataset.n = c.n;
+    b.innerHTML = `${c.n}<span class="ord"></span>`;
+    b.onclick = ()=>{
+      const i = fSel.indexOf(c.n);
+      i >= 0 ? fSel.splice(i,1) : fSel.push(c.n);
+      syncFilterButtons(); renderList();
+    };
+    box.appendChild(b);
+  });
+  syncFilterButtons();
+}
+function syncFilterButtons(){
+  [...$('#fClsRow').children].forEach(e=>{
+    const i = fSel.indexOf(e.dataset.n);
+    e.classList.toggle('sel', i >= 0);
+    e.style.background = i >= 0 ? col(e.dataset.n) : '';
+    e.style.color = i >= 0 ? '' : col(e.dataset.n);
+    e.querySelector('.ord').textContent = (fSel.length > 1 && i >= 0) ? (i+1) : '';
+  });
+  const m = $('#fMode');
+  m.disabled = fSel.length !== 2;
+  if (fSel.length !== 2) fMode = 'any';
+  m.textContent = fMode === 'all' ? '両方を含む' : 'いずれかを含む';
+}
+
+function classButtons(box, side){
+  box.innerHTML = '';
+  CLASSES.forEach(c=>{
+    const b = document.createElement('div');
+    b.className = 'cls'; b.dataset.n = c.n;
+    b.innerHTML = `<span class="dot" style="background:${col(c.n)}"></span>${c.n}
+                   <span class="k">${(side==='L'?c.k:c.k2).toUpperCase()}</span>`;
+    b.onclick = ()=> pick(side, c.n);
+    box.appendChild(b);
+  });
+}
+function pick(side, n){
+  sel[side] = (sel[side]===n) ? null : n;
+  [...$('#cls'+side).children].forEach(e=>e.classList.toggle('sel', e.dataset.n===sel[side]));
+}
+function setWinBtns(){
+  $('#winL').classList.toggle('pri', sel.win==='L');
+  $('#winR').classList.toggle('pri', sel.win==='R');
+}
+
+function fillCards(){
+  const s = $('#cardsel'); s.innerHTML = '<option value="">対戦カード（任意）</option>';
+  (cur.arc?.cards||[]).forEach((c,i)=>{
+    const o = document.createElement('option');
+    o.value = i; o.textContent = `${c.round||''} ${c.teamA} ${c.scoreA}-${c.scoreB} ${c.teamB}`;
+    s.appendChild(o);
+  });
+}
+
+function drawTL(){
+  const tl = $('#tl');
+  [...tl.querySelectorAll('.tlseg')].forEach(e=>e.remove());
+  if (!cur.dur) return;
+  DB.segments.filter(s=>s.vid===cur.vid).forEach(s=>{
+    const d = document.createElement('div');
+    d.className = 'tlseg';
+    d.style.left  = (s.start/cur.dur*100)+'%';
+    d.style.width = Math.max(0.4,(endOf(s)-s.start)/cur.dur*100)+'%';
+    d.innerHTML = `<i style="background:${col(s.c1)}"></i><u style="background:${col(s.c2)}"></u>`;
+    d.title = `${hms(s.start)} ${s.c1} vs ${s.c2}`;
+    tl.appendChild(d);
+  });
+}
+
+function opts(el, vals, label){
+  const keep = el.value;
+  el.innerHTML = `<option value="">${label}：すべて</option>`;
+  vals.forEach(v=>{ const o=document.createElement('option'); o.value=v; o.textContent=v; el.appendChild(o); });
+  el.value = vals.includes(keep) ? keep : '';
+}
+function refreshFilters(){
+  opts($('#fRound'), [...new Set(archives.map(a=>a.label))], '節');
+  const teams = [...new Set(DB.segments.flatMap(s=>[s.t1,s.t2]).filter(Boolean))].sort();
+  const pls   = [...new Set(DB.segments.flatMap(s=>[s.p1,s.p2]).filter(Boolean))].sort();
+  opts($('#fTeam'), teams, 'チーム');
+  opts($('#fPlayer'), pls, '選手');
+  $('#players').innerHTML = pls.map(p=>`<option value="${p}">`).join('');
+}
+
+/* 選んだクラスを必ず左に来るよう向きを揃える（見比べやすさのため） */
+function oriented(s){
+  const f = fSel[0];
+  if (f && s.c2===f && s.c1!==f)
+    return {...s, c1:s.c2, c2:s.c1, p1:s.p2, p2:s.p1, t1:s.t2, t2:s.t1,
+            deck1:s.deck2, deck2:s.deck1,
+            win: s.win==='L'?'R': s.win==='R'?'L':null, flipped:true};
+  return s;
+}
+
+function filtered(){
+  const fr=$('#fRound').value,
+        ft=$('#fTeam').value, fp=$('#fPlayer').value, only=$('#fThis').checked;
+  return DB.segments.filter(s=>{
+    if (only && s.vid!==cur.vid) return false;
+    if (fSel.length){
+      const has = n => s.c1===n || s.c2===n;
+      if (fMode === 'all' && fSel.length === 2){
+        // 選んだ2クラスがぶつかっている試合だけ
+        if (!((s.c1===fSel[0]&&s.c2===fSel[1])||(s.c2===fSel[0]&&s.c1===fSel[1]))) return false;
+      } else {
+        // 選んだクラスのどれかが出ている試合
+        if (!fSel.some(has)) return false;
+      }
+    }
+    if (fr && arcOf(s.vid)?.label !== fr) return false;
+    if (ft && s.t1!==ft && s.t2!==ft) return false;
+    if (fp && s.p1!==fp && s.p2!==fp) return false;
+    return true;
+  }).sort((a,b)=>{
+    const ra=archives.findIndex(x=>x.videoId===a.vid), rb=archives.findIndex(x=>x.videoId===b.vid);
+    return (ra-rb) || (a.start-b.start);
+  });
+}
+
+function renderList(){
+  const list = $('#list'); const segs = filtered();
+  $('#count').textContent = `${segs.length} 件`;
+  if (!segs.length){
+    list.innerHTML = `<div class="empty">該当なし。<br>
+      左のプレイヤーで試合の開始位置に合わせ、クラスを選んで <kbd>S</kbd> を押すと登録されます。</div>`;
+    return;
+  }
+  list.innerHTML = '';
+  segs.forEach(raw=>{
+    const s = oriented(raw), a = arcOf(s.vid);
+    const el = document.createElement('div');
+    el.className = 'seg' + (queue[qi]?.id===raw.id ? ' playing' : '');
+    const tag = (c,p,t,w,dk)=>`<span class="tag" style="background:${col(c)}">${c||'？'}</span>`+
+       (p?`<span class="pl">${p}${(t&&t!==p)?`<span class="vs"> / ${t}</span>`:''}</span>`:'')+
+       (w?`<span class="win">WIN</span>`:'')+
+       (dk?`<a class="deck" href="${dk}" target="_blank" rel="noopener" title="デッキリストを開く">デッキ</a>`:'');
+    el.innerHTML = `
+      <div class="top">
+        <span>${a?a.label:'手動'}</span>
+        ${s.battle?`<span class="badge">B${s.battle}</span>`:''}
+        <span>${hms(s.start)} 〜 ${hms(endOf(raw))}</span>
+        <span>(${Math.round((endOf(raw)-s.start)/60)}分)</span>
+        ${s.memo?`<span>${s.memo}</span>`:''}
+      </div>
+      <div class="mid">
+        ${tag(s.c1,s.p1,s.t1,s.win==='L',s.deck1)}
+        <span class="vs">vs</span>
+        ${tag(s.c2,s.p2,s.t2,s.win==='R',s.deck2)}
+      </div>
+      <div class="acts">
+        <button data-act="edit">✎</button>
+        <button data-act="yt">↗</button>
+        <button data-act="del">✕</button>
+      </div>`;
+    el.onclick = e=>{
+      if (e.target.closest('a')) return;
+      const act = e.target.dataset.act;
+      if (act==='del'){ if(confirm('削除しますか？')){ leaveQueue(); DB.segments=DB.segments.filter(x=>x.id!==raw.id); save(); refreshFilters(); renderList(); drawTL(); } return; }
+      if (act==='edit'){ startEdit(raw); return; }
+      if (act==='yt'){ window.open(`https://www.youtube.com/watch?v=${raw.vid}&t=${Math.floor(raw.start)}`,'_blank'); return; }
+      queue = segs; qi = segs.indexOf(raw); playCurrent();
+    };
+    list.appendChild(el);
+  });
+}
+
+/* ===================== 再生キュー ===================== */
+function playCurrent(){
+  const s = queue[qi]; if(!s) return;
+  cur.switchAt = Date.now(); cur.want = s.start;
+  if (s.vid!==cur.vid) load(s.vid, s.start);
+  else player.seekTo(s.start, true);
+  player.playVideo();
+  renderList();
+}
+$('#playall').onclick = ()=>{ queue = filtered(); qi = 0; playCurrent(); };
+
+/* ===================== 登録・編集 ===================== */
+function readForm(){
+  return { c1:sel.L, c2:sel.R,
+           t1:$('#teamL').value.trim(), t2:$('#teamR').value.trim(),
+           p1:$('#playerL').value.trim(), p2:$('#playerR').value.trim(),
+           battle:$('#battleno').value, win:sel.win, memo:$('#memo').value.trim() };
+}
+function leaveQueue(){ queue = []; qi = -1; }
+
+function addSeg(){
+  if (!cur.vid) return alert('先に動画を読み込んでください');
+  leaveQueue();
+  if (!sel.L || !sel.R) return alert('左右のクラスを選んでください（1〜7 / Z〜M）');
+  const s = Object.assign({ id:uid(), vid:cur.vid, start:Math.floor(now()), end:null }, readForm());
+  DB.segments.push(s); save();
+  const b = parseInt($('#battleno').value||'0',10);
+  if (b>=1 && b<5) $('#battleno').value = String(b+1);
+  sel.win = null; setWinBtns();
+  refreshFilters(); renderList(); drawTL();
+}
+function markEnd(){
+  leaveQueue();
+  const mine = DB.segments.filter(s=>s.vid===cur.vid && s.start<now()).sort((a,b)=>b.start-a.start);
+  if (!mine.length) return;
+  mine[0].end = Math.floor(now()); save(); renderList(); drawTL();
+}
+function startEdit(s){
+  leaveQueue();
+  editingId = s.id;
+  sel.L=s.c1; sel.R=s.c2; sel.win=s.win||null;
+  [...$('#clsL').children].forEach(e=>e.classList.toggle('sel', e.dataset.n===sel.L));
+  [...$('#clsR').children].forEach(e=>e.classList.toggle('sel', e.dataset.n===sel.R));
+  $('#teamL').value=s.t1||''; $('#teamR').value=s.t2||'';
+  $('#playerL').value=s.p1||''; $('#playerR').value=s.p2||'';
+  $('#battleno').value=s.battle||''; $('#memo').value=s.memo||''; setWinBtns();
+  $('#editing').textContent = `編集中: ${hms(s.start)}`;
+  $('#update').hidden = false; $('#cancel').hidden = false;
+  if (s.vid!==cur.vid) load(s.vid, s.start); else player.seekTo(s.start,true);
+}
+function endEdit(){
+  editingId=null; $('#editing').textContent='';
+  $('#update').hidden=true; $('#cancel').hidden=true;
+}
+$('#update').onclick = ()=>{
+  const s = DB.segments.find(x=>x.id===editingId); if(!s) return endEdit();
+  Object.assign(s, readForm()); save(); endEdit(); refreshFilters(); renderList(); drawTL();
+};
+$('#cancel').onclick = endEdit;
+$('#mark').onclick = addSeg;
+$('#markend').onclick = markEnd;
+$('#winL').onclick = ()=>{ sel.win = sel.win==='L'?null:'L'; setWinBtns(); };
+$('#winR').onclick = ()=>{ sel.win = sel.win==='R'?null:'R'; setWinBtns(); };
+$('#swapside').onclick = ()=>{
+  [sel.L,sel.R]=[sel.R,sel.L];
+  const g=(a,b)=>{const t=$(a).value;$(a).value=$(b).value;$(b).value=t;};
+  g('#teamL','#teamR'); g('#playerL','#playerR');
+  sel.win = sel.win==='L'?'R': sel.win==='R'?'L':null;
+  [...$('#clsL').children].forEach(e=>e.classList.toggle('sel', e.dataset.n===sel.L));
+  [...$('#clsR').children].forEach(e=>e.classList.toggle('sel', e.dataset.n===sel.R));
+  setWinBtns();
+};
+$('#cardsel').onchange = e=>{
+  const c = (cur.arc?.cards||[])[e.target.value]; if(!c) return;
+  $('#teamL').value=c.teamA; $('#teamR').value=c.teamB;
+};
+
+/* ===================== 入出力 ===================== */
+$('#expo').onclick = ()=>{
+  const blob = new Blob([JSON.stringify(DB,null,1)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'svps-data-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+};
+$('#impo').onclick = ()=> $('#impf').click();
+$('#impf').onchange = e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{
+    try{
+      const d = JSON.parse(r.result);
+      const inc = d.segments||[];
+      const have = new Set(DB.segments.map(s=>s.vid+'@'+s.start));
+      let n=0;
+      inc.forEach(s=>{ if(!have.has(s.vid+'@'+s.start)){ s.id=s.id||uid(); DB.segments.push(s); n++; } });
+      save(); refreshFilters(); renderList(); drawTL();
+      alert(`${n} 件を追加しました（重複は除外）`);
+    }catch(err){ alert('JSONを読めませんでした: '+err.message); }
+  };
+  r.readAsText(f);
+};
+
+/* ===================== 操作 ===================== */
+document.querySelectorAll('[data-seek]').forEach(b=> b.onclick = ()=> seek(+b.dataset.seek));
+$('#pp').onclick = ()=>{
+  if(!ready) return;
+  const st = player.getPlayerState();
+  st===YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo();
+};
+$('#rate').onchange = e=>{ if(ready) player.setPlaybackRate(+e.target.value); };
+$('#tl').onclick = e=>{
+  if(!cur.dur) return;
+  leaveQueue(); renderList();
+  const r = e.currentTarget.getBoundingClientRect();
+  player.seekTo((e.clientX-r.left)/r.width*cur.dur, true);
+};
+$('#arcsel').onchange = e=>{ if(e.target.value) load(e.target.value, 0); };
+$('#loadmanual').onclick = ()=>{
+  const v = vidOf($('#manualurl').value);
+  v ? load(v,0) : alert('URL または 11桁の動画IDを入れてください');
+};
+['#fRound','#fTeam','#fPlayer'].forEach(s=> $(s).onchange = renderList);
+$('#fMode').onclick = ()=>{ fMode = fMode==='all' ? 'any' : 'all'; syncFilterButtons(); renderList(); };
+$('#fClear').onclick = ()=>{ fSel = []; syncFilterButtons(); renderList(); };
+$('#fThis').onchange = renderList;
+
+document.addEventListener('keydown', e=>{
+  const t = e.target.tagName;
+  if (t==='INPUT'||t==='TEXTAREA'||t==='SELECT') return;
+  const k = e.key.toLowerCase();
+  const c1 = CLASSES.find(c=>c.k===e.key);
+  const c2 = CLASSES.find(c=>c.k2===k);
+  if (e.code==='Space'){ e.preventDefault(); $('#pp').click(); }
+  else if (e.key==='ArrowLeft'){  e.preventDefault(); seek(e.shiftKey?-60:-10); }
+  else if (e.key==='ArrowRight'){ e.preventDefault(); seek(e.shiftKey? 60: 10); }
+  else if (e.key===','){ seek(-3); }
+  else if (e.key==='.'){ seek(3); }
+  else if (c1){ pick('L', c1.n); }
+  else if (c2){ pick('R', c2.n); }
+  else if (k==='s'){ e.preventDefault(); editingId ? $('#update').click() : addSeg(); }
+  else if (k==='d'){ e.preventDefault(); markEnd(); }
+  else if (k==='escape'){ endEdit(); }
+});
+
+/* ===================== ループ ===================== */
+setInterval(()=>{
+  if(!ready || !player.getCurrentTime) return;
+  const t = player.getCurrentTime();
+  if (!cur.dur) cur.dur = player.getDuration()||0;
+  $('#time').textContent = hms(t) + ' / ' + hms(cur.dur);
+  if (cur.dur) $('#tlcur').style.left = (t/cur.dur*100)+'%';
+  const s = queue[qi];
+  const settled = Date.now() - (cur.switchAt || 0) > 2500;
+  if (s && settled && $('#autonext').checked && s.vid===cur.vid){
+    const e = endOf(s);
+    if (t < s.start - 5 || t > e + 30){
+      // 想定外の位置にいる（切替の取りこぼし等）→ 送らずにこの試合の頭へ戻す
+      cur.switchAt = Date.now();
+      player.seekTo(s.start, true);
+    } else if (t >= e - 0.3){
+      if (qi < queue.length-1){ qi++; playCurrent(); }
+      else { player.pauseVideo(); qi = -1; renderList(); }
+    }
+  }
+}, 250);
+
+/* ===================== 共有リンク ===================== */
+function shareUrl(){
+  const p = new URLSearchParams();
+  if (fSel.length) p.set('c', fSel.join(','));
+  if (fMode === 'all') p.set('m', 'all');
+  ['fRound','fTeam','fPlayer'].forEach(k=>{ const v=$('#'+k).value; if(v) p.set(k.slice(1).toLowerCase(), v); });
+  if (cur.vid){ p.set('v', cur.vid); p.set('t', Math.floor(now())); }
+  return location.origin + location.pathname + '#' + p.toString();
+}
+$('#share').onclick = async ()=>{
+  const u = shareUrl();
+  try{ await navigator.clipboard.writeText(u); }
+  catch(e){ prompt('このURLをコピーしてください', u); return; }
+  const b = $('#share'), t = b.textContent;
+  b.textContent = 'コピーしました'; setTimeout(()=>b.textContent = t, 1400);
+};
+
+function applyHash(){
+  const p = new URLSearchParams(location.hash.slice(1));
+  if (!p.toString()) return null;
+  const c = p.get('c');
+  if (c){ fSel = c.split(',').filter(n=>CMAP[n]); }
+  fMode = p.get('m') === 'all' ? 'all' : 'any';
+  [['round','#fRound'],['team','#fTeam'],['player','#fPlayer']].forEach(([k,sel])=>{
+    const v = p.get(k);
+    if (v && [...$(sel).options].some(o=>o.value===v)) $(sel).value = v;
+  });
+  syncFilterButtons();
+  return p.get('v') ? { vid:p.get('v'), t:parseInt(p.get('t')||'0',10) } : null;
+}
+
+/* ===================== 起動 ===================== */
+(async function init(){
+  classButtons($('#clsL'),'L'); classButtons($('#clsR'),'R'); filterButtons();
+  if (innerWidth < 900){
+    // プレイヤーを本文直下へ移動（スクロールしても上に残るようにするため）
+    document.body.insertBefore($('#stage'), $('#wrap'));
+    $('#tagpanel').open = false;
+    document.body.classList.add('compact');
+    $('#more').hidden = false;
+    $('#more').onclick = ()=> document.body.classList.toggle('compact');
+  }
+  try{ archives = await (await fetch('archives.json')).json(); }catch(e){ archives = []; }
+  const s = $('#arcsel'); s.innerHTML = '<option value="">アーカイブを選ぶ</option>';
+  archives.forEach(a=>{
+    const o = document.createElement('option');
+    o.value = a.videoId;
+    o.textContent = `${a.label}  (${a.date})  ${a.cards.map(c=>c.teamA+' vs '+c.teamB).join(' / ')}`;
+    s.appendChild(o);
+  });
+  try{ const raw = localStorage.getItem(KEY); if(raw) DB = JSON.parse(raw); }catch(e){}
+  // 公式データ（data.json）は毎回読み、まだ無いバトルだけ足す
+  try{
+    const d = await (await fetch('data.json', {cache:'no-store'})).json();
+    const have = new Set(DB.segments.map(x=>x.vid+'@'+x.start));
+    let n = 0;
+    (d.segments||[]).forEach(x=>{ if(!have.has(x.vid+'@'+x.start)){ DB.segments.push(x); n++; } });
+    if (n) save();
+  }catch(e){}
+  DB.segments.forEach(x=> x.id = x.id || uid());
+  refreshFilters(); renderInfo();
+  const want = applyHash();
+  renderList();
+  if (want && want.vid){
+    ready ? load(want.vid, want.t) : (cur.vid = want.vid, cur.arc = arcOf(want.vid),
+                                      cur.want = want.t, fillCards());
+  }
+  if (archives.length && !cur.vid){
+    const last = archives[archives.length-1].videoId;
+    ready ? load(last, 0) : (cur.vid = last, cur.arc = arcOf(last), cur.want = 0, fillCards());
+  }
+})();
+</script>
+</body>
+</html>
