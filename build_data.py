@@ -104,10 +104,14 @@ def main():
         desc = description(vid)
         rs = rounds_from_chapters(chapters(desc))
         cards = round_cards(desc)
+        has_chapters = bool(rs)
         if not rs:
-            warn.append(f"{key}: チャプターが無いため生成できません")
-            continue
-        if len(rs) != len(m["slugs"]):
+            # 配信直後はチャプターがまだ付いていない。
+            # 公式サイトに試合結果（クラス・選手・勝敗）はあるので、時刻だけ未定で登録する。
+            rs = [(n, []) for n in sorted(cards)] or [(i + 1, []) for i in range(len(m["slugs"]))]
+            warn.append(f"{key}: 動画にチャプターが無いため、開始時刻は未設定で登録しました"
+                        f"（公式がチャプターを付けたら再実行すると自動で埋まります）")
+        elif len(rs) != len(m["slugs"]):
             warn.append(f"{key}: 動画のROUND数({len(rs)})と試合数({len(m['slugs'])})が不一致")
 
         for i, (rno, battles) in enumerate(rs):
@@ -129,14 +133,17 @@ def main():
                 warn.append(f"{key} ROUND{rno}: 試合データが見つかりません")
                 continue
             bl = g["battles"]
-            if len(bl) != len(battles):
+            if has_chapters and len(bl) != len(battles):
                 warn.append(f"{key} ROUND{rno} {g['left']['name']} vs {g['right']['name']}: "
                             f"チャプター{len(battles)}件 / 実際{len(bl)}バトル → 少ない方に合わせます")
+            if not battles:
+                battles = [(i + 1, None, None) for i in range(len(bl))]
             for (bno, st, en), b in zip(battles, bl):
                 L, R = b["left"], b["right"]
                 segs.append({
-                    "id": f"{vid}-{st}",
+                    "id": f"{vid}-R{rno}B{bno}",
                     "vid": vid, "start": st, "end": en,
+                    "pending": st is None,
                     "c1": L.get("cardLabel"), "c2": R.get("cardLabel"),
                     "p1": "チームバトル" if b.get("isTeamBattle") else (L.get("name") or ""),
                     "p2": "チームバトル" if b.get("isTeamBattle") else (R.get("name") or ""),
@@ -148,11 +155,13 @@ def main():
                     "src": "auto",
                 })
 
-    segs.sort(key=lambda s: (s["vid"], s["start"]))
+    segs.sort(key=lambda s: (s["vid"], -1 if s["start"] is None else s["start"]))
     out = os.path.join(HERE, "data.json")
     json.dump({"segments": segs}, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
-    print(f"{len(segs)} バトルを {out} に書き出しました\n")
+    pend = sum(1 for s in segs if s["pending"])
+    print(f"{len(segs)} バトルを {out} に書き出しました"
+          + (f"（うち {pend} 件は開始時刻が未設定）" if pend else "") + "\n")
     from collections import Counter
     c = Counter()
     for s in segs:

@@ -182,5 +182,28 @@
     "round": "ROUND 2"
    }
   ]
+ },
+ {
+  "videoId": "ow6Tl2yHGJU",
+  "round": "第5節",
+  "half": "後半",
+  "date": "2026-08-26",
+  "label": "第5節・後半",
+  "cards": [
+   {
+    "teamA": "レバンガ北海道",
+    "teamB": "DetonatioN FocusMe",
+    "scoreA": "2",
+    "scoreB": "3",
+    "round": "ROUND 1"
+   },
+   {
+    "teamA": "VARREL",
+    "teamB": "ZETA DIVISION",
+    "scoreA": "3",
+    "scoreB": "1",
+    "round": "ROUND 2"
+   }
+  ]
  }
 ]

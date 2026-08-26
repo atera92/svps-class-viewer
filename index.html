@@ -97,6 +97,8 @@ header h1{font-size:14px;margin:0;letter-spacing:.04em;color:var(--accent);white
 .deck{font-size:10px;color:#9fb3cc;border:1px solid var(--line);border-radius:3px;
   padding:1px 5px;text-decoration:none}
 .deck:hover{color:#fff;border-color:#7d8ea3}
+.pend{color:#e8b23a;border:1px solid #6b571d;background:#2a2413;
+  border-radius:3px;padding:1px 6px}
 .win{font-size:10px;color:#0d1116;background:var(--accent);border-radius:3px;padding:1px 4px;font-weight:700}
 .empty{color:var(--mute);padding:24px;text-align:center;line-height:1.9}
 #count{color:var(--mute);font-size:11px}
@@ -318,8 +320,9 @@ const arcOf = v => archives.find(a=>a.videoId===v);
 
 /* セグメントの実効的な終了時刻（未設定なら同じ動画の次のバトル開始まで） */
 function endOf(seg){
+  if (seg.start == null) return null;
   if (seg.end) return seg.end;
-  const sib = DB.segments.filter(s=>s.vid===seg.vid && s.start>seg.start)
+  const sib = DB.segments.filter(s=>s.vid===seg.vid && s.start!=null && s.start>seg.start)
                           .sort((a,b)=>a.start-b.start);
   if (sib.length) return sib[0].start;
   return (seg.vid===cur.vid && cur.dur) ? cur.dur : seg.start + 900;
@@ -427,7 +430,7 @@ function drawTL(){
   const tl = $('#tl');
   [...tl.querySelectorAll('.tlseg')].forEach(e=>e.remove());
   if (!cur.dur) return;
-  DB.segments.filter(s=>s.vid===cur.vid).forEach(s=>{
+  DB.segments.filter(s=>s.vid===cur.vid && s.start!=null).forEach(s=>{
     const d = document.createElement('div');
     d.className = 'tlseg';
     d.style.left  = (s.start/cur.dur*100)+'%';
@@ -484,7 +487,8 @@ function filtered(){
     return true;
   }).sort((a,b)=>{
     const ra=archives.findIndex(x=>x.videoId===a.vid), rb=archives.findIndex(x=>x.videoId===b.vid);
-    return (ra-rb) || (a.start-b.start);
+    const av = a.start==null ? -1 : a.start, bv = b.start==null ? -1 : b.start;
+    return (ra-rb) || (av-bv);
   });
 }
 
@@ -509,8 +513,10 @@ function renderList(){
       <div class="top">
         <span>${a?a.label:'手動'}</span>
         ${s.battle?`<span class="badge">B${s.battle}</span>`:''}
-        <span>${hms(s.start)} 〜 ${hms(endOf(raw))}</span>
-        <span>(${Math.round((endOf(raw)-s.start)/60)}分)</span>
+        ${raw.start==null
+          ? `<span class="pend">開始時刻 未設定</span>`
+          : `<span>${hms(s.start)} 〜 ${hms(endOf(raw))}</span>
+             <span>(${Math.round((endOf(raw)-s.start)/60)}分)</span>`}
         ${s.memo?`<span>${s.memo}</span>`:''}
       </div>
       <div class="mid">
@@ -519,6 +525,7 @@ function renderList(){
         ${tag(s.c2,s.p2,s.t2,s.win==='R',s.deck2)}
       </div>
       <div class="acts">
+        <button data-act="setstart" title="いまの再生位置をこの試合の開始にする">⏱</button>
         <button data-act="edit">✎</button>
         <button data-act="yt">↗</button>
         <button data-act="del">✕</button>
@@ -527,8 +534,14 @@ function renderList(){
       if (e.target.closest('a')) return;
       const act = e.target.dataset.act;
       if (act==='del'){ if(confirm('削除しますか？')){ leaveQueue(); DB.segments=DB.segments.filter(x=>x.id!==raw.id); save(); refreshFilters(); renderList(); drawTL(); } return; }
+      if (act==='setstart'){
+        if (raw.vid !== cur.vid) return alert('先にこの試合の動画を開いてください');
+        leaveQueue();
+        raw.start = Math.floor(now()); raw.pending = false; raw.end = null;
+        save(); renderList(); drawTL(); return;
+      }
       if (act==='edit'){ startEdit(raw); return; }
-      if (act==='yt'){ window.open(`https://www.youtube.com/watch?v=${raw.vid}&t=${Math.floor(raw.start)}`,'_blank'); return; }
+      if (act==='yt'){ window.open(`https://www.youtube.com/watch?v=${raw.vid}`+(raw.start!=null?`&t=${Math.floor(raw.start)}`:''),'_blank'); return; }
       queue = segs; qi = segs.indexOf(raw); playCurrent();
     };
     list.appendChild(el);
@@ -538,9 +551,10 @@ function renderList(){
 /* ===================== 再生キュー ===================== */
 function playCurrent(){
   const s = queue[qi]; if(!s) return;
-  cur.switchAt = Date.now(); cur.want = s.start;
-  if (s.vid!==cur.vid) load(s.vid, s.start);
-  else player.seekTo(s.start, true);
+  const at = s.start == null ? 0 : s.start;
+  cur.switchAt = Date.now(); cur.want = at;
+  if (s.vid!==cur.vid) load(s.vid, at);
+  else player.seekTo(at, true);
   player.playVideo();
   renderList();
 }
@@ -689,8 +703,9 @@ setInterval(()=>{
   if (cur.dur) $('#tlcur').style.left = (t/cur.dur*100)+'%';
   const s = queue[qi];
   const settled = Date.now() - (cur.switchAt || 0) > 2500;
-  if (s && settled && $('#autonext').checked && s.vid===cur.vid){
+  if (s && settled && s.start!=null && $('#autonext').checked && s.vid===cur.vid){
     const e = endOf(s);
+    if (e == null) return;
     if (t < s.start - 5 || t > e + 30){
       // 想定外の位置にいる（切替の取りこぼし等）→ 送らずにこの試合の頭へ戻す
       cur.switchAt = Date.now();
@@ -756,10 +771,19 @@ function applyHash(){
   // 公式データ（data.json）は毎回読み、まだ無いバトルだけ足す
   try{
     const d = await (await fetch('data.json', {cache:'no-store'})).json();
-    const have = new Set(DB.segments.map(x=>x.vid+'@'+x.start));
-    let n = 0;
-    (d.segments||[]).forEach(x=>{ if(!have.has(x.vid+'@'+x.start)){ DB.segments.push(x); n++; } });
-    if (n) save();
+    const byId = new Map(DB.segments.map(x=>[x.id, x]));
+    const byPos = new Map(DB.segments.filter(x=>x.start!=null).map(x=>[x.vid+'@'+x.start, x]));
+    let added = 0, filled = 0;
+    (d.segments||[]).forEach(x=>{
+      const cur0 = byId.get(x.id) || (x.start!=null ? byPos.get(x.vid+'@'+x.start) : null);
+      if (!cur0){ DB.segments.push(x); added++; return; }
+      // 公式が時刻を付けたら、こちらで打った暫定の時刻を正式なものに置き換える
+      if (x.start != null && (cur0.start == null || cur0.src === 'auto')){
+        if (cur0.start !== x.start) filled++;
+        Object.assign(cur0, x);
+      }
+    });
+    if (added || filled) save();
   }catch(e){}
   DB.segments.forEach(x=> x.id = x.id || uid());
   refreshFilters(); renderInfo();
