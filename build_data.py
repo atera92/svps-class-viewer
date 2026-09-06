@@ -1,178 +1,125 @@
 #!/usr/bin/env python3
-"""公式サイトの試合結果 + YouTubeのチャプターを突き合わせて data.json を自動生成する。
+"""公式APIの試合結果 + YouTubeのチャプターを突き合わせて data.json を作る。
 
-・公式サイト schedule-results の <script id="session-modal-data"> に
-  「どのバトルで誰が何クラスを使い、どちらが勝ったか」が全部入っている。
-・YouTube の概要欄チャプターに「ROUND1開始 / BATTLE1 / BATTLE2 ...」の時刻が入っている。
-この2つを順番で突き合わせると、全バトルの開始・終了時刻とクラスが確定する。
+・公式API（svps_api.py）が「どのバトルで誰が何クラスを使い、どちらが勝ったか」を持っている
+・YouTubeの概要欄チャプターが「ROUND1開始 / BATTLE1 / BATTLE2 ...」の時刻を持っている
+
+この2つを突き合わせると、全バトルの開始・終了時刻とクラスが確定する。
+チャプターがまだ付いていない配信は、時刻だけ未設定にして登録する
+（あとで再実行すると自動で正式な時刻に置き換わる）。
 
   python3 build_data.py
 """
-import json, os, re, sys, urllib.request
-from bs4 import BeautifulSoup
+import json, os, sys
+from collections import Counter
 
-SRC  = "https://ps.shadowverse-wb.com/26-27/schedule-results/"
-UA   = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/126 Safari/537.36")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import svps_api
+
 HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "data.json")
 
-def fetch(url):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "ja"})
-    return urllib.request.urlopen(req, timeout=45).read().decode("utf-8", "replace")
-
-def secs(t):
-    p = [int(x) for x in t.split(":")]
-    return p[0]*3600 + p[1]*60 + p[2] if len(p) == 3 else p[0]*60 + p[1]
-
-# ---------- YouTube チャプター ----------
-def description(vid):
-    h = fetch(f"https://www.youtube.com/watch?v={vid}")
-    m = re.search(r'"shortDescription":"(.*?)","isCrawlable"', h, re.S)
-    return json.loads('"' + m.group(1) + '"') if m else ""
-
-def chapters(d):
-    return [(secs(t), lab.strip())
-            for t, lab in re.findall(r'^(\d{1,2}:\d{2}(?::\d{2})?)\s+(.+)$', d, re.M)]
-
-def round_cards(d):
-    """概要欄の「ROUND1：チームA VS チームB」を {1:(A,B)} で返す"""
-    out = {}
-    for n, a, b in re.findall(r'ROUND\s*(\d+)\s*[:：]\s*(.+?)\s+VS\s+(.+)', d):
-        out[int(n)] = (a.strip(), b.strip())
-    return out
-
-def rounds_from_chapters(ch):
-    """[(round番号, [(battle番号, start, end), ...]), ...] を返す"""
-    out, cur = [], None
-    for i, (t, lab) in enumerate(ch):
-        end = ch[i+1][0] if i+1 < len(ch) else None
-        r = re.match(r'ROUND\s*(\d+)', lab)
-        b = re.match(r'BATTLE\s*(\d+)', lab)
-        if r:
-            cur = (int(r.group(1)), [])
-            out.append(cur)
-        elif b and cur:
-            cur[1].append((int(b.group(1)), t, end))
-    return out
-
-# ---------- 公式サイト ----------
-def site():
-    soup = BeautifulSoup(fetch(SRC), "html.parser")
-    tag = soup.find("script", id="session-modal-data")
-    if not tag:
-        sys.exit("session-modal-data が見つかりません。サイト構造が変わった可能性があります。")
-    modal = json.loads(tag.string)
-
-    days = []
-    for d in soup.select(".results__day"):
-        txt = re.sub(r"\s+", " ", d.get_text(" ", strip=True))
-        rm = re.search(r"(第\d+節)(?:・(前半|後半))?", txt)
-        if not rm:
-            continue
-        dm = re.search(r"(20\d\d)\s*(\d\d)\s*\.\s*(\d\d)", txt)
-        slugs = [b["data-slug"] for b in d.select("button[data-slug]")]
-        vid = None
-        for a in d.select("a[href]"):
-            if a.get_text(strip=True).startswith("本配信"):
-                mm = re.search(r"(?:live/|watch\?v=|youtu\.be/)([A-Za-z0-9_-]{11})", a["href"])
-                if mm:
-                    vid = mm.group(1)
-        days.append({
-            "key": rm.group(1) + (rm.group(2) or ""),
-            "date": f"{dm.group(1)}-{dm.group(2)}-{dm.group(3)}" if dm else "",
-            "slugs": slugs, "vid": vid,
-        })
-    return modal, days
 
 def main():
-    arcs = json.load(open(os.path.join(HERE, "archives.json"), encoding="utf-8"))
-    vid_of = {a["label"].replace("・", ""): a["videoId"] for a in arcs}
-    modal, days = site()
+    try:
+        days = svps_api.load()
+    except Exception as e:
+        sys.exit(f"APIの取得に失敗しました（{type(e).__name__}: {e}）。"
+                 f"\n既存の {OUT} はそのままにしています。")
 
-    # 同じ節（第3節のように配信1本に4ラウンド入る場合）のスラッグを順番に連結
-    merged = {}
-    for d in days:
-        m = merged.setdefault(d["key"], {"slugs": [], "vid": None, "date": d["date"]})
-        m["slugs"] += d["slugs"]
-        m["vid"] = m["vid"] or d["vid"] or vid_of.get(d["key"])
+    arcs = json.load(open(os.path.join(HERE, "archives.json"), encoding="utf-8"))
+    vid_of = {a["label"]: a["videoId"] for a in arcs}
 
     segs, warn = [], []
-    for key, m in merged.items():
-        vid = m["vid"]
-        if not vid or not m["slugs"]:
+    for d in days:
+        vid = d["videoId"] or vid_of.get(d["label"])
+        if not vid or not d["rounds"]:
             continue
-        desc = description(vid)
-        rs = rounds_from_chapters(chapters(desc))
-        cards = round_cards(desc)
-        has_chapters = bool(rs)
-        if not rs:
-            # 配信直後はチャプターがまだ付いていない。
-            # 公式サイトに試合結果（クラス・選手・勝敗）はあるので、時刻だけ未定で登録する。
-            rs = [(n, []) for n in sorted(cards)] or [(i + 1, []) for i in range(len(m["slugs"]))]
-            warn.append(f"{key}: 動画にチャプターが無いため、開始時刻は未設定で登録しました"
-                        f"（公式がチャプターを付けたら再実行すると自動で埋まります）")
-        elif len(rs) != len(m["slugs"]):
-            warn.append(f"{key}: 動画のROUND数({len(rs)})と試合数({len(m['slugs'])})が不一致")
 
-        for i, (rno, battles) in enumerate(rs):
-            # 概要欄のチーム名で該当試合を特定する（順番に頼らない）
-            slug = None
-            if rno in cards:
-                want = set(cards[rno])
-                for sg in m["slugs"]:
-                    gg = modal.get(sg)
-                    if gg and {gg["left"]["name"], gg["right"]["name"]} == want:
-                        slug = sg
-                        break
-                if slug is None:
-                    warn.append(f"{key} ROUND{rno}: 概要欄の {' VS '.join(cards[rno])} に一致する試合が見つからず、順番で対応させました")
-            if slug is None:
-                slug = m["slugs"][i] if i < len(m["slugs"]) else None
-            g = modal.get(slug) if slug else None
-            if not g:
-                warn.append(f"{key} ROUND{rno}: 試合データが見つかりません")
-                continue
-            bl = g["battles"]
-            if has_chapters and len(bl) != len(battles):
-                warn.append(f"{key} ROUND{rno} {g['left']['name']} vs {g['right']['name']}: "
-                            f"チャプター{len(battles)}件 / 実際{len(bl)}バトル → 少ない方に合わせます")
+        try:
+            desc = svps_api.description(vid)
+        except Exception as e:
+            warn.append(f"{d['label']}: YouTubeの概要欄を取得できませんでした（{type(e).__name__}）")
+            desc = ""
+        ch = svps_api.rounds_from_chapters(svps_api.chapters(desc))
+        cards = svps_api.round_cards(desc)
+        has_ch = bool(ch)
+
+        if not has_ch:
+            warn.append(f"{d['label']}: 動画にチャプターが無いため、開始時刻は未設定で登録しました"
+                        f"（公式がチャプターを付けたら再実行すると自動で埋まります）")
+        elif len(ch) != len(d["rounds"]):
+            warn.append(f"{d['label']}: 動画のROUND数({len(ch)})と試合数({len(d['rounds'])})が不一致")
+
+        for i, rd in enumerate(d["rounds"]):
+            rno = i + 1
+            battles = []
+            if has_ch:
+                # 概要欄のチーム名で該当ラウンドを特定する（並び順に頼らない）
+                want = {rd["teamA"], rd["teamB"]}
+                hit = next((c for c in ch if cards.get(c[0]) and set(cards[c[0]]) == want), None)
+                if hit is None and i < len(ch):
+                    hit = ch[i]
+                    if cards:
+                        warn.append(f"{d['label']} {rd['teamA']} vs {rd['teamB']}: "
+                                    f"概要欄のチーム名と一致せず、順番で対応させました")
+                if hit:
+                    rno, battles = hit[0], list(hit[1])
+
+            if has_ch and battles and len(battles) != len(rd["battles"]):
+                warn.append(f"{d['label']} ROUND{rno} {rd['teamA']} vs {rd['teamB']}: "
+                            f"チャプター{len(battles)}件 / 実際{len(rd['battles'])}バトル "
+                            f"→ 少ない方に合わせます")
             if not battles:
-                battles = [(i + 1, None, None) for i in range(len(bl))]
-            for (bno, st, en), b in zip(battles, bl):
-                L, R = b["left"], b["right"]
+                battles = [(b["no"], None, None) for b in rd["battles"]]
+
+            for (bno, st, en), b in zip(battles, rd["battles"]):
                 segs.append({
                     "id": f"{vid}-R{rno}B{bno}",
-                    "vid": vid, "start": st, "end": en,
-                    "pending": st is None,
-                    "c1": L.get("cardLabel"), "c2": R.get("cardLabel"),
-                    "p1": "チームバトル" if b.get("isTeamBattle") else (L.get("name") or ""),
-                    "p2": "チームバトル" if b.get("isTeamBattle") else (R.get("name") or ""),
-                    "t1": g["left"]["name"], "t2": g["right"]["name"],
-                    "battle": str(bno),
-                    "win": {"left": "L", "right": "R"}.get(b.get("winner")),
-                    "memo": f"R{rno}",
-                    "deck1": L.get("cardLink"), "deck2": R.get("cardLink"),
+                    "vid": vid, "start": st, "end": en, "pending": st is None,
+                    "c1": b["c1"], "c2": b["c2"],
+                    "p1": b["p1"], "p2": b["p2"],
+                    "t1": rd["teamA"], "t2": rd["teamB"],
+                    "battle": str(bno), "win": b["win"], "memo": f"R{rno}",
+                    "deck1": b["deck1"], "deck2": b["deck2"],
                     "src": "auto",
                 })
 
+    if not segs:
+        sys.exit(f"1件も生成できませんでした。既存の {OUT} はそのままにしています。")
+
+    prev = 0
+    if os.path.exists(OUT):
+        try:
+            prev = len(json.load(open(OUT, encoding="utf-8"))["segments"])
+        except Exception:
+            pass
+    if prev and len(segs) < prev:
+        sys.exit(f"生成できたのが {len(segs)} 件で、既存の {prev} 件より少ないため中止しました。"
+                 f"\n意図した減少であれば {OUT} を手で消してから再実行してください。")
+
     segs.sort(key=lambda s: (s["vid"], -1 if s["start"] is None else s["start"]))
-    out = os.path.join(HERE, "data.json")
-    json.dump({"segments": segs}, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    with open(OUT, "w", encoding="utf-8") as f:
+        json.dump({"segments": segs}, f, ensure_ascii=False, indent=1)
 
     pend = sum(1 for s in segs if s["pending"])
-    print(f"{len(segs)} バトルを {out} に書き出しました"
-          + (f"（うち {pend} 件は開始時刻が未設定）" if pend else "") + "\n")
-    from collections import Counter
+    print(f"{len(segs)} バトルを {OUT} に書き出しました"
+          + (f"（うち {pend} 件は開始時刻が未設定）" if pend else "")
+          + (f" / 前回 {prev} 件" if prev else "") + "\n")
+
     c = Counter()
     for s in segs:
-        c[s["c1"]] += 1; c[s["c2"]] += 1
+        c[s["c1"]] += 1
+        c[s["c2"]] += 1
     print("クラス別の登場数:")
     for k, v in c.most_common():
         print(f"  {k:<6} {v}")
+
     if warn:
         print("\n[要確認]")
         for w in warn:
             print("  -", w)
+
 
 if __name__ == "__main__":
     main()

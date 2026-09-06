@@ -6,7 +6,7 @@ Shadowverse Premier Series 26-27 の公式アーカイブを、**クラス（対
 
 `起動.command` をダブルクリック → ブラウザが開く。それだけ。
 
-第1節〜第5節後半の **全86バトルが最初から登録済み**。手作業は要らない。
+第1節〜第7節前半の **全112バトルが最初から登録済み**。手作業は要らない。
 
 止めるとき: `pkill -f "http.server 8899"`
 
@@ -83,13 +83,18 @@ URL入力・書き出し・読み込みが出る。
 
 手入力ではなく、2つの公開データを突き合わせて自動生成している。
 
-1. **公式サイト** `ps.shadowverse-wb.com/26-27/schedule-results/` の
-   `<script id="session-modal-data">` に、全バトルの
-   **選手名・使用クラス・勝敗・デッキリストURL** がJSONで埋め込まれている
+1. **公式サイトの内部API** `ps.shadowverse-wb.com/rcms-api/1/schedule-results` が、全バトルの
+   **選手名・使用クラス・勝敗・デッキリストURL** をJSONで返す
 2. **YouTubeの概要欄チャプター**に `ROUND1開始 / BATTLE1 / BATTLE2 ...` の時刻がある
 
 1がクラス、2が時刻を提供する。両者は**概要欄の「ROUND1：チームA VS チームB」でチーム名照合**して
 結び付けている（並び順に依存しない）。バトル数が食い違う場合は生成時に警告が出る。
+
+API内部の対応付けは `schedule.round.roundN.module_id → result.topics_id`、
+`result.reference.module_id → decks.topics_id`。この処理は `svps_api.py` にまとめてある。
+
+> 2026年9月に公式サイトがクライアント側描画に変わり、HTMLからは試合結果を読めなくなった。
+> それ以前はHTMLに埋め込まれた `session-modal-data` を読んでいたが、現在はAPIを直接使っている。
 
 終了時刻は「次のチャプターの開始時刻」。だから作戦タイムやインタビューは自然に除外される。
 
