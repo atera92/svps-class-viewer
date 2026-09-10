@@ -10,435 +10,2826 @@
     "後攻は4ターン目に進化、6ターン目に超進化が使える。先攻より1ターン早い。",
     "そのため先攻は1・2・3コストとPP通りに展開して先に盤面を取る動きが理想になり、後攻は進化するターンに盤面を返せるカード（とくに4コスト帯）の価値が上がる。"
    ],
-   "source": {"label": "Game8「マリガン（手札交換）のコツと仕様」", "url": "https://game8.jp/shadowverse-beyond/696222", "date": "2025-11-21"}
+   "source": {
+    "label": "Game8「マリガン（手札交換）のコツと仕様」",
+    "url": "https://game8.jp/shadowverse-beyond/696222",
+    "date": "2025-11-21"
+   }
   },
   "method": [
-   "対象はプレミアシリーズと同じローテーション。新弾実装（2026-08-27）以降に公開・更新された記事だけを使っている。",
-   "攻略サイト2社（Game8・GameWith）の最新デッキ記事と、上位プレイヤー本人のガイド（Dexel掲載・note）から、各記事に書かれたキープ基準をそのまま抽出した。",
-   "カード名の左の数字は、そのカードをキープ推奨した出典の数。数字が大きいほど複数の出典で一致している。",
-   "出典の大半は先攻・後攻を区別していない。区別のないキープは「先後共通」として両方の列に載せ、「先攻のみ」「後攻のみ」は出典が明示したものに限っている（推測で振り分けていない）。",
-   "カード名の表記揺れ（「・」の有無など）は同じカードとして集計している。",
-   "X（旧Twitter）は閲覧にログインが必要なため、今回は収集できていない。"
+   "対象はプレミアシリーズと同じローテーション。新弾実装（2026-08-27）以降に公開・投稿されたものだけを使っている。",
+   "カード名の左の数字は、そのカードをキープに推した人の数。同じ人の記事と投稿は1人として数える。",
+   "出典の大半は先攻・後攻を区別していない。区別のないキープは両方の列に載せ、「先攻のみ」「後攻のみ」は出典が明示したものに限っている（推測で振り分けていない）。",
+   "Xの投稿の略称（例：イスマル、ビバティー）は、プレミアシリーズで使われた全200デッキから作った公式カード名の辞書と照合して正式名に置き換えた。特定できなかったものは略称のまま注記している。",
+   "画像のマリガン表は、カード上部に印字された名前を拡大して読み取った。",
+   "カード名の表記揺れ（「・」や空白の有無など）は同じカードとして集計している。"
   ],
   "tierSources": [
-   {"label": "Game8 ローテーション最強デッキ・環境Tier表", "url": "https://game8.jp/shadowverse-beyond/694512", "date": "2026-09-10"},
-   {"label": "GameWith ローテーション最強デッキランキング", "url": "https://gamewith.jp/shadowverse-wb/497197", "date": "2026-09-10"},
-   {"label": "Dexel デッキ環境Tierリスト（強豪プレイヤー監修）", "url": "https://beyond-dexel.com/dexel-decktier/", "date": "2026-09-07"}
+   {
+    "label": "Game8 ローテーション最強デッキ・環境Tier表",
+    "url": "https://game8.jp/shadowverse-beyond/694512",
+    "date": "2026-09-10"
+   },
+   {
+    "label": "GameWith ローテーション最強デッキランキング",
+    "url": "https://gamewith.jp/shadowverse-wb/497197",
+    "date": "2026-09-10"
+   },
+   {
+    "label": "Dexel デッキ環境Tierリスト（強豪プレイヤー監修）",
+    "url": "https://beyond-dexel.com/dexel-decktier/",
+    "date": "2026-09-07"
+   }
   ],
   "excluded": [
-   {"label": "Game8「ナイトメアでのマリガンと対面の立ち回り」", "url": "https://game8.jp/shadowverse-beyond/700068", "reason": "2026-04-14更新で、現環境にないモードナイトメアの記事"},
-   {"label": "Dexel Canvas 魔手ウィッチ テンプレ構築", "url": "https://beyond-dexel.com/canvas-08-witch/", "reason": "2026-07-29公開・クロニクル・オブ・デスティニー環境（新弾実装前）"},
-   {"label": "Dexel Canvas ミッドレンジナイトメア テンプレ構築", "url": "https://beyond-dexel.com/canvas-nightmare-01/", "reason": "2026-07-25公開・クロニクル・オブ・デスティニー環境（新弾実装前）"},
-   {"label": "Dexel ランプドラゴン しし氏さん ガイド", "url": "https://beyond-dexel.com/deck-dragon-20260730/", "reason": "URL上の日付が2026-07-30で新弾実装前"},
-   {"label": "Dexel 疾走AFネメシス ゆきさん ガイド", "url": "https://beyond-dexel.com/deck-nemesis-20260729/", "reason": "URL上の日付が2026-07-29で新弾実装前"},
-   {"label": "note「フェイスドラゴン マリガンと一部立回りメモ」ra", "url": "https://note.com/trdqrl/n/n10b46442501b", "reason": "2025-07-01公開で1年以上前の環境"},
-   {"label": "note「フェイスドラゴンについて」れく", "url": "https://note.com/grand_swift1472/n/n9454a7f1d1fa", "reason": "2025-07-01公開で1年以上前の環境"},
-   {"label": "note「AFネメシス全対面の考え方まとめ」むんご", "url": "https://note.com/mn5rol/n/n0c319793ba3e", "reason": "2025-07-01公開で1年以上前の環境"},
-   {"label": "note「AFネメシス デッキガイド」ドス", "url": "https://note.com/dos236236/n/ne3ecbeece4a8", "reason": "2025-06-21公開で1年以上前の環境"},
-   {"label": "本とゲーム「ランプドラゴンの構築・立ち回り・対面攻略まとめ」", "url": "https://hon-to-game.com/ranpudora/", "reason": "サーバーに接続できず内容を確認できなかった"},
-   {"label": "Game8 フェイスドラゴン記事のコメント欄", "url": "https://game8.jp/shadowverse-beyond/698337", "reason": "記事本文ではなく読者の投稿で、投稿日と投稿者を確認できない"},
-   {"label": "X（旧Twitter）の検索結果", "url": "https://x.com/", "reason": "閲覧にログインが必要で、内容を取得できなかった"}
-  ]
+   {
+    "label": "Game8「ナイトメアでのマリガンと対面の立ち回り」",
+    "url": "https://game8.jp/shadowverse-beyond/700068",
+    "reason": "2026-04-14更新で、現環境にないモードナイトメアの記事"
+   },
+   {
+    "label": "Dexel Canvas 魔手ウィッチ テンプレ構築",
+    "url": "https://beyond-dexel.com/canvas-08-witch/",
+    "reason": "2026-07-29公開・クロニクル・オブ・デスティニー環境（新弾実装前）"
+   },
+   {
+    "label": "Dexel Canvas ミッドレンジナイトメア テンプレ構築",
+    "url": "https://beyond-dexel.com/canvas-nightmare-01/",
+    "reason": "2026-07-25公開・クロニクル・オブ・デスティニー環境（新弾実装前）"
+   },
+   {
+    "label": "Dexel ランプドラゴン しし氏さん ガイド",
+    "url": "https://beyond-dexel.com/deck-dragon-20260730/",
+    "reason": "URL上の日付が2026-07-30で新弾実装前"
+   },
+   {
+    "label": "Dexel 疾走AFネメシス ゆきさん ガイド",
+    "url": "https://beyond-dexel.com/deck-nemesis-20260729/",
+    "reason": "URL上の日付が2026-07-29で新弾実装前"
+   },
+   {
+    "label": "note「フェイスドラゴン マリガンと一部立回りメモ」ra",
+    "url": "https://note.com/trdqrl/n/n10b46442501b",
+    "reason": "2025-07-01公開で1年以上前の環境"
+   },
+   {
+    "label": "note「フェイスドラゴンについて」れく",
+    "url": "https://note.com/grand_swift1472/n/n9454a7f1d1fa",
+    "reason": "2025-07-01公開で1年以上前の環境"
+   },
+   {
+    "label": "note「AFネメシス全対面の考え方まとめ」むんご",
+    "url": "https://note.com/mn5rol/n/n0c319793ba3e",
+    "reason": "2025-07-01公開で1年以上前の環境"
+   },
+   {
+    "label": "note「AFネメシス デッキガイド」ドス",
+    "url": "https://note.com/dos236236/n/ne3ecbeece4a8",
+    "reason": "2025-06-21公開で1年以上前の環境"
+   },
+   {
+    "label": "本とゲーム「ランプドラゴンの構築・立ち回り・対面攻略まとめ」",
+    "url": "https://hon-to-game.com/ranpudora/",
+    "reason": "サーバーに接続できず内容を確認できなかった"
+   },
+   {
+    "label": "Game8 フェイスドラゴン記事のコメント欄",
+    "url": "https://game8.jp/shadowverse-beyond/698337",
+    "reason": "記事本文ではなく読者の投稿で、投稿日と投稿者を確認できない"
+   },
+   {
+    "label": "プロ（プレミアシリーズ所属）の画像つき投稿39件",
+    "url": "",
+    "reason": "デッキリストの告知、ランク到達・配信の告知などで、マリガンの情報は含まれていなかった（Chappy・ぱんさく・もっちゃま・rikka ほか）"
+   },
+   {
+    "label": "TBT 2026-09-10 の投稿",
+    "url": "https://x.com/tabe_tter",
+    "reason": "立ち回りの解説で、マリガンの基準ではない"
+   },
+   {
+    "label": "Rubato @SantaMuerteWB（海賊ロイヤル）",
+    "url": "https://x.com/SantaMuerteWB",
+    "reason": "本人記載の実績がなく、上位プレイヤーの条件を満たさない（フォロワー592人）"
+   },
+   {
+    "label": "初水 @Wizd_EaU_palm（海賊旗ロイヤル）",
+    "url": "https://x.com/Wizd_EaU_palm",
+    "reason": "本人記載の実績がない（フォロワー1,076人）"
+   },
+   {
+    "label": "そっくん @sokkun123123（AFネメシス）",
+    "url": "https://x.com/sokkun123123",
+    "reason": "実績がULTIMATE到達で、上位の条件に届かない（フォロワー72人）"
+   },
+   {
+    "label": "琥珀 @kohaku114204（ミッドレンジナイトメア）",
+    "url": "https://x.com/kohaku114204",
+    "reason": "マリガンは返信欄にあり本文にない。本人記載の実績もない"
+   },
+   {
+    "label": "安藤風華 @Andou_fuga（魔手ウィッチ）",
+    "url": "https://x.com/Andou_fuga",
+    "reason": "「リソースをがっつり探す」という方針のみで、カード名の記載がない"
+   },
+   {
+    "label": "動画でマリガンを解説している投稿（ぼーいん・kakisibu0828・tarakokkkko ほか）",
+    "url": "",
+    "reason": "マリガンの中身が動画内にあり、Xの投稿からは読み取れない"
+   },
+   {
+    "label": "元プロの在籍名簿（RSPL 2025 選手ページ・Liquipedia）",
+    "url": "https://pro-league.shadowverse-wb.com/2025/team/",
+    "reason": "選手一覧のページが存在しない（404）、またはアクセスが拒否された（403）ため、元プロの判定は本人のプロフィール記載に頼った"
+   }
+  ],
+  "credPolicy": [
+   "プロ：Shadowverse Premier Series 26-27 に所属する選手。公式サイトの選手データ（Xアカウント付き）で本人確認している。",
+   "元プロ：過去のプロリーグ在籍を、本人のプロフィールまたは公式情報で確認できた人（今回は該当する投稿が見つからなかった）。",
+   "実力者：今季の実績（CR上位・BEYOND到達・大会優勝など）を、攻略メディア（Dexel）が確認して取り上げている人、または本人が明示していてXのフォロワーが1万人以上の人。",
+   "上位プレイヤー（基準外）：上位の実績は本人が記載しているが、上の基準を満たさない人。初期表示では集計に含めない。",
+   "攻略サイト：Game8・GameWith の記事（筆者不明）。初期表示では集計に含めない。"
+  ],
+  "xSearch": {
+   "note": "いずれも since:2026-08-27（新弾実装日以降）で検索。Xの検索はすべての投稿を網羅するわけではない。件数は検索ごとに新たに取得した投稿の数（重複は除く）。",
+   "queries": [
+    {
+     "label": "「マリガン」（シャドバ関連、最新順）",
+     "hits": 18
+    },
+    {
+     "label": "プロ37名のアカウント指定 ×「マリガン／キープ」（3グループ）",
+     "hits": 2
+    },
+    {
+     "label": "プロ37名のアカウント指定 × 画像つき（3グループ）",
+     "hits": 39
+    },
+    {
+     "label": "デッキ名＋マリガン（いいね10以上、15デッキ・別名込み）",
+     "hits": 54
+    },
+    {
+     "label": "Dexel掲載者8名のアカウント指定 ×「マリガン／キープ」",
+     "hits": 2
+    },
+    {
+     "label": "Dexel掲載者8名のアカウント指定 × 画像つき",
+     "hits": 9
+    }
+   ]
+  }
  },
-
  "sources": {
-  "g8-781941": {"site": "Game8", "short": "G8", "title": "コンボエルフのローテーションデッキレシピと立ち回り・マリガン", "url": "https://game8.jp/shadowverse-beyond/781941", "date": "2026-09-09", "split": false},
-  "g8-781940": {"site": "Game8", "short": "G8", "title": "連携ロイヤルのローテーションデッキレシピと立ち回り", "url": "https://game8.jp/shadowverse-beyond/781940", "date": "2026-09-09", "split": false},
-  "g8-811814": {"site": "Game8", "short": "G8", "title": "海賊ロイヤルのローテーションデッキレシピと立ち回り", "url": "https://game8.jp/shadowverse-beyond/811814", "date": "2026-09-09", "split": false},
-  "g8-764034": {"site": "Game8", "short": "G8", "title": "魔手ウィッチのローテーションデッキとマリガン・対策", "url": "https://game8.jp/shadowverse-beyond/764034", "date": "2026-09-09", "split": false},
-  "g8-811845": {"site": "Game8", "short": "G8", "title": "実験体ウィッチのローテーションデッキレシピと立ち回り", "url": "https://game8.jp/shadowverse-beyond/811845", "date": "2026-09-09", "split": false},
-  "g8-781945": {"site": "Game8", "short": "G8", "title": "スペルウィッチのローテーションデッキレシピと立ち回り・マリガン", "url": "https://game8.jp/shadowverse-beyond/781945", "date": "2026-09-10", "split": true, "note": "記事内の環境表記が旧弾（クロニクル・オブ・デスティニー）のまま。後攻のキープ基準が旧環境のものである可能性がある"},
-  "g8-698541": {"site": "Game8", "short": "G8", "title": "ランプドラゴンのローテーションデッキレシピと立ち回り", "url": "https://game8.jp/shadowverse-beyond/698541", "date": "2026-09-10", "split": false, "note": "記事内に第8弾の表記が残っている"},
-  "g8-698337": {"site": "Game8", "short": "G8", "title": "フェイスドラゴンのローテーションデッキレシピと立ち回り", "url": "https://game8.jp/shadowverse-beyond/698337", "date": "2026-09-09", "split": false},
-  "g8-811839": {"site": "Game8", "short": "G8", "title": "ラストワードナイトメアのローテーションデッキレシピと立ち回り・マリガン", "url": "https://game8.jp/shadowverse-beyond/811839", "date": null, "split": false},
-  "g8-698347": {"site": "Game8", "short": "G8", "title": "アミュレットビショップのローテーションデッキレシピと立ち回り", "url": "https://game8.jp/shadowverse-beyond/698347", "date": "2026-09-09", "split": false},
-  "g8-734205": {"site": "Game8", "short": "G8", "title": "進化ビショップのローテーションデッキレシピと立ち回り", "url": "https://game8.jp/shadowverse-beyond/734205", "date": "2026-09-10", "split": false},
-  "g8-698326": {"site": "Game8", "short": "G8", "title": "AFネメシスのローテーションデッキレシピと立ち回り", "url": "https://game8.jp/shadowverse-beyond/698326", "date": "2026-09-09", "split": false, "note": "記事内に第8弾の表記が残っている"},
-  "g8-813914": {"site": "Game8", "short": "G8", "title": "OTK人形ネメシスのローテーションデッキレシピと立ち回り", "url": "https://game8.jp/shadowverse-beyond/813914", "date": "2026-09-09", "split": false},
-
-  "gw-559139": {"site": "GameWith", "short": "GW", "title": "コンボエルフのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/559139", "date": "2026-09-10", "split": false},
-  "gw-507802": {"site": "GameWith", "short": "GW", "title": "テンポエルフのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/507802", "date": "2026-09-10", "split": false},
-  "gw-559138": {"site": "GameWith", "short": "GW", "title": "連携ロイヤルのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/559138", "date": "2026-09-10", "split": false},
-  "gw-573927": {"site": "GameWith", "short": "GW", "title": "海賊ロイヤルのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/573927", "date": "2026-09-10", "split": false},
-  "gw-546341": {"site": "GameWith", "short": "GW", "title": "魔手ウィッチのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/546341", "date": "2026-09-10", "split": false},
-  "gw-573926": {"site": "GameWith", "short": "GW", "title": "セフィーウィッチのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/573926", "date": "2026-09-10", "split": false},
-  "gw-527318": {"site": "GameWith", "short": "GW", "title": "スペルウィッチのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/527318", "date": "2026-09-10", "split": false},
-  "gw-503022": {"site": "GameWith", "short": "GW", "title": "ランプドラゴンのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/503022", "date": "2026-09-10", "split": false},
-  "gw-503021": {"site": "GameWith", "short": "GW", "title": "フェイスドラゴンのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/503021", "date": "2026-09-10", "split": false},
-  "gw-503027": {"site": "GameWith", "short": "GW", "title": "ミッドレンジナイトメアのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/503027", "date": "2026-09-10", "split": false},
-  "gw-546339": {"site": "GameWith", "short": "GW", "title": "アミュレットビショップのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/546339", "date": "2026-09-10", "split": false},
-  "gw-565666": {"site": "GameWith", "short": "GW", "title": "進化ビショップのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/565666", "date": "2026-09-10", "split": false},
-  "gw-503019": {"site": "GameWith", "short": "GW", "title": "AFネメシスのローテーションデッキレシピと立ち回り", "url": "https://gamewith.jp/shadowverse-wb/503019", "date": "2026-09-10", "split": false},
-
-  "dx-elf-20260906": {"site": "Dexel", "short": "DX", "author": "NARU", "credential": "Dexel StarSeed Cup 優勝", "title": "ダストデイズエルフ マリガン・立ち回り完全ガイド", "url": "https://beyond-dexel.com/deck-elf-20260906/", "date": "2026-09-07", "split": false},
-  "dx-elf-20260901": {"site": "Dexel", "short": "DX", "author": "hqzuki", "credential": "6連勝でBEYOND到達", "title": "ダストデイズエルフ マリガン・立ち回り完全ガイド", "url": "https://beyond-dexel.com/deck-elf-20260901/", "date": "2026-09-02", "split": false},
-  "dx-royal-20260906": {"site": "Dexel", "short": "DX", "author": "NARU", "credential": "Dexel StarSeed Cup 優勝", "title": "バルバロスロイヤル マリガン・立ち回り完全ガイド", "url": "https://beyond-dexel.com/deck-royal-20260906/", "date": "2026-09-07", "split": false},
-  "dx-witch-20260908": {"site": "Dexel", "short": "DX", "author": "jiean/深紅蘭", "credential": "ウィッチでCR瞬間1位", "title": "魔手ウィッチ マリガン・立ち回り完全ガイド", "url": "https://beyond-dexel.com/deck-witch-20260908/", "date": "2026-09-08", "split": false},
-  "dx-witch-20260902": {"site": "Dexel", "short": "DX", "author": "Figole", "credential": "ウィッチでCR瞬間1位", "title": "実験体ウィッチ マリガン・立ち回り完全ガイド", "url": "https://beyond-dexel.com/deck-witch-20260902/", "date": "2026-09-07", "split": false},
-  "dx-witch-20260830": {"site": "Dexel", "short": "DX", "author": "Song", "credential": "ウィッチ最速BEYOND", "title": "スペルウィッチ マリガン・立ち回り完全ガイド", "url": "https://beyond-dexel.com/deck-witch-20260830/", "date": "2026-09-02", "split": false},
-  "dx-nightmare-20260829": {"site": "Dexel", "short": "DX", "author": "ふじのん", "credential": "最速BEYOND", "title": "ミッドレンジナイトメア マリガン・デッキガイド", "url": "https://beyond-dexel.com/deck-nightmare-20260829/", "date": "2026-09-02", "split": true},
-  "dx-nightmare-20260909": {"site": "Dexel", "short": "DX", "author": "女神", "credential": "ナイトメアでCR瞬間1位", "title": "アグロナイトメア マリガン・立ち回り完全ガイド", "url": "https://beyond-dexel.com/deck-nightmare-20260909/", "date": "2026-09-09", "split": "partial"},
-  "dx-bishop-20260901": {"site": "Dexel", "short": "DX", "author": "zhangyue616", "credential": "ビショップ最速BEYOND", "title": "アミュレットビショップ マリガン・立ち回り完全ガイド", "url": "https://beyond-dexel.com/deck-bishop-20260901/", "date": "2026-09-02", "split": false},
-  "dx-bishop-20260907": {"site": "Dexel", "short": "DX", "author": "ダーモボー", "credential": "BEYOND瞬間10位", "title": "クキシロビショップ マリガン・立ち回り完全ガイド", "url": "https://beyond-dexel.com/deck-bishop-20260907/", "date": "2026-09-07", "split": false},
-
-  "nt-motoyashiki": {"site": "note", "short": "NT", "author": "もとやしき", "credential": "最高CR2235・最終BEYOND×4", "title": "アズヴォルト・レヴナント環境 海賊ロイヤル雑記", "url": "https://note.com/motoyqsiki/n/nf5fb40f65b00", "date": "2026-09-01", "split": false}
+  "g8-781941": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "コンボエルフのローテーションデッキレシピと立ち回り・マリガン",
+   "url": "https://game8.jp/shadowverse-beyond/781941",
+   "date": "2026-09-09",
+   "split": false,
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-781940": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "連携ロイヤルのローテーションデッキレシピと立ち回り",
+   "url": "https://game8.jp/shadowverse-beyond/781940",
+   "date": "2026-09-09",
+   "split": false,
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-811814": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "海賊ロイヤルのローテーションデッキレシピと立ち回り",
+   "url": "https://game8.jp/shadowverse-beyond/811814",
+   "date": "2026-09-09",
+   "split": false,
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-764034": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "魔手ウィッチのローテーションデッキとマリガン・対策",
+   "url": "https://game8.jp/shadowverse-beyond/764034",
+   "date": "2026-09-09",
+   "split": false,
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-811845": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "実験体ウィッチのローテーションデッキレシピと立ち回り",
+   "url": "https://game8.jp/shadowverse-beyond/811845",
+   "date": "2026-09-09",
+   "split": false,
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-781945": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "スペルウィッチのローテーションデッキレシピと立ち回り・マリガン",
+   "url": "https://game8.jp/shadowverse-beyond/781945",
+   "date": "2026-09-10",
+   "split": true,
+   "note": "記事内の環境表記が旧弾（クロニクル・オブ・デスティニー）のまま。後攻のキープ基準が旧環境のものである可能性がある",
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-698541": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "ランプドラゴンのローテーションデッキレシピと立ち回り",
+   "url": "https://game8.jp/shadowverse-beyond/698541",
+   "date": "2026-09-10",
+   "split": false,
+   "note": "記事内に第8弾の表記が残っている",
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-698337": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "フェイスドラゴンのローテーションデッキレシピと立ち回り",
+   "url": "https://game8.jp/shadowverse-beyond/698337",
+   "date": "2026-09-09",
+   "split": false,
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-811839": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "ラストワードナイトメアのローテーションデッキレシピと立ち回り・マリガン",
+   "url": "https://game8.jp/shadowverse-beyond/811839",
+   "date": null,
+   "split": false,
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-698347": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "アミュレットビショップのローテーションデッキレシピと立ち回り",
+   "url": "https://game8.jp/shadowverse-beyond/698347",
+   "date": "2026-09-09",
+   "split": false,
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-734205": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "進化ビショップのローテーションデッキレシピと立ち回り",
+   "url": "https://game8.jp/shadowverse-beyond/734205",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-698326": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "AFネメシスのローテーションデッキレシピと立ち回り",
+   "url": "https://game8.jp/shadowverse-beyond/698326",
+   "date": "2026-09-09",
+   "split": false,
+   "note": "記事内に第8弾の表記が残っている",
+   "cred": "site",
+   "person": "Game8"
+  },
+  "g8-813914": {
+   "site": "Game8",
+   "short": "G8",
+   "title": "OTK人形ネメシスのローテーションデッキレシピと立ち回り",
+   "url": "https://game8.jp/shadowverse-beyond/813914",
+   "date": "2026-09-09",
+   "split": false,
+   "cred": "site",
+   "person": "Game8"
+  },
+  "gw-559139": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "コンボエルフのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/559139",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-507802": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "テンポエルフのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/507802",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-559138": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "連携ロイヤルのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/559138",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-573927": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "海賊ロイヤルのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/573927",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-546341": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "魔手ウィッチのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/546341",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-573926": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "セフィーウィッチのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/573926",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-527318": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "スペルウィッチのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/527318",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-503022": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "ランプドラゴンのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/503022",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-503021": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "フェイスドラゴンのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/503021",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-503027": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "ミッドレンジナイトメアのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/503027",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-546339": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "アミュレットビショップのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/546339",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-565666": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "進化ビショップのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/565666",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "gw-503019": {
+   "site": "GameWith",
+   "short": "GW",
+   "title": "AFネメシスのローテーションデッキレシピと立ち回り",
+   "url": "https://gamewith.jp/shadowverse-wb/503019",
+   "date": "2026-09-10",
+   "split": false,
+   "cred": "site",
+   "person": "GameWith"
+  },
+  "dx-elf-20260906": {
+   "site": "Dexel",
+   "short": "DX",
+   "author": "NARU",
+   "credential": "Dexel StarSeed Cup 優勝",
+   "title": "ダストデイズエルフ マリガン・立ち回り完全ガイド",
+   "url": "https://beyond-dexel.com/deck-elf-20260906/",
+   "date": "2026-09-07",
+   "split": false,
+   "cred": "strong",
+   "credBasis": "Dexel（シャドバ攻略メディア）が今季の実績を確認して掲載",
+   "person": "NARU"
+  },
+  "dx-elf-20260901": {
+   "site": "Dexel",
+   "short": "DX",
+   "author": "hqzuki",
+   "credential": "6連勝でBEYOND到達",
+   "title": "ダストデイズエルフ マリガン・立ち回り完全ガイド",
+   "url": "https://beyond-dexel.com/deck-elf-20260901/",
+   "date": "2026-09-02",
+   "split": false,
+   "cred": "strong",
+   "credBasis": "Dexel（シャドバ攻略メディア）が今季の実績を確認して掲載",
+   "person": "hqzuki"
+  },
+  "dx-royal-20260906": {
+   "site": "Dexel",
+   "short": "DX",
+   "author": "NARU",
+   "credential": "Dexel StarSeed Cup 優勝",
+   "title": "バルバロスロイヤル マリガン・立ち回り完全ガイド",
+   "url": "https://beyond-dexel.com/deck-royal-20260906/",
+   "date": "2026-09-07",
+   "split": false,
+   "cred": "strong",
+   "credBasis": "Dexel（シャドバ攻略メディア）が今季の実績を確認して掲載",
+   "person": "NARU"
+  },
+  "dx-witch-20260908": {
+   "site": "Dexel",
+   "short": "DX",
+   "author": "jiean/深紅蘭",
+   "credential": "ウィッチでCR瞬間1位",
+   "title": "魔手ウィッチ マリガン・立ち回り完全ガイド",
+   "url": "https://beyond-dexel.com/deck-witch-20260908/",
+   "date": "2026-09-08",
+   "split": false,
+   "cred": "strong",
+   "credBasis": "Dexel（シャドバ攻略メディア）が今季の実績を確認して掲載",
+   "person": "jiean/深紅蘭"
+  },
+  "dx-witch-20260902": {
+   "site": "Dexel",
+   "short": "DX",
+   "author": "Figole",
+   "credential": "ウィッチでCR瞬間1位",
+   "title": "実験体ウィッチ マリガン・立ち回り完全ガイド",
+   "url": "https://beyond-dexel.com/deck-witch-20260902/",
+   "date": "2026-09-07",
+   "split": false,
+   "cred": "strong",
+   "credBasis": "Dexel（シャドバ攻略メディア）が今季の実績を確認して掲載",
+   "person": "Figole"
+  },
+  "dx-witch-20260830": {
+   "site": "Dexel",
+   "short": "DX",
+   "author": "Song",
+   "credential": "ウィッチ最速BEYOND",
+   "title": "スペルウィッチ マリガン・立ち回り完全ガイド",
+   "url": "https://beyond-dexel.com/deck-witch-20260830/",
+   "date": "2026-09-02",
+   "split": false,
+   "cred": "strong",
+   "credBasis": "Dexel（シャドバ攻略メディア）が今季の実績を確認して掲載",
+   "person": "Song"
+  },
+  "dx-nightmare-20260829": {
+   "site": "Dexel",
+   "short": "DX",
+   "author": "ふじのん",
+   "credential": "最速BEYOND",
+   "title": "ミッドレンジナイトメア マリガン・デッキガイド",
+   "url": "https://beyond-dexel.com/deck-nightmare-20260829/",
+   "date": "2026-09-02",
+   "split": true,
+   "cred": "strong",
+   "credBasis": "Dexel（シャドバ攻略メディア）が今季の実績を確認して掲載",
+   "person": "ふじのん"
+  },
+  "dx-nightmare-20260909": {
+   "site": "Dexel",
+   "short": "DX",
+   "author": "女神",
+   "credential": "ナイトメアでCR瞬間1位",
+   "title": "アグロナイトメア マリガン・立ち回り完全ガイド",
+   "url": "https://beyond-dexel.com/deck-nightmare-20260909/",
+   "date": "2026-09-09",
+   "split": "partial",
+   "cred": "strong",
+   "credBasis": "Dexel（シャドバ攻略メディア）が今季の実績を確認して掲載",
+   "person": "女神"
+  },
+  "dx-bishop-20260901": {
+   "site": "Dexel",
+   "short": "DX",
+   "author": "zhangyue616",
+   "credential": "ビショップ最速BEYOND",
+   "title": "アミュレットビショップ マリガン・立ち回り完全ガイド",
+   "url": "https://beyond-dexel.com/deck-bishop-20260901/",
+   "date": "2026-09-02",
+   "split": false,
+   "cred": "strong",
+   "credBasis": "Dexel（シャドバ攻略メディア）が今季の実績を確認して掲載",
+   "person": "zhangyue616"
+  },
+  "dx-bishop-20260907": {
+   "site": "Dexel",
+   "short": "DX",
+   "author": "ダーモボー",
+   "credential": "BEYOND瞬間10位",
+   "title": "クキシロビショップ マリガン・立ち回り完全ガイド",
+   "url": "https://beyond-dexel.com/deck-bishop-20260907/",
+   "date": "2026-09-07",
+   "split": false,
+   "cred": "strong",
+   "credBasis": "Dexel（シャドバ攻略メディア）が今季の実績を確認して掲載",
+   "person": "ダーモボー"
+  },
+  "nt-motoyashiki": {
+   "site": "note",
+   "short": "NT",
+   "author": "もとやしき",
+   "credential": "最高CR2235・最終BEYOND×4",
+   "title": "アズヴォルト・レヴナント環境 海賊ロイヤル雑記",
+   "url": "https://note.com/motoyqsiki/n/nf5fb40f65b00",
+   "date": "2026-09-01",
+   "split": false,
+   "cred": "other",
+   "credBasis": "本人記載の実績（最高CR2235・最終BEYOND×4）。媒体掲載がなく、フォロワー467人で基準（1万人）に届かない",
+   "person": "もとやしき",
+   "handle": "motoyashiki",
+   "followers": 467
+  },
+  "x-tbt-0907": {
+   "site": "X",
+   "short": "X",
+   "person": "TBT",
+   "author": "TBT",
+   "handle": "tabe_tter",
+   "cred": "pro",
+   "credential": "ZETA DIVISION（プレミアシリーズ26-27）",
+   "title": "マリガン目安",
+   "url": "https://x.com/tabe_tter/status/2096800613346754917",
+   "date": "2026-09-07",
+   "split": true,
+   "note": "本文にデッキ名はないが、挙げられたカードの組み合わせからミッドレンジナイトメアと判断した。略称は公式カード名に置き換えた（「リリム」は該当が2種類あり特定できないため略称のまま）"
+  },
+  "x-winter-0906": {
+   "site": "X",
+   "short": "X",
+   "person": "Winter",
+   "author": "Winter",
+   "handle": "msfsv",
+   "cred": "pro",
+   "credential": "Crazy Raccoon（プレミアシリーズ26-27）",
+   "title": "シティトナメ5-1エルフ",
+   "url": "https://x.com/msfsv/status/2096481424534798567",
+   "date": "2026-09-06",
+   "split": false
+  },
+  "x-fujinon-0829": {
+   "site": "X",
+   "short": "X",
+   "person": "ふじのん",
+   "author": "ふじのん",
+   "handle": "Huzinosuke02",
+   "cred": "strong",
+   "credential": "最速BEYOND（Dexel掲載）",
+   "title": "マリガンについての返信",
+   "url": "https://x.com/Huzinosuke02/status/2093588104431144995",
+   "date": "2026-08-29",
+   "split": true
+  },
+  "x-figole-0829": {
+   "site": "X",
+   "short": "X",
+   "person": "Figole",
+   "author": "Figole",
+   "handle": "Figole1436",
+   "cred": "strong",
+   "credential": "ウィッチでCR瞬間1位（Dexel掲載）",
+   "title": "マリガンについての返信",
+   "url": "https://x.com/Figole1436/status/2093544714960318530",
+   "date": "2026-08-29",
+   "split": false,
+   "note": "「旅路」は本文の略称で、公式カード名を確認できなかった"
+  },
+  "x-kiruka-0906": {
+   "site": "X",
+   "short": "X",
+   "person": "きるか",
+   "author": "きるか",
+   "handle": "_qxoxp_",
+   "cred": "other",
+   "followers": 2727,
+   "credential": "RAGE 2021 Autumn 優勝・RAGE JCS 2025 9位タイ（本人記載）",
+   "title": "魔手のマリガン",
+   "url": "https://x.com/_qxoxp_/status/2096484939269296274",
+   "date": "2026-09-06",
+   "split": false
+  },
+  "x-nemuru-0827": {
+   "site": "X",
+   "short": "X",
+   "person": "ねむる",
+   "author": "ねむる",
+   "handle": "nemuru_sv",
+   "cred": "other",
+   "followers": 1139,
+   "credential": "2025 OCS November 1位・PS最終選考（本人記載）",
+   "title": "魔手ウィッチ簡単解説（画像のマリガン表）",
+   "url": "https://x.com/nemuru_sv/status/2093007650279825899",
+   "date": "2026-08-27",
+   "split": false,
+   "note": "新弾実装日の投稿で、本人も「前期と大きくは変わらない」と記載。画像のマリガン表（入れた枚数が多いほど優先度が高い）を読み取った"
+  },
+  "x-solasola-0906": {
+   "site": "X",
+   "short": "X",
+   "person": "solasola",
+   "author": "solasola",
+   "handle": "subdomi_sora",
+   "cred": "other",
+   "followers": 703,
+   "credential": "今季クキシロでビショップ1位（本人記載）",
+   "title": "クキシロのマリガン",
+   "url": "https://x.com/subdomi_sora/status/2096535907633611131",
+   "date": "2026-09-06",
+   "split": "partial"
+  },
+  "x-yatapirika-0830": {
+   "site": "X",
+   "short": "X",
+   "person": "やたぴりか",
+   "author": "やたぴりか",
+   "handle": "25o_clockWorld",
+   "cred": "other",
+   "followers": 1069,
+   "credential": "今季実験体ウィッチでBEYOND・瞬間1位、JCG優勝2回（本人記載）",
+   "title": "実験体ウィッチのメモ",
+   "url": "https://x.com/25o_clockWorld/status/2093942235738132662",
+   "date": "2026-08-30",
+   "split": false
+  },
+  "x-tommy-0902": {
+   "site": "X",
+   "short": "X",
+   "person": "トミー",
+   "author": "トミー",
+   "handle": "F29r5jTMEnlJ9nL",
+   "cred": "other",
+   "followers": 149,
+   "credential": "今季ドラゴンで6位・最高順位1位（本人記載）",
+   "title": "2コス17枚ドラゴンで6位",
+   "url": "https://x.com/F29r5jTMEnlJ9nL/status/2095170771215925539",
+   "date": "2026-09-02",
+   "split": false,
+   "note": "2コスト17枚型のランプドラゴン"
+  },
+  "x-ritz-0903": {
+   "site": "X",
+   "short": "X",
+   "person": "ritz",
+   "author": "ritz",
+   "handle": "ritz_kg",
+   "cred": "other",
+   "followers": 1490,
+   "credential": "今季ドラゴンでBEYOND（本人記載）",
+   "title": "ナイトメア対面のマリガン",
+   "url": "https://x.com/ritz_kg/status/2095355932113076726",
+   "date": "2026-09-03",
+   "split": false,
+   "note": "前日の投稿（https://x.com/ritz_kg/status/2095231489868968297）と合わせて整理"
+  },
+  "x-tarako-0904": {
+   "site": "X",
+   "short": "X",
+   "person": "たらこ",
+   "author": "たらこ",
+   "handle": "tarakokkkko",
+   "cred": "other",
+   "followers": 8191,
+   "credential": "シャドバWB初代最終1位（本人記載）",
+   "title": "テンポエルフでアルティメット",
+   "url": "https://x.com/tarakokkkko/status/2095720669741043873",
+   "date": "2026-09-04",
+   "split": false,
+   "note": "フォロワー8,191人で、基準（1万人）にわずかに届かない"
+  }
  },
-
  "decks": [
   {
-   "class": "エルフ", "name": "コンボエルフ", "aliases": ["ダストデイズエルフ"],
-   "tiers": [{"site": "Game8", "tier": "Tier1"}, {"site": "GameWith", "tier": "S"}, {"site": "Dexel", "tier": "Tier1"}],
-   "entries": [
-    {"src": "g8-781941", "keeps": [
-     {"card": "操嵩のアナテマ・ダストデイズ", "side": "both", "tier": "main"},
-     {"card": "虫風花・ミロク", "side": "both", "tier": "sub"},
-     {"card": "マインドシフト", "side": "both", "tier": "sub"},
-     {"card": "害意の拡大", "side": "both", "tier": "sub"}]},
-    {"src": "gw-559139", "keeps": [
-     {"card": "大遊戯世界", "side": "both", "tier": "main"},
-     {"card": "操嵩のアナテマダストデイズ", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["根差の刺客", "虫風花ミロク"], "side": "both", "cond": "ダストデイズがある時"}]},
-    {"src": "dx-elf-20260906", "keeps": [
-     {"card": "大遊戯世界", "side": "both", "tier": "main"},
-     {"card": "操嵩のアナテマ・ダストデイズ", "side": "both", "tier": "main"},
-     {"card": "エルフトラッパー", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["序盤のカード全般"], "side": "both", "cond": "ダストデイズが見えている時はキープを緩く広げてよい"}]},
-    {"src": "dx-elf-20260901", "keeps": [
-     {"card": "操嵩のアナテマ・ダストデイズ", "side": "both", "tier": "main"},
-     {"card": "大遊戯世界", "side": "both", "tier": "main"},
-     {"card": "枝葉の舎弟頭", "side": "both", "tier": "main"},
-     {"card": "根差の刺客", "side": "both", "tier": "sub"},
-     {"card": "虫風花・ミロク", "side": "both", "tier": "sub"}],
-     "cond": [
-      {"cards": ["虫風花・ミロク", "根差の刺客"], "side": "both", "cond": "ナイトメア・ロイヤル・ネメシス対面では単体でもキープ"},
-      {"cards": ["ダストデイズとドローソース以外"], "side": "both", "cond": "ビショップ対面では基本キープしない"}]}
-   ]
-  },
-  {
-   "class": "エルフ", "name": "テンポエルフ", "aliases": [],
-   "tiers": [{"site": "GameWith", "tier": "B"}],
-   "entries": [
-    {"src": "gw-507802", "keeps": [
-     {"card": "太古の妖精ルフレ", "side": "both", "tier": "main"},
-     {"card": "虫風花ミロク", "side": "both", "tier": "main"},
-     {"card": "ヘレティックハーミットシトラス", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["水鏡の信頼", "導きの船頭"], "side": "both", "cond": "低コストのフォロワーを確保できている時"}]}
-   ]
-  },
-
-  {
-   "class": "ロイヤル", "name": "連携ロイヤル", "aliases": [],
-   "tiers": [{"site": "Game8", "tier": "Tier2"}, {"site": "GameWith", "tier": "A"}, {"site": "Dexel", "tier": "Tier3"}],
-   "entries": [
-    {"src": "g8-781940", "keeps": [
-     {"card": "無音の包囲", "side": "both", "tier": "main"},
-     {"card": "聴略の諜報兵", "side": "both", "tier": "main"},
-     {"card": "優しき援軍", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["斬奏の衛生兵", "響爪の分班長"], "side": "both", "cond": "低コストとセット（序盤の動きが確保できている時の中盤札）"}]},
-    {"src": "gw-559138", "keeps": [
-     {"card": "刹那のクイックブレイダー", "side": "both", "tier": "main"},
-     {"card": "聴略の諜報兵", "side": "both", "tier": "main"},
-     {"card": "調伝の連絡兵", "side": "both", "tier": "main"}],
-     "cond": [
-      {"cards": ["斬奏の衛生兵", "響爪の分班長"], "side": "both", "cond": "低コストを確保できている時に3〜5コスト帯としてセットで"},
-      {"cards": ["十天衆の頭目シエテ"], "side": "both", "cond": "手札3枚で序盤〜中盤の動きが整っている時の4枚目"}]}
-   ]
-  },
-  {
-   "class": "ロイヤル", "name": "海賊ロイヤル", "aliases": ["バルバロスロイヤル"],
-   "tiers": [{"site": "Game8", "tier": "Tier3"}, {"site": "GameWith", "tier": "B"}, {"site": "Dexel", "tier": "Tier3"}],
-   "entries": [
-    {"src": "g8-811814", "keeps": [
-     {"card": "旧き天剣・イドメタ", "side": "both", "tier": "main"},
-     {"card": "海域の斥候", "side": "both", "tier": "main"},
-     {"card": "渦潮の砲手", "side": "both", "tier": "main"},
-     {"card": "栄耀なる麗金花", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["逆行の咎人・バルバロス"], "side": "both", "cond": "低コストとセット"}]},
-    {"src": "gw-573927", "keeps": [
-     {"card": "旧き天剣イドメタ", "side": "both", "tier": "main"},
-     {"card": "海域の斥候", "side": "both", "tier": "main"},
-     {"card": "渦潮の砲手", "side": "both", "tier": "main"},
-     {"card": "大遊戯世界", "side": "both", "tier": "main"}]},
-    {"src": "dx-royal-20260906", "keeps": [
-     {"card": "海域の斥候", "side": "both", "tier": "main"},
-     {"card": "渦潮の砲手", "side": "both", "tier": "main"},
-     {"card": "波濤の副船長", "side": "both", "tier": "main"}],
-     "cond": [
-      {"cards": ["旧き天剣・イドメタ"], "side": "both", "cond": "ある程度テンポが必要な対面"},
-      {"cards": ["刹那のクイックブレイダー"], "side": "both", "cond": "イドメタとセットで検討"}],
-     "returns": [{"card": "刹那のクイックブレイダー", "cond": "ドラゴン・ビショップ対面では基本的に返す"}]},
-    {"src": "nt-motoyashiki", "keeps": [
-     {"card": "刹那のクイックブレイダー", "side": "both", "tier": "main"},
-     {"card": "2コストのフォロワー（クイックブレイダーと合わせて3枚まで）", "side": "both", "tier": "main", "generic": true},
-     {"card": "渦潮の砲手", "side": "both", "tier": "main"},
-     {"card": "波濤の副船長", "side": "both", "tier": "main"},
-     {"card": "逆行の咎人・バルバロス", "side": "both", "tier": "main"}],
-     "cond": [
-      {"cards": ["アージュドール"], "side": "both", "cond": "コンボエルフ・ミッドレンジナイトメア対面で低コストの横"},
-      {"cards": ["迷夢の獅子・モルドレッド"], "side": "both", "cond": "海賊ロイヤル同型で2コストの横／ランプドラゴン・アミュレットビショップ対面では単体でも"},
-      {"cards": ["真紅と群青・ゼタ&ベアトリクス"], "side": "both", "cond": "ランプドラゴン・アミュレットビショップ対面で2コストの横"},
-      {"cards": ["燃え落ちる縁"], "side": "both", "cond": "実験体ウィッチ対面で低コスト2枚の横／AFネメシス対面で2コストの横"}],
-     "returns": [{"card": "波濤の副船長", "cond": "手札にあるのが副船長とバルバロスの2枚だけの時は副船長を返す"}]}
-   ]
-  },
-
-  {
-   "class": "ウィッチ", "name": "魔手ウィッチ", "aliases": ["天晶ウィッチ"],
-   "tiers": [{"site": "Game8", "tier": "Tier1"}, {"site": "GameWith", "tier": "S"}, {"site": "Dexel", "tier": "Tier1"}],
-   "entries": [
-    {"src": "g8-764034", "keeps": [
-     {"card": "大遊戯世界", "side": "both", "tier": "main"},
-     {"card": "天晶授与", "side": "both", "tier": "main"},
-     {"card": "旧き天晶・カルギデンスラ", "side": "both", "tier": "main"},
-     {"card": "魔恋の慕情・シイム", "side": "both", "tier": "sub"},
-     {"card": "魔恋の天晶", "side": "both", "tier": "sub"},
-     {"card": "正常の侵食", "side": "both", "tier": "sub"}]},
-    {"src": "gw-546341", "keeps": [
-     {"card": "旧き天晶カルギデンスラ", "side": "both", "tier": "main"},
-     {"card": "天晶授与", "side": "both", "tier": "main"},
-     {"card": "大遊戯世界", "side": "both", "tier": "main"}],
-     "cond": [
-      {"cards": ["魔恋の慕情シイム"], "side": "both", "cond": "カルギデンスラがある時にセットで"},
-      {"cards": ["魔恋の天晶", "魔恋の慕情シイム"], "side": "both", "cond": "ドラゴン対面"}]},
-    {"src": "dx-witch-20260908", "keeps": [
-     {"card": "旧き天晶・カルギデンスラ", "side": "both", "tier": "main"},
-     {"card": "大遊戯世界", "side": "both", "tier": "main"},
-     {"card": "天晶授与", "side": "both", "tier": "main"},
-     {"card": "鋼鉄の微睡み", "side": "both", "tier": "main"}],
-     "cond": [
-      {"cards": ["マナリアスクリプター・ティコ"], "side": "both", "cond": "エルフ・ロイヤル・ナイトメア・ネメシスなど序盤から盤面を取りに来る相手"},
-      {"cards": ["天晶の魔手", "正常の侵食"], "side": "both", "cond": "コンボのキープ候補（相手がアグロ寄りなら守りのカードを優先）"},
-      {"cards": ["知恵の輝き", "ハッピーフラワー・サミー＆マリー"], "side": "both", "cond": "手札に大遊戯世界がない時"},
-      {"cards": ["魔恋の天晶", "ハッピーフラワー・サミー＆マリー"], "side": "both", "cond": "序盤の対応とリソース確保を両立したい時"}],
-     "returns": [{"card": "魔恋の慕情・シイム", "cond": "基本はキープしない（カルギデンスラとリソース札が揃っている時は例外）"}]}
-   ]
-  },
-  {
-   "class": "ウィッチ", "name": "実験体ウィッチ", "aliases": ["セフィーウィッチ"],
-   "tiers": [{"site": "Game8", "tier": "Tier2"}, {"site": "GameWith", "tier": "A"}, {"site": "Dexel", "tier": "Tier2"}],
-   "entries": [
-    {"src": "g8-811845", "keeps": [
-     {"card": "大遊戯世界", "side": "both", "tier": "main"},
-     {"card": "万術の咎人・セフィー", "side": "both", "tier": "main"}]},
-    {"src": "gw-573926", "keeps": [
-     {"card": "知恵の輝き", "side": "both", "tier": "main"},
-     {"card": "鋼鉄の微睡み", "side": "both", "tier": "main"},
-     {"card": "万術の咎人セフィー", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["没入の実験体", "人らしい愛", "心酔の研究者"], "side": "both", "cond": "上記が揃ってリソースが安定しそうな時"}]},
-    {"src": "dx-witch-20260902", "keeps": [
-     {"card": "万術の咎人・セフィー", "side": "both", "tier": "main"},
-     {"card": "大遊戯世界", "side": "both", "tier": "main"},
-     {"card": "魔女の錬金釜", "side": "both", "tier": "main"},
-     {"card": "没入の実験体", "side": "both", "tier": "sub", "note": "1枚まで"},
-     {"card": "人らしい愛", "side": "both", "tier": "sub", "note": "1枚まで"},
-     {"card": "心酔の研究者", "side": "both", "tier": "sub", "note": "1枚まで"}]}
-   ]
-  },
-  {
-   "class": "ウィッチ", "name": "スペルウィッチ", "aliases": [],
-   "tiers": [{"site": "Game8", "tier": "Tier3"}, {"site": "GameWith", "tier": "B"}],
-   "entries": [
-    {"src": "g8-781945", "keeps": [
-     {"card": "恩愛の大地・テトラ＆ラティカ", "side": "both", "tier": "main"},
-     {"card": "知恵の輝き", "side": "both", "tier": "main"},
-     {"card": "緑の幸・ムニャール＆マンマル2号＆ジーナ", "side": "both", "tier": "main"},
-     {"card": "ストームブラスト", "side": "second", "tier": "main"},
-     {"card": "マナリアスクリプター・ティコ", "side": "second", "tier": "main"}]},
-    {"src": "gw-527318", "keeps": [
-     {"card": "大遊戯世界", "side": "both", "tier": "main"},
-     {"card": "鋼鉄の微睡み", "side": "both", "tier": "main"},
-     {"card": "恩愛の大地テトラ&ラティカ", "side": "both", "tier": "main"},
-     {"card": "マナリアスクリプターティコ", "side": "both", "tier": "main"},
-     {"card": "ストームブラスト", "side": "both", "tier": "main", "note": "相手がアグロの可能性がある時"}],
-     "cond": [
-      {"cards": ["知恵の輝き", "リンクル"], "side": "both", "cond": "大遊戯世界とセット"},
-      {"cards": ["ハッピーフラワー・サミー＆マリー"], "side": "both", "cond": "スペルとセット"}]},
-    {"src": "dx-witch-20260830", "keeps": [
-     {"card": "鋼鉄の微睡み", "side": "both", "tier": "main"},
-     {"card": "ハッピーフラワー・サミー＆マリー", "side": "both", "tier": "main"},
-     {"card": "過剰反応", "side": "both", "tier": "main"},
-     {"card": "恩愛の大地・テトラ＆ラティカ", "side": "both", "tier": "sub"},
-     {"card": "明越花・アラ", "side": "both", "tier": "sub"},
-     {"card": "破式の変貌・フィーリン", "side": "both", "tier": "sub"},
-     {"card": "明越花の転変", "side": "both", "tier": "sub"},
-     {"card": "緑の幸・ムニャール＆マンマル2号＆ジーナ", "side": "both", "tier": "sub"},
-     {"card": "ストームブラスト", "side": "both", "tier": "sub"},
-     {"card": "マナリアスクリプター・ティコ", "side": "both", "tier": "sub"}],
-     "cond": [
-      {"cards": ["除去カード"], "side": "both", "cond": "アグロ対面で優先度を上げる"},
-      {"cards": ["ドロー・フィニッシャー"], "side": "both", "cond": "ビショップなどOTK型対面で優先度を上げる"},
-      {"cards": ["明越花・アラ"], "side": "both", "cond": "連携ロイヤル・AFネメシスなどミッドレンジ対面で優先度を上げる"}]}
-   ]
-  },
-
-  {
-   "class": "ドラゴン", "name": "ランプドラゴン", "aliases": [],
-   "tiers": [{"site": "Game8", "tier": "Tier1"}, {"site": "GameWith", "tier": "A"}, {"site": "Dexel", "tier": "Tier1.5"}],
-   "entries": [
-    {"src": "g8-698541", "keeps": [
-     {"card": "喧伝の龍人", "side": "both", "tier": "main"},
-     {"card": "竜の啓示", "side": "both", "tier": "main"},
-     {"card": "烈絶の顕現・ガルミーユ", "side": "both", "tier": "main"},
-     {"card": "世界の味方・ゾーイ", "side": "both", "tier": "main"},
-     {"card": "金銀絢爛・リュミオール＆アルジャンテ", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["焦灰のアナテマ・バーンドナイト"], "side": "both", "cond": "コントロール対面"}]},
-    {"src": "gw-503022", "keeps": [
-     {"card": "竜の啓示", "side": "both", "tier": "main"},
-     {"card": "金銀絢爛リュミオール&アルジャンテ", "side": "both", "tier": "main"},
-     {"card": "喧伝の龍人", "side": "both", "tier": "main"},
-     {"card": "世界の味方ゾーイ", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["怠惰なる波揺花", "暗黒次元", "プロミネンスロア"], "side": "both", "cond": "ロイヤルやナイトメアなど序盤の展開が強い対面"}]}
-   ]
-  },
-  {
-   "class": "ドラゴン", "name": "フェイスドラゴン", "aliases": [],
-   "tiers": [{"site": "Game8", "tier": "Tier2"}, {"site": "GameWith", "tier": "A"}, {"site": "Dexel", "tier": "Tier2"}],
-   "entries": [
-    {"src": "gw-503021", "keeps": [
-     {"card": "寸裂の盗人", "side": "both", "tier": "main"},
-     {"card": "幼竜の癇癪", "side": "both", "tier": "main"},
-     {"card": "笑顔の調理キミカ", "side": "both", "tier": "main"},
-     {"card": "絶倒の襲撃者", "side": "both", "tier": "main"},
-     {"card": "果断のドラゴニュート", "side": "both", "tier": "main"}]}
+   "class": "エルフ",
+   "name": "コンボエルフ",
+   "aliases": [
+    "ダストデイズエルフ"
    ],
-   "nodata": ["g8-698337"]
-  },
-
-  {
-   "class": "ナイトメア", "name": "ミッドレンジナイトメア", "aliases": [],
-   "tiers": [{"site": "GameWith", "tier": "S"}, {"site": "Dexel", "tier": "Tier1"}],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier1"
+    },
+    {
+     "site": "GameWith",
+     "tier": "S"
+    },
+    {
+     "site": "Dexel",
+     "tier": "Tier1"
+    }
+   ],
    "entries": [
-    {"src": "gw-503027", "keeps": [
-     {"card": "魅惑のサキュバスリリム", "side": "both", "tier": "main"},
-     {"card": "キュートな悪魔リリム", "side": "both", "tier": "main"},
-     {"card": "デーモンドラムラズ", "side": "both", "tier": "main"},
-     {"card": "幽冥の中尉", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["トラブルネクロマンサー", "タイトロープキャット"], "side": "both", "cond": "1・2コストを確保できた時（進化ターン用）"}]},
-    {"src": "dx-nightmare-20260829", "keeps": [
-     {"card": "1〜2コストのフォロワー", "side": "both", "tier": "main", "generic": true},
-     {"card": "タイトロープキャット", "side": "both", "tier": "main"},
-     {"card": "元素の共鳴・バアル", "side": "both", "tier": "main"},
-     {"card": "トラブルネクロマンサー", "side": "second", "tier": "main"},
-     {"card": "淵底の大佐", "side": "second", "tier": "main"}],
-     "cond": [{"cards": ["イステンデッド VS マルチルゲート"], "side": "both", "cond": "ネメシス対面で優先してキープ"}]}
+    {
+     "src": "g8-781941",
+     "keeps": [
+      {
+       "card": "操嵩のアナテマ・ダストデイズ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "虫風花・ミロク",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "マインドシフト",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "害意の拡大",
+       "side": "both",
+       "tier": "sub"
+      }
+     ]
+    },
+    {
+     "src": "gw-559139",
+     "keeps": [
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "操嵩のアナテマダストデイズ",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "根差の刺客",
+        "虫風花ミロク"
+       ],
+       "side": "both",
+       "cond": "ダストデイズがある時"
+      }
+     ]
+    },
+    {
+     "src": "dx-elf-20260906",
+     "keeps": [
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "操嵩のアナテマ・ダストデイズ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "エルフトラッパー",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "序盤のカード全般"
+       ],
+       "side": "both",
+       "cond": "ダストデイズが見えている時はキープを緩く広げてよい"
+      }
+     ]
+    },
+    {
+     "src": "dx-elf-20260901",
+     "keeps": [
+      {
+       "card": "操嵩のアナテマ・ダストデイズ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "枝葉の舎弟頭",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "根差の刺客",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "虫風花・ミロク",
+       "side": "both",
+       "tier": "sub"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "虫風花・ミロク",
+        "根差の刺客"
+       ],
+       "side": "both",
+       "cond": "ナイトメア・ロイヤル・ネメシス対面では単体でもキープ"
+      },
+      {
+       "cards": [
+        "ダストデイズとドローソース以外"
+       ],
+       "side": "both",
+       "cond": "ビショップ対面では基本キープしない"
+      }
+     ]
+    },
+    {
+     "src": "x-winter-0906",
+     "keeps": [
+      {
+       "card": "操嵩のアナテマ・ダストデイズ",
+       "side": "both",
+       "tier": "main",
+       "note": "全力で探す（「ダストデイズ全力マリガン」）"
+      }
+     ]
+    }
    ]
   },
   {
-   "class": "ナイトメア", "name": "アグロナイトメア", "aliases": [],
+   "class": "エルフ",
+   "name": "テンポエルフ",
+   "aliases": [],
+   "tiers": [
+    {
+     "site": "GameWith",
+     "tier": "B"
+    }
+   ],
+   "entries": [
+    {
+     "src": "gw-507802",
+     "keeps": [
+      {
+       "card": "太古の妖精ルフレ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "虫風花ミロク",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "ヘレティックハーミットシトラス",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "水鏡の信頼",
+        "導きの船頭"
+       ],
+       "side": "both",
+       "cond": "低コストのフォロワーを確保できている時"
+      }
+     ]
+    },
+    {
+     "src": "x-tarako-0904",
+     "keeps": [
+      {
+       "card": "操嵩のアナテマ・ダストデイズ",
+       "side": "both",
+       "tier": "main",
+       "note": "全力で探す"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "class": "ロイヤル",
+   "name": "連携ロイヤル",
+   "aliases": [],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier2"
+    },
+    {
+     "site": "GameWith",
+     "tier": "A"
+    },
+    {
+     "site": "Dexel",
+     "tier": "Tier3"
+    }
+   ],
+   "entries": [
+    {
+     "src": "g8-781940",
+     "keeps": [
+      {
+       "card": "無音の包囲",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "聴略の諜報兵",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "優しき援軍",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "斬奏の衛生兵",
+        "響爪の分班長"
+       ],
+       "side": "both",
+       "cond": "低コストとセット（序盤の動きが確保できている時の中盤札）"
+      }
+     ]
+    },
+    {
+     "src": "gw-559138",
+     "keeps": [
+      {
+       "card": "刹那のクイックブレイダー",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "聴略の諜報兵",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "調伝の連絡兵",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "斬奏の衛生兵",
+        "響爪の分班長"
+       ],
+       "side": "both",
+       "cond": "低コストを確保できている時に3〜5コスト帯としてセットで"
+      },
+      {
+       "cards": [
+        "十天衆の頭目シエテ"
+       ],
+       "side": "both",
+       "cond": "手札3枚で序盤〜中盤の動きが整っている時の4枚目"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "class": "ロイヤル",
+   "name": "海賊ロイヤル",
+   "aliases": [
+    "バルバロスロイヤル"
+   ],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier3"
+    },
+    {
+     "site": "GameWith",
+     "tier": "B"
+    },
+    {
+     "site": "Dexel",
+     "tier": "Tier3"
+    }
+   ],
+   "entries": [
+    {
+     "src": "g8-811814",
+     "keeps": [
+      {
+       "card": "旧き天剣・イドメタ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "海域の斥候",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "渦潮の砲手",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "栄耀なる麗金花",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "逆行の咎人・バルバロス"
+       ],
+       "side": "both",
+       "cond": "低コストとセット"
+      }
+     ]
+    },
+    {
+     "src": "gw-573927",
+     "keeps": [
+      {
+       "card": "旧き天剣イドメタ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "海域の斥候",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "渦潮の砲手",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      }
+     ]
+    },
+    {
+     "src": "dx-royal-20260906",
+     "keeps": [
+      {
+       "card": "海域の斥候",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "渦潮の砲手",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "波濤の副船長",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "旧き天剣・イドメタ"
+       ],
+       "side": "both",
+       "cond": "ある程度テンポが必要な対面"
+      },
+      {
+       "cards": [
+        "刹那のクイックブレイダー"
+       ],
+       "side": "both",
+       "cond": "イドメタとセットで検討"
+      }
+     ],
+     "returns": [
+      {
+       "card": "刹那のクイックブレイダー",
+       "cond": "ドラゴン・ビショップ対面では基本的に返す"
+      }
+     ]
+    },
+    {
+     "src": "nt-motoyashiki",
+     "keeps": [
+      {
+       "card": "刹那のクイックブレイダー",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "2コストのフォロワー（クイックブレイダーと合わせて3枚まで）",
+       "side": "both",
+       "tier": "main",
+       "generic": true
+      },
+      {
+       "card": "渦潮の砲手",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "波濤の副船長",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "逆行の咎人・バルバロス",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "アージュドール"
+       ],
+       "side": "both",
+       "cond": "コンボエルフ・ミッドレンジナイトメア対面で低コストの横"
+      },
+      {
+       "cards": [
+        "迷夢の獅子・モルドレッド"
+       ],
+       "side": "both",
+       "cond": "海賊ロイヤル同型で2コストの横／ランプドラゴン・アミュレットビショップ対面では単体でも"
+      },
+      {
+       "cards": [
+        "真紅と群青・ゼタ&ベアトリクス"
+       ],
+       "side": "both",
+       "cond": "ランプドラゴン・アミュレットビショップ対面で2コストの横"
+      },
+      {
+       "cards": [
+        "燃え落ちる縁"
+       ],
+       "side": "both",
+       "cond": "実験体ウィッチ対面で低コスト2枚の横／AFネメシス対面で2コストの横"
+      }
+     ],
+     "returns": [
+      {
+       "card": "波濤の副船長",
+       "cond": "手札にあるのが副船長とバルバロスの2枚だけの時は副船長を返す"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "class": "ウィッチ",
+   "name": "魔手ウィッチ",
+   "aliases": [
+    "天晶ウィッチ"
+   ],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier1"
+    },
+    {
+     "site": "GameWith",
+     "tier": "S"
+    },
+    {
+     "site": "Dexel",
+     "tier": "Tier1"
+    }
+   ],
+   "entries": [
+    {
+     "src": "g8-764034",
+     "keeps": [
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "天晶授与",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "旧き天晶・カルギデンスラ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "魔恋の慕情・シイム",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "魔恋の天晶",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "正常の侵食",
+       "side": "both",
+       "tier": "sub"
+      }
+     ]
+    },
+    {
+     "src": "gw-546341",
+     "keeps": [
+      {
+       "card": "旧き天晶カルギデンスラ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "天晶授与",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "魔恋の慕情シイム"
+       ],
+       "side": "both",
+       "cond": "カルギデンスラがある時にセットで"
+      },
+      {
+       "cards": [
+        "魔恋の天晶",
+        "魔恋の慕情シイム"
+       ],
+       "side": "both",
+       "cond": "ドラゴン対面"
+      }
+     ]
+    },
+    {
+     "src": "dx-witch-20260908",
+     "keeps": [
+      {
+       "card": "旧き天晶・カルギデンスラ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "天晶授与",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "鋼鉄の微睡み",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "マナリアスクリプター・ティコ"
+       ],
+       "side": "both",
+       "cond": "エルフ・ロイヤル・ナイトメア・ネメシスなど序盤から盤面を取りに来る相手"
+      },
+      {
+       "cards": [
+        "天晶の魔手",
+        "正常の侵食"
+       ],
+       "side": "both",
+       "cond": "コンボのキープ候補（相手がアグロ寄りなら守りのカードを優先）"
+      },
+      {
+       "cards": [
+        "知恵の輝き",
+        "ハッピーフラワー・サミー＆マリー"
+       ],
+       "side": "both",
+       "cond": "手札に大遊戯世界がない時"
+      },
+      {
+       "cards": [
+        "魔恋の天晶",
+        "ハッピーフラワー・サミー＆マリー"
+       ],
+       "side": "both",
+       "cond": "序盤の対応とリソース確保を両立したい時"
+      }
+     ],
+     "returns": [
+      {
+       "card": "魔恋の慕情・シイム",
+       "cond": "基本はキープしない（カルギデンスラとリソース札が揃っている時は例外）"
+      }
+     ]
+    },
+    {
+     "src": "x-kiruka-0906",
+     "keeps": [
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "旧き天晶・カルギデンスラ",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "天晶授与",
+        "マナリアスクリプター・ティコ"
+       ],
+       "side": "both",
+       "cond": "テンポ型の相手（ナイトメア・ネメシス・エルフ・ロイヤル）"
+      },
+      {
+       "cards": [
+        "正常の侵食",
+        "鋼鉄の微睡み"
+       ],
+       "side": "both",
+       "cond": "コントロール型の相手"
+      },
+      {
+       "cards": [
+        "テンポ用のカード"
+       ],
+       "side": "both",
+       "cond": "リソース札やカルギデンスラとセットで"
+      }
+     ]
+    },
+    {
+     "src": "x-nemuru-0827",
+     "keeps": [
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main",
+       "note": "画像で3枚（優先度 高）"
+      },
+      {
+       "card": "天晶授与",
+       "side": "both",
+       "tier": "main",
+       "note": "画像で3枚（優先度 高）"
+      },
+      {
+       "card": "旧き天晶・カルギデンスラ",
+       "side": "both",
+       "tier": "main",
+       "note": "画像で3枚（優先度 高）"
+      },
+      {
+       "card": "魔恋の天晶",
+       "side": "both",
+       "tier": "sub",
+       "note": "画像で2枚"
+      },
+      {
+       "card": "魔恋の慕情・シイム",
+       "side": "both",
+       "tier": "sub",
+       "note": "画像で2枚"
+      },
+      {
+       "card": "鋼鉄の微睡み",
+       "side": "both",
+       "tier": "sub",
+       "note": "画像で2枚"
+      },
+      {
+       "card": "暗黒次元",
+       "side": "both",
+       "tier": "sub",
+       "note": "画像で1枚"
+      },
+      {
+       "card": "知恵の輝き",
+       "side": "both",
+       "tier": "sub",
+       "note": "画像で1枚"
+      },
+      {
+       "card": "アンリーシュ",
+       "side": "both",
+       "tier": "sub",
+       "note": "画像で1枚"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "class": "ウィッチ",
+   "name": "実験体ウィッチ",
+   "aliases": [
+    "セフィーウィッチ"
+   ],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier2"
+    },
+    {
+     "site": "GameWith",
+     "tier": "A"
+    },
+    {
+     "site": "Dexel",
+     "tier": "Tier2"
+    }
+   ],
+   "entries": [
+    {
+     "src": "g8-811845",
+     "keeps": [
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "万術の咎人・セフィー",
+       "side": "both",
+       "tier": "main"
+      }
+     ]
+    },
+    {
+     "src": "gw-573926",
+     "keeps": [
+      {
+       "card": "知恵の輝き",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "鋼鉄の微睡み",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "万術の咎人セフィー",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "没入の実験体",
+        "人らしい愛",
+        "心酔の研究者"
+       ],
+       "side": "both",
+       "cond": "上記が揃ってリソースが安定しそうな時"
+      }
+     ]
+    },
+    {
+     "src": "dx-witch-20260902",
+     "keeps": [
+      {
+       "card": "万術の咎人・セフィー",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "魔女の錬金釜",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "没入の実験体",
+       "side": "both",
+       "tier": "sub",
+       "note": "1枚まで"
+      },
+      {
+       "card": "人らしい愛",
+       "side": "both",
+       "tier": "sub",
+       "note": "1枚まで"
+      },
+      {
+       "card": "心酔の研究者",
+       "side": "both",
+       "tier": "sub",
+       "note": "1枚まで"
+      }
+     ]
+    },
+    {
+     "src": "x-figole-0829",
+     "keeps": [
+      {
+       "card": "魔女の錬金釜",
+       "side": "both",
+       "tier": "main",
+       "note": "ドローソースとして"
+      },
+      {
+       "card": "旅路",
+       "side": "both",
+       "tier": "main",
+       "note": "本文の略称（ドローソース）。公式カード名は未確認"
+      },
+      {
+       "card": "万術の咎人・セフィー",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "没入の実験体",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "人らしい愛",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "心酔の研究者",
+       "side": "both",
+       "tier": "main"
+      }
+     ]
+    },
+    {
+     "src": "x-yatapirika-0830",
+     "keeps": [
+      {
+       "card": "万術の咎人・セフィー",
+       "side": "both",
+       "tier": "main",
+       "note": "何枚でも"
+      },
+      {
+       "card": "没入の実験体",
+       "side": "both",
+       "tier": "main",
+       "note": "1枚まで"
+      },
+      {
+       "card": "心酔の研究者",
+       "side": "both",
+       "tier": "main",
+       "note": "1枚まで"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "大遊戯世界",
+        "過剰反応"
+       ],
+       "side": "both",
+       "cond": "セフィーがあるときにセットで（各1枚まで）"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "class": "ウィッチ",
+   "name": "スペルウィッチ",
+   "aliases": [],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier3"
+    },
+    {
+     "site": "GameWith",
+     "tier": "B"
+    }
+   ],
+   "entries": [
+    {
+     "src": "g8-781945",
+     "keeps": [
+      {
+       "card": "恩愛の大地・テトラ＆ラティカ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "知恵の輝き",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "緑の幸・ムニャール＆マンマル2号＆ジーナ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "ストームブラスト",
+       "side": "second",
+       "tier": "main"
+      },
+      {
+       "card": "マナリアスクリプター・ティコ",
+       "side": "second",
+       "tier": "main"
+      }
+     ]
+    },
+    {
+     "src": "gw-527318",
+     "keeps": [
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "鋼鉄の微睡み",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "恩愛の大地テトラ&ラティカ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "マナリアスクリプターティコ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "ストームブラスト",
+       "side": "both",
+       "tier": "main",
+       "note": "相手がアグロの可能性がある時"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "知恵の輝き",
+        "リンクル"
+       ],
+       "side": "both",
+       "cond": "大遊戯世界とセット"
+      },
+      {
+       "cards": [
+        "ハッピーフラワー・サミー＆マリー"
+       ],
+       "side": "both",
+       "cond": "スペルとセット"
+      }
+     ]
+    },
+    {
+     "src": "dx-witch-20260830",
+     "keeps": [
+      {
+       "card": "鋼鉄の微睡み",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "ハッピーフラワー・サミー＆マリー",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "過剰反応",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "恩愛の大地・テトラ＆ラティカ",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "明越花・アラ",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "破式の変貌・フィーリン",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "明越花の転変",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "緑の幸・ムニャール＆マンマル2号＆ジーナ",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "ストームブラスト",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "マナリアスクリプター・ティコ",
+       "side": "both",
+       "tier": "sub"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "除去カード"
+       ],
+       "side": "both",
+       "cond": "アグロ対面で優先度を上げる"
+      },
+      {
+       "cards": [
+        "ドロー・フィニッシャー"
+       ],
+       "side": "both",
+       "cond": "ビショップなどOTK型対面で優先度を上げる"
+      },
+      {
+       "cards": [
+        "明越花・アラ"
+       ],
+       "side": "both",
+       "cond": "連携ロイヤル・AFネメシスなどミッドレンジ対面で優先度を上げる"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "class": "ドラゴン",
+   "name": "ランプドラゴン",
+   "aliases": [],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier1"
+    },
+    {
+     "site": "GameWith",
+     "tier": "A"
+    },
+    {
+     "site": "Dexel",
+     "tier": "Tier1.5"
+    }
+   ],
+   "entries": [
+    {
+     "src": "g8-698541",
+     "keeps": [
+      {
+       "card": "喧伝の龍人",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "竜の啓示",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "烈絶の顕現・ガルミーユ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "世界の味方・ゾーイ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "金銀絢爛・リュミオール＆アルジャンテ",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "焦灰のアナテマ・バーンドナイト"
+       ],
+       "side": "both",
+       "cond": "コントロール対面"
+      }
+     ]
+    },
+    {
+     "src": "gw-503022",
+     "keeps": [
+      {
+       "card": "竜の啓示",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "金銀絢爛リュミオール&アルジャンテ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "喧伝の龍人",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "世界の味方ゾーイ",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "怠惰なる波揺花",
+        "暗黒次元",
+        "プロミネンスロア"
+       ],
+       "side": "both",
+       "cond": "ロイヤルやナイトメアなど序盤の展開が強い対面"
+      }
+     ]
+    },
+    {
+     "src": "x-ritz-0903",
+     "keeps": [
+      {
+       "card": "ランプ（PPを増やすカード）",
+       "side": "both",
+       "tier": "main",
+       "generic": true
+      },
+      {
+       "card": "禁牙の変貌・ノマグダラ",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "returns": [
+      {
+       "card": "ランプとノマグダラ以外（2コストのフォロワー、怠惰なる波揺花、プロミネンスロアなど）",
+       "cond": "ナイトメア対面では単体でキープせず返す。セットでのキープはする"
+      }
+     ]
+    },
+    {
+     "src": "x-tommy-0902",
+     "keeps": [
+      {
+       "card": "2コストのランプ札",
+       "side": "both",
+       "tier": "main",
+       "generic": true
+      }
+     ],
+     "returns": [
+      {
+       "card": "ランプ札以外",
+       "cond": "すべて返す（2コスト17枚型の構築）"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "class": "ドラゴン",
+   "name": "フェイスドラゴン",
+   "aliases": [],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier2"
+    },
+    {
+     "site": "GameWith",
+     "tier": "A"
+    },
+    {
+     "site": "Dexel",
+     "tier": "Tier2"
+    }
+   ],
+   "entries": [
+    {
+     "src": "gw-503021",
+     "keeps": [
+      {
+       "card": "寸裂の盗人",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "幼竜の癇癪",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "笑顔の調理キミカ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "絶倒の襲撃者",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "果断のドラゴニュート",
+       "side": "both",
+       "tier": "main"
+      }
+     ]
+    }
+   ],
+   "nodata": [
+    "g8-698337"
+   ]
+  },
+  {
+   "class": "ナイトメア",
+   "name": "ミッドレンジナイトメア",
+   "aliases": [],
+   "tiers": [
+    {
+     "site": "GameWith",
+     "tier": "S"
+    },
+    {
+     "site": "Dexel",
+     "tier": "Tier1"
+    }
+   ],
+   "entries": [
+    {
+     "src": "gw-503027",
+     "keeps": [
+      {
+       "card": "魅惑のサキュバスリリム",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "キュートな悪魔リリム",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "デーモンドラムラズ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "幽冥の中尉",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "トラブルネクロマンサー",
+        "タイトロープキャット"
+       ],
+       "side": "both",
+       "cond": "1・2コストを確保できた時（進化ターン用）"
+      }
+     ]
+    },
+    {
+     "src": "dx-nightmare-20260829",
+     "keeps": [
+      {
+       "card": "1〜2コストのフォロワー",
+       "side": "both",
+       "tier": "main",
+       "generic": true
+      },
+      {
+       "card": "タイトロープキャット",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "元素の共鳴・バアル",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "トラブルネクロマンサー",
+       "side": "second",
+       "tier": "main"
+      },
+      {
+       "card": "淵底の大佐",
+       "side": "second",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "イステンデッド VS マルチルゲート"
+       ],
+       "side": "both",
+       "cond": "ネメシス対面で優先してキープ"
+      }
+     ]
+    },
+    {
+     "src": "x-tbt-0907",
+     "keeps": [
+      {
+       "card": "幽冥の中尉",
+       "side": "both",
+       "tier": "main",
+       "note": "優先度S（単体でキープ）"
+      },
+      {
+       "card": "デーモンドラム・ラズ",
+       "side": "both",
+       "tier": "main",
+       "note": "優先度S（単体でキープ）"
+      },
+      {
+       "card": "タイトロープキャット",
+       "side": "both",
+       "tier": "sub",
+       "note": "優先度A（2枚目以降で検討）。ナイトメア・ネメシス対面は優先度S"
+      },
+      {
+       "card": "元素の共鳴・バアル",
+       "side": "first",
+       "tier": "sub",
+       "note": "優先度A（先攻）"
+      },
+      {
+       "card": "トラブルネクロマンサー",
+       "side": "second",
+       "tier": "sub",
+       "note": "優先度A（後攻）"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "リリム"
+       ],
+       "side": "both",
+       "cond": "ドラゴン対面では優先度S（本文は略称で、キュートな悪魔・リリム／魅惑のサキュバス・リリムのどちらかは特定できない）"
+      },
+      {
+       "cards": [
+        "タイトロープキャット"
+       ],
+       "side": "both",
+       "cond": "ナイトメア・ネメシス対面では単体でもキープ（優先度S）"
+      },
+      {
+       "cards": [
+        "元素の共鳴・バアル"
+       ],
+       "side": "second",
+       "cond": "ドラゴン対面なら後攻でもキープしてよい"
+      },
+      {
+       "cards": [
+        "旧き天眼・ビバティー"
+       ],
+       "side": "first",
+       "cond": "起動が見込めるカードとセットのとき（優先度B）"
+      },
+      {
+       "cards": [
+        "イステンデッドVSマルチルゲート"
+       ],
+       "side": "both",
+       "cond": "序盤〜中盤を十分につなげそうなカードとセットのとき（エルフ・ナイトメア・ネメシス対面、優先度B）"
+      }
+     ]
+    },
+    {
+     "src": "x-fujinon-0829",
+     "keeps": [
+      {
+       "card": "序盤に動けるカード",
+       "side": "both",
+       "tier": "main",
+       "generic": true
+      },
+      {
+       "card": "タイトロープキャット",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "トラブルネクロマンサー",
+       "side": "second",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "淵底の大佐",
+        "夜の唱のライブ"
+       ],
+       "side": "second",
+       "cond": "セットでキープすることがある（後攻1ターン目に大佐を置くと強いため）"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "class": "ナイトメア",
+   "name": "アグロナイトメア",
+   "aliases": [],
    "tiers": [],
    "entries": [
-    {"src": "dx-nightmare-20260909", "keeps": [
-     {"card": "1〜2コストのフォロワー", "side": "both", "tier": "main", "generic": true},
-     {"card": "達筆の怪異", "side": "both", "tier": "sub"},
-     {"card": "バニーな悪魔・リミル", "side": "both", "tier": "sub"},
-     {"card": "元素の共鳴・バアル", "side": "both", "tier": "sub"},
-     {"card": "誠実なる呪い屋・スージー", "side": "both", "tier": "sub"}],
+    {
+     "src": "dx-nightmare-20260909",
+     "keeps": [
+      {
+       "card": "1〜2コストのフォロワー",
+       "side": "both",
+       "tier": "main",
+       "generic": true
+      },
+      {
+       "card": "達筆の怪異",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "バニーな悪魔・リミル",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "元素の共鳴・バアル",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "誠実なる呪い屋・スージー",
+       "side": "both",
+       "tier": "sub"
+      }
+     ],
      "cond": [
-      {"cards": ["バニーな悪魔・リミル"], "side": "first", "cond": "1コストとセット"},
-      {"cards": ["バニーな悪魔・リミル"], "side": "second", "cond": "2コストとのセットでも可"},
-      {"cards": ["バニーな悪魔・リミル"], "side": "both", "cond": "ロイヤル・ウィッチ対面では控えたほうがよい場合もある"},
-      {"cards": ["達筆の怪異"], "side": "both", "cond": "キュートな悪魔・リリムとセット／エルフ対面・ナイトメア同型では単体でも"},
-      {"cards": ["ゴーストエスケーパー"], "side": "both", "cond": "エルフ・ネメシス対面で1〜2コストの横"},
-      {"cards": ["ガロダートVSゼット"], "side": "both", "cond": "ウィッチ対面で1〜2コストの横"},
-      {"cards": ["元素の共鳴・バアル"], "side": "both", "cond": "ドラゴン対面で1コストの横"}]}
+      {
+       "cards": [
+        "バニーな悪魔・リミル"
+       ],
+       "side": "first",
+       "cond": "1コストとセット"
+      },
+      {
+       "cards": [
+        "バニーな悪魔・リミル"
+       ],
+       "side": "second",
+       "cond": "2コストとのセットでも可"
+      },
+      {
+       "cards": [
+        "バニーな悪魔・リミル"
+       ],
+       "side": "both",
+       "cond": "ロイヤル・ウィッチ対面では控えたほうがよい場合もある"
+      },
+      {
+       "cards": [
+        "達筆の怪異"
+       ],
+       "side": "both",
+       "cond": "キュートな悪魔・リリムとセット／エルフ対面・ナイトメア同型では単体でも"
+      },
+      {
+       "cards": [
+        "ゴーストエスケーパー"
+       ],
+       "side": "both",
+       "cond": "エルフ・ネメシス対面で1〜2コストの横"
+      },
+      {
+       "cards": [
+        "ガロダートVSゼット"
+       ],
+       "side": "both",
+       "cond": "ウィッチ対面で1〜2コストの横"
+      },
+      {
+       "cards": [
+        "元素の共鳴・バアル"
+       ],
+       "side": "both",
+       "cond": "ドラゴン対面で1コストの横"
+      }
+     ]
+    }
    ]
   },
   {
-   "class": "ナイトメア", "name": "ラストワードナイトメア", "aliases": [],
-   "tiers": [{"site": "Game8", "tier": "Tier1"}],
+   "class": "ナイトメア",
+   "name": "ラストワードナイトメア",
+   "aliases": [],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier1"
+    }
+   ],
    "entries": [],
-   "nodata": ["g8-811839"]
+   "nodata": [
+    "g8-811839"
+   ]
   },
-
   {
-   "class": "ビショップ", "name": "アミュレットビショップ", "aliases": [],
-   "tiers": [{"site": "Game8", "tier": "Tier2"}, {"site": "GameWith", "tier": "A"}, {"site": "Dexel", "tier": "Tier1.5"}],
+   "class": "ビショップ",
+   "name": "アミュレットビショップ",
+   "aliases": [],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier2"
+    },
+    {
+     "site": "GameWith",
+     "tier": "A"
+    },
+    {
+     "site": "Dexel",
+     "tier": "Tier1.5"
+    }
+   ],
    "entries": [
-    {"src": "g8-698347", "keeps": [
-     {"card": "大遊戯世界", "side": "both", "tier": "main"},
-     {"card": "汚濁の聖水", "side": "both", "tier": "main"},
-     {"card": "救済の聖典", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["無欠の時計", "海蝕の三叉槍"], "side": "both", "cond": "展開型デッキ対面"}]},
-    {"src": "gw-546339", "keeps": [
-     {"card": "陽光の耳飾り", "side": "both", "tier": "main"},
-     {"card": "救済の聖典", "side": "both", "tier": "main"},
-     {"card": "朋友の学級", "side": "both", "tier": "main"},
-     {"card": "汚濁の聖水", "side": "both", "tier": "main"},
-     {"card": "無欠の時計", "side": "both", "tier": "main"},
-     {"card": "海蝕の三叉槍", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["崇高の天書"], "side": "both", "cond": "救済の聖典とセット"}]},
-    {"src": "dx-bishop-20260901", "keeps": [
-     {"card": "救済の聖典", "side": "both", "tier": "main"},
-     {"card": "汚濁の聖水", "side": "both", "tier": "main"},
-     {"card": "海蝕の三叉槍", "side": "both", "tier": "main"},
-     {"card": "無欠の時計", "side": "both", "tier": "main"},
-     {"card": "崇奉の怯者", "side": "both", "tier": "sub"},
-     {"card": "朋友の学級", "side": "both", "tier": "sub"},
-     {"card": "崇高の天書", "side": "both", "tier": "sub"}],
+    {
+     "src": "g8-698347",
+     "keeps": [
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "汚濁の聖水",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "救済の聖典",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
      "cond": [
-      {"cards": ["旧き天書・リアントース"], "side": "both", "cond": "ビショップ同型"},
-      {"cards": ["アドアマネージャー・イニシア"], "side": "both", "cond": "ミッドレンジナイトメア・ドラゴン対面で初手の質が良い時に検討"}]}
+      {
+       "cards": [
+        "無欠の時計",
+        "海蝕の三叉槍"
+       ],
+       "side": "both",
+       "cond": "展開型デッキ対面"
+      }
+     ]
+    },
+    {
+     "src": "gw-546339",
+     "keeps": [
+      {
+       "card": "陽光の耳飾り",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "救済の聖典",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "朋友の学級",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "汚濁の聖水",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "無欠の時計",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "海蝕の三叉槍",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "崇高の天書"
+       ],
+       "side": "both",
+       "cond": "救済の聖典とセット"
+      }
+     ]
+    },
+    {
+     "src": "dx-bishop-20260901",
+     "keeps": [
+      {
+       "card": "救済の聖典",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "汚濁の聖水",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "海蝕の三叉槍",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "無欠の時計",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "崇奉の怯者",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "朋友の学級",
+       "side": "both",
+       "tier": "sub"
+      },
+      {
+       "card": "崇高の天書",
+       "side": "both",
+       "tier": "sub"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "旧き天書・リアントース"
+       ],
+       "side": "both",
+       "cond": "ビショップ同型"
+      },
+      {
+       "cards": [
+        "アドアマネージャー・イニシア"
+       ],
+       "side": "both",
+       "cond": "ミッドレンジナイトメア・ドラゴン対面で初手の質が良い時に検討"
+      }
+     ]
+    }
    ]
   },
   {
-   "class": "ビショップ", "name": "進化ビショップ", "aliases": [],
-   "tiers": [{"site": "Game8", "tier": "Tier3"}, {"site": "GameWith", "tier": "B"}, {"site": "Dexel", "tier": "Tier2"}],
+   "class": "ビショップ",
+   "name": "進化ビショップ",
+   "aliases": [],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier3"
+    },
+    {
+     "site": "GameWith",
+     "tier": "B"
+    },
+    {
+     "site": "Dexel",
+     "tier": "Tier2"
+    }
+   ],
    "entries": [
-    {"src": "g8-734205", "keeps": [
-     {"card": "希望の光彩・リテュエル", "side": "both", "tier": "main"},
-     {"card": "想う《力》・ソフィーナ", "side": "both", "tier": "main"},
-     {"card": "朋友の学級", "side": "both", "tier": "main"},
-     {"card": "図書室の魔女・リリウム", "side": "both", "tier": "main"},
-     {"card": "海蝕の三叉槍", "side": "both", "tier": "sub"}]},
-    {"src": "gw-565666", "keeps": [
-     {"card": "図書室の魔女リリウム", "side": "both", "tier": "main"},
-     {"card": "朋友の学級", "side": "both", "tier": "main"},
-     {"card": "想う《力》ソフィーナ", "side": "both", "tier": "main"}],
-     "cond": [{"cards": ["飛躍の姉妹ベルディリア＆カステル"], "side": "both", "cond": "2コストとソフィーナを確保できている時"}]}
+    {
+     "src": "g8-734205",
+     "keeps": [
+      {
+       "card": "希望の光彩・リテュエル",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "想う《力》・ソフィーナ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "朋友の学級",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "図書室の魔女・リリウム",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "海蝕の三叉槍",
+       "side": "both",
+       "tier": "sub"
+      }
+     ]
+    },
+    {
+     "src": "gw-565666",
+     "keeps": [
+      {
+       "card": "図書室の魔女リリウム",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "朋友の学級",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "想う《力》ソフィーナ",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "飛躍の姉妹ベルディリア＆カステル"
+       ],
+       "side": "both",
+       "cond": "2コストとソフィーナを確保できている時"
+      }
+     ]
+    }
    ]
   },
   {
-   "class": "ビショップ", "name": "クキシロビショップ", "aliases": [],
+   "class": "ビショップ",
+   "name": "クキシロビショップ",
+   "aliases": [],
    "tiers": [],
    "entries": [
-    {"src": "dx-bishop-20260907", "keeps": [
-     {"card": "霧巻花・クキシロ", "side": "both", "tier": "main"},
-     {"card": "大遊戯世界", "side": "both", "tier": "main"},
-     {"card": "崇奉の怯者", "side": "both", "tier": "main"}],
+    {
+     "src": "dx-bishop-20260907",
+     "keeps": [
+      {
+       "card": "霧巻花・クキシロ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "崇奉の怯者",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
      "cond": [
-      {"cards": ["希望の光彩・リテュエル", "土の理・ガレヲン"], "side": "both", "cond": "エルフ・ロイヤル・ネメシス対面"},
-      {"cards": ["享楽の上位市民", "海蝕の三叉槍", "結びの使徒"], "side": "both", "cond": "ロイヤル対面で追加"},
-      {"cards": ["窮鼠の斎女", "希望の光彩・リテュエル", "土の理・ガレヲン"], "side": "both", "cond": "ウィッチ・ナイトメア対面（斎女とリテュエルはどちらか）"},
-      {"cards": ["海蝕の三叉槍"], "side": "both", "cond": "ナイトメア対面で追加"},
-      {"cards": ["刻みし約束", "結びの使徒"], "side": "both", "cond": "ナイトメア対面で上位市民・ガレヲンが見えていない時の妥協"},
-      {"cards": ["結びの使徒", "英雄幻視・トルー", "土の理・ガレヲン"], "side": "both", "cond": "ドラゴン対面"},
-      {"cards": ["レフィーエの宝石", "堅固なる霧巻花"], "side": "both", "cond": "ビショップ同型"}]}
+      {
+       "cards": [
+        "希望の光彩・リテュエル",
+        "土の理・ガレヲン"
+       ],
+       "side": "both",
+       "cond": "エルフ・ロイヤル・ネメシス対面"
+      },
+      {
+       "cards": [
+        "享楽の上位市民",
+        "海蝕の三叉槍",
+        "結びの使徒"
+       ],
+       "side": "both",
+       "cond": "ロイヤル対面で追加"
+      },
+      {
+       "cards": [
+        "窮鼠の斎女",
+        "希望の光彩・リテュエル",
+        "土の理・ガレヲン"
+       ],
+       "side": "both",
+       "cond": "ウィッチ・ナイトメア対面（斎女とリテュエルはどちらか）"
+      },
+      {
+       "cards": [
+        "海蝕の三叉槍"
+       ],
+       "side": "both",
+       "cond": "ナイトメア対面で追加"
+      },
+      {
+       "cards": [
+        "刻みし約束",
+        "結びの使徒"
+       ],
+       "side": "both",
+       "cond": "ナイトメア対面で上位市民・ガレヲンが見えていない時の妥協"
+      },
+      {
+       "cards": [
+        "結びの使徒",
+        "英雄幻視・トルー",
+        "土の理・ガレヲン"
+       ],
+       "side": "both",
+       "cond": "ドラゴン対面"
+      },
+      {
+       "cards": [
+        "レフィーエの宝石",
+        "堅固なる霧巻花"
+       ],
+       "side": "both",
+       "cond": "ビショップ同型"
+      }
+     ]
+    },
+    {
+     "src": "x-solasola-0906",
+     "keeps": [
+      {
+       "card": "大遊戯世界",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "崇奉の怯者",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "霧巻花・クキシロ",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "土の理・ガレヲン",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
+     "cond": [
+      {
+       "cards": [
+        "希望の光彩・リテュエル"
+       ],
+       "side": "both",
+       "cond": "エルフ対面"
+      },
+      {
+       "cards": [
+        "レ・フィーエの宝石",
+        "堅固なる霧巻花"
+       ],
+       "side": "both",
+       "cond": "エルフ対面でクキシロがあるとき"
+      },
+      {
+       "cards": [
+        "激憤"
+       ],
+       "side": "both",
+       "cond": "エルフ対面でクキシロがないとき（本文の略称。公式カード名は未確認）"
+      },
+      {
+       "cards": [
+        "享楽の上位市民",
+        "海蝕の三叉槍",
+        "希望の光彩・リテュエル"
+       ],
+       "side": "both",
+       "cond": "ナイトメア・疾走ネメシス・ロイヤル対面（上位市民を優先、なければ三叉槍。加えてリテュエル）"
+      },
+      {
+       "cards": [
+        "結びの使徒",
+        "刻みし約束"
+       ],
+       "side": "first",
+       "cond": "相手の先攻1ターン目のクイックブレイダー対策。共通のキープ札が引けているなら候補（本人も「アリかも」と保留）"
+      },
+      {
+       "cards": [
+        "堅固なる霧巻花"
+       ],
+       "side": "both",
+       "cond": "クキシロがあるとき"
+      }
+     ]
+    }
    ]
   },
-
   {
-   "class": "ネメシス", "name": "AFネメシス", "aliases": ["アーティファクトネメシス"],
-   "tiers": [{"site": "Game8", "tier": "Tier2"}, {"site": "GameWith", "tier": "A"}, {"site": "Dexel", "tier": "Tier1.5"}],
+   "class": "ネメシス",
+   "name": "AFネメシス",
+   "aliases": [
+    "アーティファクトネメシス"
+   ],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier2"
+    },
+    {
+     "site": "GameWith",
+     "tier": "A"
+    },
+    {
+     "site": "Dexel",
+     "tier": "Tier1.5"
+    }
+   ],
    "entries": [
-    {"src": "g8-698326", "keeps": [
-     {"card": "チルスケーター", "side": "both", "tier": "main"},
-     {"card": "ストリートラン", "side": "both", "tier": "main"},
-     {"card": "アナタの先輩・エース", "side": "both", "tier": "main"}]},
-    {"src": "gw-503019", "keeps": [
-     {"card": "ストリートラン", "side": "both", "tier": "main"},
-     {"card": "アナタの先輩エース", "side": "both", "tier": "main"},
-     {"card": "チルスケーター", "side": "both", "tier": "main"},
-     {"card": "ポータルコネクターラズリ", "side": "both", "tier": "main"}],
+    {
+     "src": "g8-698326",
+     "keeps": [
+      {
+       "card": "チルスケーター",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "ストリートラン",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "アナタの先輩・エース",
+       "side": "both",
+       "tier": "main"
+      }
+     ]
+    },
+    {
+     "src": "gw-503019",
+     "keeps": [
+      {
+       "card": "ストリートラン",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "アナタの先輩エース",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "チルスケーター",
+       "side": "both",
+       "tier": "main"
+      },
+      {
+       "card": "ポータルコネクターラズリ",
+       "side": "both",
+       "tier": "main"
+      }
+     ],
      "cond": [
-      {"cards": ["ワイルドキャスター", "愚劣の兵器", "エッジーマスター"], "side": "both", "cond": "低コストとセット（中コスト帯）"},
-      {"cards": ["低劣の玩具", "旧き天斧ヨグゼンタ"], "side": "both", "cond": "2枚セットでキープ（玩具のアクセラレートからヨグゼンタで序盤に天斧の深淵を加えるため）"}]}
+      {
+       "cards": [
+        "ワイルドキャスター",
+        "愚劣の兵器",
+        "エッジーマスター"
+       ],
+       "side": "both",
+       "cond": "低コストとセット（中コスト帯）"
+      },
+      {
+       "cards": [
+        "低劣の玩具",
+        "旧き天斧ヨグゼンタ"
+       ],
+       "side": "both",
+       "cond": "2枚セットでキープ（玩具のアクセラレートからヨグゼンタで序盤に天斧の深淵を加えるため）"
+      }
+     ]
+    }
    ]
   },
   {
-   "class": "ネメシス", "name": "OTK人形ネメシス", "aliases": [],
-   "tiers": [{"site": "Game8", "tier": "Tier3"}],
+   "class": "ネメシス",
+   "name": "OTK人形ネメシス",
+   "aliases": [],
+   "tiers": [
+    {
+     "site": "Game8",
+     "tier": "Tier3"
+    }
+   ],
    "entries": [],
-   "nodata": ["g8-813914"]
+   "nodata": [
+    "g8-813914"
+   ]
   }
  ]
 }

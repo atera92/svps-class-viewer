@@ -32,11 +32,13 @@ main{max-width:1180px;margin:0 auto;padding:14px}
 .intro ul{margin:2px 0 0;padding-left:18px}
 .intro li{margin:2px 0}
 .intro .meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin-bottom:6px}
-.legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--mute);margin-top:8px}
+.legend{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--mute);margin-top:8px}
 
-#filter{display:flex;gap:4px;flex-wrap:wrap;margin:10px 0 2px;align-items:center}
-.fc{border:1px solid var(--line);border-radius:5px;padding:5px 11px;cursor:pointer;background:var(--bg3);font-size:12px;user-select:none}
+.bar{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0 2px;align-items:center}
+.bar .lbl{font-size:12px;color:var(--mute);margin-right:4px;min-width:4.5em}
+.fc,.cs{border:1px solid var(--line);border-radius:5px;padding:5px 11px;cursor:pointer;background:var(--bg3);font-size:12px;user-select:none}
 .fc.sel{color:#0d1116;font-weight:700;border-color:transparent}
+.cs.sel{background:var(--accent);color:#191307;font-weight:700;border-color:var(--accent)}
 .hint{font-size:11px;color:var(--mute);margin-left:6px}
 
 .classhead{margin:22px 0 8px;font-size:15px;padding:2px 0 2px 10px;border-left:6px solid}
@@ -62,11 +64,14 @@ main{max-width:1180px;margin:0 auto;padding:14px}
 .cnote{display:block;color:var(--mute);font-size:11px}
 .only{font-size:10px;border-radius:3px;padding:0 5px;margin-left:5px;font-weight:700;white-space:nowrap}
 .only.f{background:#1f4d7a;color:#dbeaff}.only.s{background:#7a3a1f;color:#ffe6db}
-.srcs{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;flex:none;max-width:50%}
+.srcs{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;flex:none;max-width:52%}
 .sb{font-size:10px;border-radius:3px;padding:0 5px;white-space:nowrap;border:1px solid transparent;line-height:1.7}
 .sb.G8{background:#1e3a5f;color:#cfe3ff}.sb.GW{background:#3f2a5f;color:#e8dbff}
-.sb.DX{background:#1f4a3a;color:#cff5e6}.sb.NT{background:#4a3a1f;color:#ffeccc}
+.sb.DX{background:#1f4a3a;color:#cff5e6}.sb.NT{background:#4a3a1f;color:#ffeccc}.sb.X{background:#26303c;color:#e7edf3}
 .sb.sub{background:transparent;border-color:currentColor}
+.cr{font-size:9.5px;border-radius:3px;padding:0 4px;margin-right:3px;font-weight:700}
+.cr.pro{background:#d4a017;color:#1a1300}.cr.expro{background:#b3652b;color:#fff}
+.cr.strong{background:#2d6a4f;color:#e8fff3}.cr.other{background:#56606e;color:#eef1f5}
 .none{color:var(--mute);font-size:12px}
 
 .extra{padding:8px 12px;border-top:1px solid var(--line);font-size:12px}
@@ -85,6 +90,7 @@ main{max-width:1180px;margin:0 auto;padding:14px}
 section.refs{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-top:22px;font-size:12px}
 section.refs h2{font-size:13px;margin:12px 0 4px}
 section.refs h2:first-child{margin-top:0}
+section.refs h3{font-size:12px;margin:8px 0 2px;color:var(--mute)}
 section.refs ul{margin:0;padding-left:18px}
 section.refs li{margin:3px 0;overflow-wrap:anywhere}
 .url{color:var(--mute);font-size:11px;overflow-wrap:anywhere}
@@ -95,29 +101,31 @@ footer{color:var(--mute);font-size:11px;text-align:center;padding:18px 14px 30px
   .cols{grid-template-columns:1fr}
   .col+.col{border-left:0;border-top:1px solid var(--line)}
   .tiers{margin-left:0}
-  .srcs{max-width:45%}
+  .srcs{max-width:46%}
 }
 
 @media print{
   @page{size:A4;margin:9mm}
   :root{--bg:#fff;--bg2:#fff;--bg3:#f3f4f6;--line:#c9ced6;--fg:#111;--mute:#555}
   body{font-size:8.8pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  header,#filter,.noprint{display:none!important}
+  header,.bar,.noprint{display:none!important}
   .printonly{display:block}
   main{max-width:none;padding:0}
   a{color:#0b4ea2;text-decoration:none}
   .keep{border-bottom-color:#e2e5ea;padding:2px 0}
   .cnt{background:#e5e7eb}.cnt.c2{background:#dcefc8}.cnt.c3{background:#bfe295}.cnt.c4{background:#93c94a;color:#111}
   .sb.G8{background:#dbe8fb;color:#123}.sb.GW{background:#eadffb;color:#213}
-  .sb.DX{background:#d7f2e6;color:#132}.sb.NT{background:#fbeccd;color:#321}
+  .sb.DX{background:#d7f2e6;color:#132}.sb.NT{background:#fbeccd;color:#321}.sb.X{background:#e6ebf0;color:#123}
   .sb.sub{background:#fff}
+  .cr.pro{background:#f3d98a;color:#221}.cr.expro{background:#f0c9a8;color:#321}
+  .cr.strong{background:#cdebd9;color:#132}.cr.other{background:#e2e5ea;color:#222}
   .only.f,.side.first{background:#dbeaff;color:#0b3a6a}.only.s,.side.second{background:#ffe2d3;color:#6a2a0b}
   .flag.y{background:#dff5df;color:#133}.flag.p{background:#f7f0cf;color:#332}.flag.n{background:#eee;color:#333}
   .warn{color:#8a5a00}
   /* A4の印字幅はスマホ用の1列レイアウトの条件に入ってしまうので、印刷では常に先攻・後攻を横に並べる */
   .cols{grid-template-columns:1fr 1fr}
   .col+.col{border-left:1px solid var(--line);border-top:0}
-  .srcs{max-width:50%}
+  .srcs{max-width:52%}
   .tiers{margin-left:auto}
   .cname.gen{color:#333}
   .deck{break-inside:avoid;page-break-inside:avoid;margin-bottom:8px}
@@ -138,9 +146,10 @@ footer{color:var(--mute);font-size:11px;text-align:center;padding:18px 14px 30px
 </header>
 
 <main>
-  <div class="printonly"><h1 style="font-size:14pt;margin:0 0 6px">SVPS マリガン早見表</h1></div>
+  <div class="printonly"><h1 style="font-size:14pt;margin:0 0 6px">SVPS マリガン早見表</h1><div id="printmode" style="font-size:9pt;margin-bottom:6px"></div></div>
   <div class="intro" id="intro"></div>
-  <div id="filter" class="noprint"></div>
+  <div class="bar" id="credSel"></div>
+  <div class="bar" id="filter"></div>
   <div id="decks"><div class="none">読み込み中…</div></div>
   <section class="refs" id="refs"></section>
 </main>
@@ -151,23 +160,32 @@ const CLASSES = [
   ['エルフ','--elf'],['ロイヤル','--roy'],['ウィッチ','--wit'],['ドラゴン','--dra'],
   ['ナイトメア','--nig'],['ビショップ','--bis'],['ネメシス','--nem']
 ];
+const CRED = { pro:'プロ', expro:'元プロ', strong:'実力者', other:'上位プレイヤー', site:'攻略サイト' };
+const PASS = new Set(['pro', 'expro', 'strong']);      // 基準を満たす出典
 const $ = s => document.querySelector(s);
 const col = n => {
   const c = CLASSES.find(x => x[0] === n);
   return c ? getComputedStyle(document.documentElement).getPropertyValue(c[1]).trim() : '#888';
 };
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-// 表記揺れ（「・」の有無、& と ＆、《》など）を吸収して同じカードとみなす
+// 表記揺れ（「・」の有無、& と ＆、《》、空白など）を吸収して同じカードとみなす
 const norm = s => String(s).replace(/[・\s&＆《》()（）]/g, '');
 const fmtDate = d => d ? d.replace(/-/g, '/') : '日付不明';
 
-let DATA = null, shown = null;
+let DATA = null, shown = null, credMode = 'pass';
+
+const src = id => DATA.sources[id];
+const credOf = id => src(id).cred || 'site';
+const allowed = id => credMode === 'all' || PASS.has(credOf(id));
+// 同じ人の記事と投稿は1人として数える
+const person = id => src(id).person || src(id).author || src(id).site;
 
 function srcName(s){ return s.author ? s.author : s.site; }
 function badge(id, sub){
-  const s = DATA.sources[id];
-  const tip = `${s.site}${s.author ? ' / ' + s.author : ''}${sub ? '（次点・妥協）' : ''}`;
-  return `<span class="sb ${s.short}${sub ? ' sub' : ''}" title="${esc(tip)}">${esc(srcName(s))}${sub ? '・次点' : ''}</span>`;
+  const s = src(id), c = credOf(id);
+  const mark = c === 'site' ? '' : `<span class="cr ${c}">${CRED[c]}</span>`;
+  const tip = `${CRED[c]}｜${s.site}${s.author ? ' / ' + s.author : ''}${s.credential ? '（' + s.credential + '）' : ''}${sub ? '・次点' : ''}`;
+  return `<span class="sb ${s.short}${sub ? ' sub' : ''}" title="${esc(tip)}">${mark}${esc(srcName(s))}${sub ? '・次点' : ''}</span>`;
 }
 function splitFlag(s){
   if (s.split === true) return '<span class="flag y">先後の区別あり</span>';
@@ -177,9 +195,9 @@ function splitFlag(s){
 
 /* 出典ごとのキープを、先攻・後攻それぞれの列に集計する。
    side:"both" は両方の列へ、"first"/"second" はその列だけへ入れる。 */
-function aggregate(deck){
+function aggregate(ents){
   const side = { first: new Map(), second: new Map() };
-  for (const e of deck.entries){
+  for (const e of ents){
     for (const k of (e.keeps || [])){
       const sides = k.side === 'both' ? ['first', 'second'] : [k.side];
       for (const sd of sides){
@@ -189,14 +207,14 @@ function aggregate(deck){
         if (/・/.test(k.card) && !/・/.test(it.card)) it.card = k.card;   // 「・」付きの正式な表記を優先して表示
         const bucket = k.tier === 'sub' ? it.sub : it.main;
         if (!bucket.includes(e.src)) bucket.push(e.src);
-        if (k.note && !it.notes.includes(k.note)) it.notes.push(k.note);
+        if (k.note && !it.notes.some(n => n.t === k.note)) it.notes.push({ t: k.note, who: srcName(src(e.src)) });
       }
     }
   }
-  const rank = m => [...m.values()].sort((a, b) =>
-    (b.main.length - a.main.length) ||
-    (new Set([...b.main, ...b.sub]).size - new Set([...a.main, ...a.sub]).size));
-  return { first: rank(side.first), second: rank(side.second), side };
+  const people = it => new Set([...it.main, ...it.sub].map(person)).size;
+  const mainPeople = it => new Set(it.main.map(person)).size;
+  const rank = m => [...m.values()].sort((a, b) => (mainPeople(b) - mainPeople(a)) || (people(b) - people(a)));
+  return { first: rank(side.first), second: rank(side.second), side, people };
 }
 
 function renderCol(A, sd){
@@ -205,42 +223,46 @@ function renderCol(A, sd){
   const items = A[sd];
   if (!items.length) return `<div class="col"><h4>${label}</h4><div class="none">キープ情報のある出典なし</div></div>`;
   const rows = items.map(it => {
-    const srcs = new Set([...it.main, ...it.sub]);
-    const n = srcs.size;
+    const n = A.people(it);
     const only = !A.side[other].has(norm(it.card))
       ? `<span class="only ${sd === 'first' ? 'f' : 's'}">${sd === 'first' ? '先攻のみ' : '後攻のみ'}</span>` : '';
-    const badges = it.main.map(id => badge(id, false)).join('')
-                 + it.sub.filter(id => !it.main.includes(id)).map(id => badge(id, true)).join('');
-    const notes = it.notes.length ? `<span class="cnote">${esc(it.notes.join(' / '))}</span>` : '';
+    // バッジは1人1つ（同じ人の記事と投稿はまとめる）
+    const seen = new Set(), badges = [];
+    for (const id of it.main){ if (!seen.has(person(id))){ seen.add(person(id)); badges.push(badge(id, false)); } }
+    for (const id of it.sub){ if (!seen.has(person(id))){ seen.add(person(id)); badges.push(badge(id, true)); } }
+    const notes = it.notes.length ? `<span class="cnote">${it.notes.map(x => esc(x.who + '：' + x.t)).join(' / ')}</span>` : '';
     return `<div class="keep"><span class="cnt c${Math.min(n, 4)}">${n}</span>`
          + `<div class="cname${it.generic ? ' gen' : ''}">${esc(it.card)}${only}${notes}</div>`
-         + `<div class="srcs">${badges}</div></div>`;
+         + `<div class="srcs">${badges.join('')}</div></div>`;
   }).join('');
   return `<div class="col"><h4>${label}<span class="n">${items.length}種</span></h4>${rows}</div>`;
 }
 
 function renderDeck(d){
   const c = col(d.class);
-  const A = aggregate(d);
-  const S = DATA.sources;
+  const ents = d.entries.filter(e => allowed(e.src));
+  const hidden = d.entries.filter(e => !allowed(e.src));
+  const A = aggregate(ents);
   const tiers = (d.tiers || []).map(t => `<span class="tier">${esc(t.site)} ${esc(t.tier)}</span>`).join('');
   const alias = d.aliases && d.aliases.length ? `<span class="alias">（${esc(d.aliases.join('・'))}）</span>` : '';
-  const nSrc = d.entries.length;
-  // 2つ以上の出典が推しているカードの枚数（出典どうしがどれだけ一致しているかの目安）
-  const multi = new Set([...A.first, ...A.second]
-    .filter(x => !x.generic && new Set([...x.main, ...x.sub]).size >= 2).map(x => norm(x.card)));
-  const agree = nSrc > 1
-    ? `<span class="agree">出典${nSrc}件・${multi.size ? multi.size + '枚で複数の出典が一致' : '出典どうしで一致するカードなし'}</span>`
-    : nSrc === 1 ? `<span class="agree">出典1件（照合相手なし）</span>` : '';
+  const nPeople = new Set(ents.map(e => person(e.src))).size;
+  const multi = new Set([...A.first, ...A.second].filter(x => !x.generic && A.people(x) >= 2).map(x => norm(x.card)));
+  const agree = nPeople > 1
+    ? `<span class="agree">出典${nPeople}人・${multi.size ? multi.size + '枚で複数人が一致' : '一致するカードなし'}</span>`
+    : nPeople === 1 ? `<span class="agree">出典1人（照合相手なし）</span>` : '';
 
   let body = '';
-  if (nSrc){
+  if (ents.length){
     body += `<div class="cols">${renderCol(A, 'first')}${renderCol(A, 'second')}</div>`;
+  } else if (hidden.length){
+    const kinds = [...new Set(hidden.map(e => CRED[credOf(e.src)]))].join('・');
+    body += `<div class="extra"><span class="warn">基準を満たす出典（プロ・元プロ・実力者）のマリガン情報は見つかっていません。`
+          + `${esc(kinds)}の情報が${hidden.length}件あります（上の「すべて表示」で確認できます）。</span></div>`;
   } else {
-    body += `<div class="extra"><span class="warn">現環境でマリガン基準を確認できる出典が見つかっていません。</span></div>`;
+    body += `<div class="extra"><span class="warn">今季のマリガン基準を確認できる出典が見つかっていません。</span></div>`;
   }
 
-  const conds = d.entries.flatMap(e => (e.cond || []).map(x => ({ ...x, src: e.src })));
+  const conds = ents.flatMap(e => (e.cond || []).map(x => ({ ...x, src: e.src })));
   if (conds.length){
     body += `<div class="extra"><h5>条件付き・対面別のキープ</h5><ul>` + conds.map(x => {
       const sd = x.side === 'first' ? '<span class="side first">先攻</span>'
@@ -248,25 +270,26 @@ function renderDeck(d){
       return `<li>${sd}<b>${esc(x.cards.join('、'))}</b> — ${esc(x.cond)} ${badge(x.src, false)}</li>`;
     }).join('') + `</ul></div>`;
   }
-  const rets = d.entries.flatMap(e => (e.returns || []).map(x => ({ ...x, src: e.src })));
+  const rets = ents.flatMap(e => (e.returns || []).map(x => ({ ...x, src: e.src })));
   if (rets.length){
     body += `<div class="extra"><h5>返すと書かれているカード</h5><ul>` + rets.map(x =>
       `<li><b>${esc(x.card)}</b> — ${esc(x.cond)} ${badge(x.src, false)}</li>`).join('') + `</ul></div>`;
   }
 
-  const srcRows = d.entries.map(e => {
-    const s = S[e.src];
-    const who = s.author ? `${esc(s.author)}（${esc(s.credential || '')}）` : '';
+  const srcRows = ents.map(e => {
+    const s = src(e.src);
+    const who = s.author ? `${esc(s.author)}${s.handle ? ' @' + esc(s.handle) : ''}（${esc(s.credential || '')}）` : '';
     const note = s.note ? `<br><span class="warn">※${esc(s.note)}</span>` : '';
     return `<li>${badge(e.src, false)} <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.site)}「${esc(s.title)}」</a>`
          + ` ${who} ${fmtDate(s.date)} ${splitFlag(s)}${note}</li>`;
   });
-  (d.nodata || []).forEach(id => {
-    const s = S[id];
+  if (credMode === 'all') (d.nodata || []).forEach(id => {
+    const s = src(id);
     srcRows.push(`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.site)}「${esc(s.title)}」</a>`
                + ` ${fmtDate(s.date)} <span class="flag n">マリガンの記載なし</span></li>`);
   });
-  body += `<div class="srclist"><ul>${srcRows.join('')}</ul></div>`;
+  if (hidden.length) srcRows.push(`<li class="none">基準外の出典 ${hidden.length}件は非表示（${[...new Set(hidden.map(e => CRED[credOf(e.src)]))].join('・')}）</li>`);
+  if (srcRows.length) body += `<div class="srclist"><ul>${srcRows.join('')}</ul></div>`;
 
   return `<div class="deck" data-class="${esc(d.class)}">
     <div class="deckhead" style="border-left-color:${c}"><h3>${esc(d.name)}</h3>${alias}${agree}<div class="tiers">${tiers}</div></div>
@@ -275,26 +298,51 @@ function renderDeck(d){
 
 function renderIntro(){
   const m = DATA.meta;
-  const splitCount = Object.values(DATA.sources).filter(s => s.split === true || s.split === 'partial').length;
-  const used = new Set(DATA.decks.flatMap(d => d.entries.map(e => e.src)));
+  const used = [...new Set(DATA.decks.flatMap(d => d.entries.map(e => e.src)))];
+  const cnt = k => new Set(used.filter(id => credOf(id) === k).map(person)).size;
+  const passPeople = new Set(used.filter(id => PASS.has(credOf(id))).map(person)).size;
+  const splitPass = new Set(used.filter(id => PASS.has(credOf(id)) && src(id).split).map(person)).size;
   $('#intro').innerHTML = `
     <div class="meta"><span>フォーマット：${esc(m.format)}</span><span>環境：${esc(m.environment)}</span><span>集計日：${fmtDate(m.collectedAt)}</span></div>
     <h2>先攻と後攻で基準が変わる理由</h2>
     <ul>${m.rules.text.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
     <div class="url">出典：<a href="${esc(m.rules.source.url)}" target="_blank" rel="noopener">${esc(m.rules.source.label)}</a>（${fmtDate(m.rules.source.date)}更新）</div>
+    <h2>出典の選び方（信頼度）</h2>
+    <ul>${m.credPolicy.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+    <div class="legend">
+      <span class="sb X"><span class="cr pro">プロ</span>名前</span>${cnt('pro')}人
+      <span class="sb X"><span class="cr expro">元プロ</span>名前</span>${cnt('expro')}人
+      <span class="sb DX"><span class="cr strong">実力者</span>名前</span>${cnt('strong')}人
+      <span class="sb X"><span class="cr other">上位プレイヤー</span>名前</span>${cnt('other')}人（基準外）
+      <span class="sb G8">Game8</span><span class="sb GW">GameWith</span>（攻略サイト）
+    </div>
+    <div class="legend"><span>基準を満たす出典は ${passPeople}人。そのうち先攻・後攻を分けて書いていたのは ${splitPass}人です。</span></div>
     <h2>この表の作り方</h2>
     <ul>${m.method.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
     <div class="legend">
-      <span>出典：</span><span class="sb G8">Game8</span><span class="sb GW">GameWith</span>
-      <span class="sb DX">プレイヤー名（Dexel）</span><span class="sb NT">プレイヤー名（note）</span>
-      <span class="sb DX sub">○○・次点</span><span>＝次点・妥協でキープ</span>
+      <span class="sb X sub">○○・次点</span><span>＝次点・妥協でキープ</span>
       <span class="only f">先攻のみ</span><span class="only s">後攻のみ</span><span>＝出典がその手番に限定しているもの</span>
-    </div>
-    <div class="legend"><span>使用した出典 ${used.size} 件のうち、先攻・後攻を区別していたのは ${splitCount} 件だけです。</span></div>`;
+    </div>`;
+  $('#printmode').textContent = credMode === 'all'
+    ? '表示：すべての出典（基準外の上位プレイヤー・攻略サイトを含む）'
+    : '表示：基準を満たす出典のみ（プロ・元プロ・実力者）';
+}
+
+function renderCredSel(){
+  const box = $('#credSel');
+  box.innerHTML = '<span class="lbl">出典</span>';
+  [['pass', '基準を満たす出典のみ（プロ・元プロ・実力者）'], ['all', 'すべて表示（基準外の上位プレイヤー・攻略サイトも含む）']].forEach(([v, t]) => {
+    const b = document.createElement('div');
+    b.className = 'cs' + (credMode === v ? ' sel' : '');
+    b.textContent = t;
+    b.onclick = () => { credMode = v; try { localStorage.setItem('svps-mull-cred', v); } catch(e){} renderAll(); };
+    box.appendChild(b);
+  });
 }
 
 function renderFilter(){
   const box = $('#filter');
+  box.innerHTML = '<span class="lbl">クラス</span>';
   const mk = (label, val, color) => {
     const b = document.createElement('div');
     b.className = 'fc'; b.textContent = label;
@@ -305,7 +353,7 @@ function renderFilter(){
   mk('すべて', null, '#e8edf4');
   CLASSES.forEach(([n]) => mk(n, n, col(n)));
   const h = document.createElement('span');
-  h.className = 'hint'; h.textContent = '印刷・PDF保存では、いま表示しているクラスだけが出力されます';
+  h.className = 'hint'; h.textContent = '印刷・PDF保存では、いま表示している出典・クラスだけが出力されます';
   box.appendChild(h);
   syncFilter();
 }
@@ -334,27 +382,33 @@ function renderDecks(){
 }
 
 function renderRefs(){
-  const m = DATA.meta, S = DATA.sources;
-  const bySite = {};
-  const used = new Set(DATA.decks.flatMap(d => [...d.entries.map(e => e.src), ...(d.nodata || [])]));
-  [...used].forEach(id => { (bySite[S[id].site] ||= []).push(id); });
-  const order = ['Game8', 'GameWith', 'Dexel', 'note'];
+  const m = DATA.meta;
+  const used = [...new Set(DATA.decks.flatMap(d => [...d.entries.map(e => e.src), ...(d.nodata || [])]))];
   let h = `<h2>出典一覧</h2>`;
-  for (const site of order){
-    if (!bySite[site]) continue;
-    h += `<div><b>${esc(site)}</b></div><ul>` + bySite[site].map(id => {
-      const s = S[id];
-      const who = s.author ? ` ${esc(s.author)}（${esc(s.credential || '')}）` : '';
-      return `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">「${esc(s.title)}」</a>${who} ${fmtDate(s.date)}</li>`;
+  for (const k of ['pro', 'expro', 'strong', 'other', 'site']){
+    const ids = used.filter(id => credOf(id) === k);
+    if (!ids.length) continue;
+    h += `<h3>${CRED[k]}${PASS.has(k) ? '' : '（基準外・初期表示では集計に含めない）'}</h3><ul>` + ids.map(id => {
+      const s = src(id);
+      const who = s.author ? ` ${esc(s.author)}${s.handle ? ' @' + esc(s.handle) : ''}（${esc(s.credential || '')}${s.followers ? '、フォロワー' + s.followers.toLocaleString() + '人' : ''}）` : '';
+      return `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.site)}「${esc(s.title)}」</a>${who} ${fmtDate(s.date)}</li>`;
     }).join('') + `</ul>`;
+  }
+  if (m.xSearch){
+    h += `<h2>Xで行った検索</h2><div class="url">${esc(m.xSearch.note)}</div><ul>` + m.xSearch.queries.map(q =>
+      `<li>${esc(q.label)}：新たに取得 ${q.hits}件</li>`).join('') + `</ul>`;
   }
   h += `<h2>デッキ一覧・Tierの出典</h2><ul>` + m.tierSources.map(t =>
     `<li><a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.label)}</a> ${fmtDate(t.date)}</li>`).join('') + `</ul>`;
   h += `<h2>マリガンの仕様の出典</h2><ul><li><a href="${esc(m.rules.source.url)}" target="_blank" rel="noopener">${esc(m.rules.source.label)}</a> ${fmtDate(m.rules.source.date)}</li></ul>`;
-  h += `<h2>確認したが採用しなかった情報源</h2><ul>` + m.excluded.map(x =>
-    `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.label)}</a> — ${esc(x.reason)}</li>`).join('') + `</ul>`;
+  h += `<h2>確認したが採用しなかった情報</h2><ul>` + m.excluded.map(x =>
+    `<li>${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.label)}</a>` : esc(x.label)} — ${esc(x.reason)}</li>`).join('') + `</ul>`;
   $('#refs').innerHTML = h;
-  $('#foot').textContent = `集計日 ${fmtDate(m.collectedAt)}。出典の記事は随時更新されるため、最新の内容は各出典で確認してください。カード名・デッキ名の権利は各権利者に帰属します。`;
+  $('#foot').textContent = `集計日 ${fmtDate(m.collectedAt)}。出典の記事・投稿は随時更新されるため、最新の内容は各出典で確認してください。カード名・デッキ名の権利は各権利者に帰属します。`;
+}
+
+function renderAll(){
+  renderIntro(); renderCredSel(); renderDecks(); renderRefs(); renderFilter();
 }
 
 $('#print').onclick = () => window.print();
@@ -366,11 +420,14 @@ $('#print').onclick = () => window.print();
     $('#decks').innerHTML = '<div class="none">mulligan.json を読み込めませんでした。</div>';
     return;
   }
-  const q = new URLSearchParams(location.search).get('class');
-  let saved = null;
-  try { saved = localStorage.getItem('svps-mull-class') || null; } catch(e){}
+  const qs = new URLSearchParams(location.search);
+  const q = qs.get('class');
+  let saved = null, savedCred = null;
+  try { saved = localStorage.getItem('svps-mull-class') || null; savedCred = localStorage.getItem('svps-mull-cred'); } catch(e){}
   shown = CLASSES.some(c => c[0] === q) ? q : (q === 'all' ? null : (CLASSES.some(c => c[0] === saved) ? saved : null));
-  renderIntro(); renderDecks(); renderRefs(); renderFilter();
+  const srcQ = qs.get('src');
+  credMode = srcQ === 'all' ? 'all' : srcQ === 'pass' ? 'pass' : (savedCred === 'all' ? 'all' : 'pass');
+  renderAll();
   document.body.dataset.ready = '1';
 })();
 </script>
