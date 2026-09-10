@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SVPS マリガン早見表</title>
+<style>
+:root{
+  --bg:#101318; --bg2:#171c24; --bg3:#1e2530; --line:#2c3542;
+  --fg:#e8edf4; --mute:#8b97a8; --accent:#e8b23a;
+  --elf:#3fae5f; --roy:#e8b23a; --wit:#7b6ff0; --dra:#d9772f;
+  --nig:#c0466b; --bis:#d9d2bd; --nem:#35b9cf;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;font-size:13px;line-height:1.55}
+a{color:#9fc3ff}
+header{position:sticky;top:0;z-index:5;background:var(--bg2);border-bottom:1px solid var(--line);
+  padding:8px 14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+header h1{font-size:15px;margin:0;color:var(--accent);white-space:nowrap}
+.grow{flex:1}
+button,.btn{background:var(--bg3);color:var(--fg);border:1px solid var(--line);border-radius:5px;
+  padding:6px 11px;cursor:pointer;font:inherit;text-decoration:none;display:inline-block}
+button:hover,.btn:hover{background:#2a3341}
+.pri{background:var(--accent);color:#191307;border-color:var(--accent);font-weight:700}
+.pri:hover{background:var(--accent);filter:brightness(1.08)}
+main{max-width:1180px;margin:0 auto;padding:14px}
+
+.intro{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:10px}
+.intro h2{font-size:13px;margin:10px 0 4px;color:var(--accent)}
+.intro h2:first-child{margin-top:0}
+.intro ul{margin:2px 0 0;padding-left:18px}
+.intro li{margin:2px 0}
+.intro .meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin-bottom:6px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--mute);margin-top:8px}
+
+#filter{display:flex;gap:4px;flex-wrap:wrap;margin:10px 0 2px;align-items:center}
+.fc{border:1px solid var(--line);border-radius:5px;padding:5px 11px;cursor:pointer;background:var(--bg3);font-size:12px;user-select:none}
+.fc.sel{color:#0d1116;font-weight:700;border-color:transparent}
+.hint{font-size:11px;color:var(--mute);margin-left:6px}
+
+.classhead{margin:22px 0 8px;font-size:15px;padding:2px 0 2px 10px;border-left:6px solid}
+.deck{background:var(--bg2);border:1px solid var(--line);border-radius:8px;margin-bottom:12px;overflow:hidden;break-inside:avoid}
+.deckhead{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;padding:9px 12px;border-bottom:1px solid var(--line);border-left:6px solid}
+.deckhead h3{margin:0;font-size:15px}
+.alias{color:var(--mute);font-size:12px}
+.agree{font-size:11px;color:var(--mute)}
+.tiers{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.tier{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:1px 6px;color:var(--mute);white-space:nowrap}
+
+.cols{display:grid;grid-template-columns:1fr 1fr}
+.col{padding:9px 12px;min-width:0}
+.col+.col{border-left:1px solid var(--line)}
+.col h4{margin:0 0 6px;font-size:13px;letter-spacing:.12em}
+.col h4 .n{color:var(--mute);font-weight:400;letter-spacing:0;margin-left:6px;font-size:11px}
+.keep{display:flex;gap:7px;align-items:flex-start;padding:4px 0;border-bottom:1px dashed #262e3a}
+.keep:last-child{border-bottom:0}
+.cnt{flex:none;min-width:22px;text-align:center;font-weight:700;border-radius:4px;padding:0 4px;font-size:12px;background:#2a3341}
+.cnt.c2{background:#3b4a2a}.cnt.c3{background:#557a26}.cnt.c4{background:#7fb13a;color:#0d1116}
+.cname{flex:1;min-width:0}
+.cname.gen{font-style:italic;color:#c9d3df}
+.cnote{display:block;color:var(--mute);font-size:11px}
+.only{font-size:10px;border-radius:3px;padding:0 5px;margin-left:5px;font-weight:700;white-space:nowrap}
+.only.f{background:#1f4d7a;color:#dbeaff}.only.s{background:#7a3a1f;color:#ffe6db}
+.srcs{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;flex:none;max-width:50%}
+.sb{font-size:10px;border-radius:3px;padding:0 5px;white-space:nowrap;border:1px solid transparent;line-height:1.7}
+.sb.G8{background:#1e3a5f;color:#cfe3ff}.sb.GW{background:#3f2a5f;color:#e8dbff}
+.sb.DX{background:#1f4a3a;color:#cff5e6}.sb.NT{background:#4a3a1f;color:#ffeccc}
+.sb.sub{background:transparent;border-color:currentColor}
+.none{color:var(--mute);font-size:12px}
+
+.extra{padding:8px 12px;border-top:1px solid var(--line);font-size:12px}
+.extra h5{margin:0 0 4px;font-size:12px;color:var(--mute);font-weight:600}
+.extra ul{margin:0;padding-left:16px}
+.extra li{margin:2px 0}
+.side{font-size:10px;border-radius:3px;padding:0 5px;margin-right:5px;font-weight:700}
+.side.first{background:#1f4d7a;color:#dbeaff}.side.second{background:#7a3a1f;color:#ffe6db}
+.srclist{padding:8px 12px;border-top:1px solid var(--line);font-size:11px;color:var(--mute)}
+.srclist ul{margin:0;padding-left:16px}
+.srclist li{margin:2px 0}
+.flag{font-size:10px;border-radius:3px;padding:0 4px;margin-left:4px;white-space:nowrap}
+.flag.y{background:#2d5a2d;color:#dfffdf}.flag.p{background:#5a532d;color:#fff7d6}.flag.n{background:#343a44;color:#c8ced8}
+.warn{color:#e8b23a}
+
+section.refs{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-top:22px;font-size:12px}
+section.refs h2{font-size:13px;margin:12px 0 4px}
+section.refs h2:first-child{margin-top:0}
+section.refs ul{margin:0;padding-left:18px}
+section.refs li{margin:3px 0;overflow-wrap:anywhere}
+.url{color:var(--mute);font-size:11px;overflow-wrap:anywhere}
+footer{color:var(--mute);font-size:11px;text-align:center;padding:18px 14px 30px}
+.printonly{display:none}
+
+@media (max-width:760px){
+  .cols{grid-template-columns:1fr}
+  .col+.col{border-left:0;border-top:1px solid var(--line)}
+  .tiers{margin-left:0}
+  .srcs{max-width:45%}
+}
+
+@media print{
+  @page{size:A4;margin:9mm}
+  :root{--bg:#fff;--bg2:#fff;--bg3:#f3f4f6;--line:#c9ced6;--fg:#111;--mute:#555}
+  body{font-size:8.8pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  header,#filter,.noprint{display:none!important}
+  .printonly{display:block}
+  main{max-width:none;padding:0}
+  a{color:#0b4ea2;text-decoration:none}
+  .keep{border-bottom-color:#e2e5ea;padding:2px 0}
+  .cnt{background:#e5e7eb}.cnt.c2{background:#dcefc8}.cnt.c3{background:#bfe295}.cnt.c4{background:#93c94a;color:#111}
+  .sb.G8{background:#dbe8fb;color:#123}.sb.GW{background:#eadffb;color:#213}
+  .sb.DX{background:#d7f2e6;color:#132}.sb.NT{background:#fbeccd;color:#321}
+  .sb.sub{background:#fff}
+  .only.f,.side.first{background:#dbeaff;color:#0b3a6a}.only.s,.side.second{background:#ffe2d3;color:#6a2a0b}
+  .flag.y{background:#dff5df;color:#133}.flag.p{background:#f7f0cf;color:#332}.flag.n{background:#eee;color:#333}
+  .warn{color:#8a5a00}
+  /* A4の印字幅はスマホ用の1列レイアウトの条件に入ってしまうので、印刷では常に先攻・後攻を横に並べる */
+  .cols{grid-template-columns:1fr 1fr}
+  .col+.col{border-left:1px solid var(--line);border-top:0}
+  .srcs{max-width:50%}
+  .tiers{margin-left:auto}
+  .cname.gen{color:#333}
+  .deck{break-inside:avoid;page-break-inside:avoid;margin-bottom:8px}
+  .classhead{break-after:avoid;page-break-after:avoid;margin:12px 0 6px}
+  section.refs a::after{content:" " attr(href);color:#555;font-size:7.5pt;overflow-wrap:anywhere}
+  section.refs{break-before:page}
+  footer{padding:8px 0}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>SVPS マリガン早見表</h1>
+  <a class="btn" href="index.html">← 試合ビューア</a>
+  <span class="grow"></span>
+  <button class="pri" id="print">印刷 / PDFで保存</button>
+  <a class="btn" href="mulligan.pdf" download>PDFをダウンロード</a>
+</header>
+
+<main>
+  <div class="printonly"><h1 style="font-size:14pt;margin:0 0 6px">SVPS マリガン早見表</h1></div>
+  <div class="intro" id="intro"></div>
+  <div id="filter" class="noprint"></div>
+  <div id="decks"><div class="none">読み込み中…</div></div>
+  <section class="refs" id="refs"></section>
+</main>
+<footer id="foot"></footer>
+
+<script>
+const CLASSES = [
+  ['エルフ','--elf'],['ロイヤル','--roy'],['ウィッチ','--wit'],['ドラゴン','--dra'],
+  ['ナイトメア','--nig'],['ビショップ','--bis'],['ネメシス','--nem']
+];
+const $ = s => document.querySelector(s);
+const col = n => {
+  const c = CLASSES.find(x => x[0] === n);
+  return c ? getComputedStyle(document.documentElement).getPropertyValue(c[1]).trim() : '#888';
+};
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// 表記揺れ（「・」の有無、& と ＆、《》など）を吸収して同じカードとみなす
+const norm = s => String(s).replace(/[・\s&＆《》()（）]/g, '');
+const fmtDate = d => d ? d.replace(/-/g, '/') : '日付不明';
+
+let DATA = null, shown = null;
+
+function srcName(s){ return s.author ? s.author : s.site; }
+function badge(id, sub){
+  const s = DATA.sources[id];
+  const tip = `${s.site}${s.author ? ' / ' + s.author : ''}${sub ? '（次点・妥協）' : ''}`;
+  return `<span class="sb ${s.short}${sub ? ' sub' : ''}" title="${esc(tip)}">${esc(srcName(s))}${sub ? '・次点' : ''}</span>`;
+}
+function splitFlag(s){
+  if (s.split === true) return '<span class="flag y">先後の区別あり</span>';
+  if (s.split === 'partial') return '<span class="flag p">一部区別あり</span>';
+  return '<span class="flag n">先後の区別なし</span>';
+}
+
+/* 出典ごとのキープを、先攻・後攻それぞれの列に集計する。
+   side:"both" は両方の列へ、"first"/"second" はその列だけへ入れる。 */
+function aggregate(deck){
+  const side = { first: new Map(), second: new Map() };
+  for (const e of deck.entries){
+    for (const k of (e.keeps || [])){
+      const sides = k.side === 'both' ? ['first', 'second'] : [k.side];
+      for (const sd of sides){
+        const key = norm(k.card);
+        if (!side[sd].has(key)) side[sd].set(key, { card: k.card, generic: !!k.generic, main: [], sub: [], notes: [] });
+        const it = side[sd].get(key);
+        if (/・/.test(k.card) && !/・/.test(it.card)) it.card = k.card;   // 「・」付きの正式な表記を優先して表示
+        const bucket = k.tier === 'sub' ? it.sub : it.main;
+        if (!bucket.includes(e.src)) bucket.push(e.src);
+        if (k.note && !it.notes.includes(k.note)) it.notes.push(k.note);
+      }
+    }
+  }
+  const rank = m => [...m.values()].sort((a, b) =>
+    (b.main.length - a.main.length) ||
+    (new Set([...b.main, ...b.sub]).size - new Set([...a.main, ...a.sub]).size));
+  return { first: rank(side.first), second: rank(side.second), side };
+}
+
+function renderCol(A, sd){
+  const other = sd === 'first' ? 'second' : 'first';
+  const label = sd === 'first' ? '先 攻' : '後 攻';
+  const items = A[sd];
+  if (!items.length) return `<div class="col"><h4>${label}</h4><div class="none">キープ情報のある出典なし</div></div>`;
+  const rows = items.map(it => {
+    const srcs = new Set([...it.main, ...it.sub]);
+    const n = srcs.size;
+    const only = !A.side[other].has(norm(it.card))
+      ? `<span class="only ${sd === 'first' ? 'f' : 's'}">${sd === 'first' ? '先攻のみ' : '後攻のみ'}</span>` : '';
+    const badges = it.main.map(id => badge(id, false)).join('')
+                 + it.sub.filter(id => !it.main.includes(id)).map(id => badge(id, true)).join('');
+    const notes = it.notes.length ? `<span class="cnote">${esc(it.notes.join(' / '))}</span>` : '';
+    return `<div class="keep"><span class="cnt c${Math.min(n, 4)}">${n}</span>`
+         + `<div class="cname${it.generic ? ' gen' : ''}">${esc(it.card)}${only}${notes}</div>`
+         + `<div class="srcs">${badges}</div></div>`;
+  }).join('');
+  return `<div class="col"><h4>${label}<span class="n">${items.length}種</span></h4>${rows}</div>`;
+}
+
+function renderDeck(d){
+  const c = col(d.class);
+  const A = aggregate(d);
+  const S = DATA.sources;
+  const tiers = (d.tiers || []).map(t => `<span class="tier">${esc(t.site)} ${esc(t.tier)}</span>`).join('');
+  const alias = d.aliases && d.aliases.length ? `<span class="alias">（${esc(d.aliases.join('・'))}）</span>` : '';
+  const nSrc = d.entries.length;
+  // 2つ以上の出典が推しているカードの枚数（出典どうしがどれだけ一致しているかの目安）
+  const multi = new Set([...A.first, ...A.second]
+    .filter(x => !x.generic && new Set([...x.main, ...x.sub]).size >= 2).map(x => norm(x.card)));
+  const agree = nSrc > 1
+    ? `<span class="agree">出典${nSrc}件・${multi.size ? multi.size + '枚で複数の出典が一致' : '出典どうしで一致するカードなし'}</span>`
+    : nSrc === 1 ? `<span class="agree">出典1件（照合相手なし）</span>` : '';
+
+  let body = '';
+  if (nSrc){
+    body += `<div class="cols">${renderCol(A, 'first')}${renderCol(A, 'second')}</div>`;
+  } else {
+    body += `<div class="extra"><span class="warn">現環境でマリガン基準を確認できる出典が見つかっていません。</span></div>`;
+  }
+
+  const conds = d.entries.flatMap(e => (e.cond || []).map(x => ({ ...x, src: e.src })));
+  if (conds.length){
+    body += `<div class="extra"><h5>条件付き・対面別のキープ</h5><ul>` + conds.map(x => {
+      const sd = x.side === 'first' ? '<span class="side first">先攻</span>'
+               : x.side === 'second' ? '<span class="side second">後攻</span>' : '';
+      return `<li>${sd}<b>${esc(x.cards.join('、'))}</b> — ${esc(x.cond)} ${badge(x.src, false)}</li>`;
+    }).join('') + `</ul></div>`;
+  }
+  const rets = d.entries.flatMap(e => (e.returns || []).map(x => ({ ...x, src: e.src })));
+  if (rets.length){
+    body += `<div class="extra"><h5>返すと書かれているカード</h5><ul>` + rets.map(x =>
+      `<li><b>${esc(x.card)}</b> — ${esc(x.cond)} ${badge(x.src, false)}</li>`).join('') + `</ul></div>`;
+  }
+
+  const srcRows = d.entries.map(e => {
+    const s = S[e.src];
+    const who = s.author ? `${esc(s.author)}（${esc(s.credential || '')}）` : '';
+    const note = s.note ? `<br><span class="warn">※${esc(s.note)}</span>` : '';
+    return `<li>${badge(e.src, false)} <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.site)}「${esc(s.title)}」</a>`
+         + ` ${who} ${fmtDate(s.date)} ${splitFlag(s)}${note}</li>`;
+  });
+  (d.nodata || []).forEach(id => {
+    const s = S[id];
+    srcRows.push(`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.site)}「${esc(s.title)}」</a>`
+               + ` ${fmtDate(s.date)} <span class="flag n">マリガンの記載なし</span></li>`);
+  });
+  body += `<div class="srclist"><ul>${srcRows.join('')}</ul></div>`;
+
+  return `<div class="deck" data-class="${esc(d.class)}">
+    <div class="deckhead" style="border-left-color:${c}"><h3>${esc(d.name)}</h3>${alias}${agree}<div class="tiers">${tiers}</div></div>
+    ${body}</div>`;
+}
+
+function renderIntro(){
+  const m = DATA.meta;
+  const splitCount = Object.values(DATA.sources).filter(s => s.split === true || s.split === 'partial').length;
+  const used = new Set(DATA.decks.flatMap(d => d.entries.map(e => e.src)));
+  $('#intro').innerHTML = `
+    <div class="meta"><span>フォーマット：${esc(m.format)}</span><span>環境：${esc(m.environment)}</span><span>集計日：${fmtDate(m.collectedAt)}</span></div>
+    <h2>先攻と後攻で基準が変わる理由</h2>
+    <ul>${m.rules.text.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+    <div class="url">出典：<a href="${esc(m.rules.source.url)}" target="_blank" rel="noopener">${esc(m.rules.source.label)}</a>（${fmtDate(m.rules.source.date)}更新）</div>
+    <h2>この表の作り方</h2>
+    <ul>${m.method.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+    <div class="legend">
+      <span>出典：</span><span class="sb G8">Game8</span><span class="sb GW">GameWith</span>
+      <span class="sb DX">プレイヤー名（Dexel）</span><span class="sb NT">プレイヤー名（note）</span>
+      <span class="sb DX sub">○○・次点</span><span>＝次点・妥協でキープ</span>
+      <span class="only f">先攻のみ</span><span class="only s">後攻のみ</span><span>＝出典がその手番に限定しているもの</span>
+    </div>
+    <div class="legend"><span>使用した出典 ${used.size} 件のうち、先攻・後攻を区別していたのは ${splitCount} 件だけです。</span></div>`;
+}
+
+function renderFilter(){
+  const box = $('#filter');
+  const mk = (label, val, color) => {
+    const b = document.createElement('div');
+    b.className = 'fc'; b.textContent = label;
+    b.onclick = () => { shown = val; syncFilter(); };
+    b.dataset.val = val ?? ''; b.dataset.color = color || '';
+    box.appendChild(b);
+  };
+  mk('すべて', null, '#e8edf4');
+  CLASSES.forEach(([n]) => mk(n, n, col(n)));
+  const h = document.createElement('span');
+  h.className = 'hint'; h.textContent = '印刷・PDF保存では、いま表示しているクラスだけが出力されます';
+  box.appendChild(h);
+  syncFilter();
+}
+function syncFilter(){
+  [...document.querySelectorAll('#filter .fc')].forEach(b => {
+    const on = (b.dataset.val || null) === shown;
+    b.classList.toggle('sel', on);
+    b.style.background = on ? b.dataset.color : '';
+    b.style.color = on ? '#0d1116' : (b.dataset.val ? b.dataset.color : '');
+  });
+  document.querySelectorAll('[data-class]').forEach(el => {
+    el.hidden = !!shown && el.dataset.class !== shown;
+  });
+  try { localStorage.setItem('svps-mull-class', shown || ''); } catch(e){}
+}
+
+function renderDecks(){
+  let html = '';
+  for (const [cls] of CLASSES){
+    const ds = DATA.decks.filter(d => d.class === cls);
+    if (!ds.length) continue;
+    html += `<div data-class="${esc(cls)}"><h2 class="classhead" style="border-left-color:${col(cls)}">${esc(cls)}</h2>`
+          + ds.map(renderDeck).join('') + `</div>`;
+  }
+  $('#decks').innerHTML = html;
+}
+
+function renderRefs(){
+  const m = DATA.meta, S = DATA.sources;
+  const bySite = {};
+  const used = new Set(DATA.decks.flatMap(d => [...d.entries.map(e => e.src), ...(d.nodata || [])]));
+  [...used].forEach(id => { (bySite[S[id].site] ||= []).push(id); });
+  const order = ['Game8', 'GameWith', 'Dexel', 'note'];
+  let h = `<h2>出典一覧</h2>`;
+  for (const site of order){
+    if (!bySite[site]) continue;
+    h += `<div><b>${esc(site)}</b></div><ul>` + bySite[site].map(id => {
+      const s = S[id];
+      const who = s.author ? ` ${esc(s.author)}（${esc(s.credential || '')}）` : '';
+      return `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">「${esc(s.title)}」</a>${who} ${fmtDate(s.date)}</li>`;
+    }).join('') + `</ul>`;
+  }
+  h += `<h2>デッキ一覧・Tierの出典</h2><ul>` + m.tierSources.map(t =>
+    `<li><a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.label)}</a> ${fmtDate(t.date)}</li>`).join('') + `</ul>`;
+  h += `<h2>マリガンの仕様の出典</h2><ul><li><a href="${esc(m.rules.source.url)}" target="_blank" rel="noopener">${esc(m.rules.source.label)}</a> ${fmtDate(m.rules.source.date)}</li></ul>`;
+  h += `<h2>確認したが採用しなかった情報源</h2><ul>` + m.excluded.map(x =>
+    `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.label)}</a> — ${esc(x.reason)}</li>`).join('') + `</ul>`;
+  $('#refs').innerHTML = h;
+  $('#foot').textContent = `集計日 ${fmtDate(m.collectedAt)}。出典の記事は随時更新されるため、最新の内容は各出典で確認してください。カード名・デッキ名の権利は各権利者に帰属します。`;
+}
+
+$('#print').onclick = () => window.print();
+
+(async function init(){
+  try {
+    DATA = await (await fetch('mulligan.json', { cache: 'no-store' })).json();
+  } catch(e){
+    $('#decks').innerHTML = '<div class="none">mulligan.json を読み込めませんでした。</div>';
+    return;
+  }
+  const q = new URLSearchParams(location.search).get('class');
+  let saved = null;
+  try { saved = localStorage.getItem('svps-mull-class') || null; } catch(e){}
+  shown = CLASSES.some(c => c[0] === q) ? q : (q === 'all' ? null : (CLASSES.some(c => c[0] === saved) ? saved : null));
+  renderIntro(); renderDecks(); renderRefs(); renderFilter();
+  document.body.dataset.ready = '1';
+})();
+</script>
+</body>
+</html>

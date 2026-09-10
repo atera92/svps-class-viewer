@@ -257,5 +257,26 @@
     "scoreB": "3"
    }
   ]
+ },
+ {
+  "videoId": "ttsuVkuefo4",
+  "label": "第7節・後半",
+  "date": "2026-09-09",
+  "cards": [
+   {
+    "round": "ROUND 1",
+    "teamA": "MURASH GAMING",
+    "teamB": "VARREL",
+    "scoreA": "3",
+    "scoreB": "1"
+   },
+   {
+    "round": "ROUND 2",
+    "teamA": "REJECT",
+    "teamB": "レバンガ北海道",
+    "scoreA": "3",
+    "scoreB": "1"
+   }
+  ]
  }
 ]

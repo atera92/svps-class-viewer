@@ -29,6 +29,8 @@ kbd{background:#2b3442;border:1px solid #3d4959;border-bottom-width:2px;border-r
 header{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
   padding:8px 12px;background:var(--bg2);border-bottom:1px solid var(--line)}
 #sub{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.navlink{color:#191307;background:var(--accent);border-radius:5px;padding:4px 9px;
+  text-decoration:none;font-weight:700;font-size:12px;white-space:nowrap}
 header h1{font-size:14px;margin:0;letter-spacing:.04em;color:var(--accent);white-space:nowrap}
 .grow{flex:1}
 
@@ -157,6 +159,7 @@ details.panel[open] > summary{margin-bottom:8px}
 
 <header>
   <h1>SVPS クラス別ビューア</h1>
+  <a class="navlink" href="mulligan.html">マリガン早見表</a>
   <select id="arcsel" style="max-width:280px"></select>
   <button id="more" hidden>⋯</button>
   <span class="grow"></span>
