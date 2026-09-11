@@ -1,0 +1,60 @@
+{
+ "vid": "XpLGen3fGkA",
+ "player": "Era53",
+ "class": "ウィッチ",
+ "deck": "魔手ウィッチ",
+ "xf": null,
+ "calib": {
+  "s": 1.01,
+  "dx": -3.2,
+  "dy": -3.6,
+  "score": 0.975,
+  "at": 170
+ },
+ "events": {
+  "1": {
+   "status": "notfound",
+   "t0": 170.8
+  },
+  "2": {
+   "status": "notfound",
+   "t0": 1055.8
+  },
+  "3": {
+   "status": "notfound",
+   "t0": 1965.6
+  },
+  "4": {
+   "status": "notfound",
+   "t0": 2770.8
+  },
+  "5": {
+   "status": "notfound",
+   "t0": 3475.7
+  },
+  "6": {
+   "status": "notfound",
+   "t0": 4193.8
+  },
+  "7": {
+   "status": "notfound",
+   "t0": 5033.8
+  },
+  "8": {
+   "status": "notfound",
+   "t0": 5713.6
+  },
+  "9": {
+   "status": "notfound",
+   "t0": 6578.7
+  },
+  "10": {
+   "status": "notfound",
+   "t0": 7283.8
+  }
+ },
+ "cards": {},
+ "title": "【シャドバWB】公開チーム練習！ 魔手ウィッチvsダストデイズエルフ【Revenants of Azvaldt / アズヴォルト・レヴナント 】",
+ "date": "2026-09-04",
+ "excluded": "チーム練習を観戦画面で映した配信で、魔手ウィッチを操作している選手が画面から特定できない（配信者のEra53さん本人とは限らない）ため対象外。観戦画面は本人視点と画面の作りが違い、この仕組みでは読み取っていない。"
+}

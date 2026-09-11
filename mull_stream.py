@@ -21,7 +21,7 @@
   stream/<VIDEO_ID>.json                    読み取り結果
   cache/stream_review/<VIDEO_ID>/<n>.jpg     目視確認用の画像（公開しない）
 """
-import argparse, functools, json, os, sys, time
+import argparse, functools, json, os, sys, threading, time
 from multiprocessing import get_context
 
 import cv2
@@ -77,12 +77,34 @@ def dec(b):
     return im
 
 
-def calibrate(pl, vid, length, limit=1800):
+def calibrate_safe(vid, length, tries=3):
+    """calibrate を、ブラウザが止まったらやり直す形で呼ぶ"""
+    state = {"t": 20, "tick": time.time()}
+    for _ in range(tries):
+        dog = _Dog(state)
+        pl = None
+        try:
+            pl = S.Player()
+            return calibrate(pl, vid, length, state=state)
+        except Exception:
+            pass
+        finally:
+            dog.stop()
+            try:
+                pl and pl.close()
+            except Exception:
+                pass
+    return None, {"error": "ブラウザが応答せず、画面の縮尺を測れなかった（補正なしで読む）"}
+
+
+def calibrate(pl, vid, length, limit=1800, state=None):
     """最初のマリガン画面を探し、「KEEP」の帯の大きさと位置から、ゲーム画面の縮尺と位置を測る"""
     ref = keep_ref()
-    t = 20
+    state = state if state is not None else {"t": 20}
+    t = state["t"]
     pl.goto(vid, t)
     while t < min(length, limit):
+        state["t"], state["tick"] = t, time.time()
         pl.seek(t)
         time.sleep(0.35)
         f = cv2.imdecode(np.frombuffer(pl.pg.screenshot(type="jpeg", quality=80), np.uint8), cv2.IMREAD_COLOR)
@@ -146,10 +168,44 @@ def has_keep(frame):
 STEP = 5          # 何秒おきに撮って探すか。マリガン画面（CHANGE か KEEP の帯）は短くても8秒ほど映る
 
 
-def coarse(job):
-    """担当区間を STEP 秒おきに撮り、CHANGE か KEEP の帯が映っている時刻を返す"""
+def coarse(job, _retry=2):
+    """担当区間を STEP 秒おきに撮り、CHANGE か KEEP の帯が映っている時刻を返す。
+    ブラウザが応答しなくなったら（WATCHDOG秒 進まなければ）止めて、続きからやり直す"""
     vid, a, b, xf = job
+    hits = []
+    for attempt in range(_retry + 1):
+        state = {"t": a, "tick": time.time()}
+        dog = _Dog(state)
+        try:
+            hits += _coarse(vid, state, b, xf)
+            return hits
+        except Exception:
+            a = state["t"]                           # 止まったところから続ける
+        finally:
+            dog.stop()
+    return hits
+
+
+class _Dog:
+    """state["tick"] が WATCHDOG 秒更新されなければ、このプロセスのブラウザを止める"""
+    def __init__(self, state):
+        self.state, self.alive = state, True
+        threading.Thread(target=self._run, daemon=True).start()
+
+    def _run(self):
+        while self.alive:
+            time.sleep(5)
+            if self.alive and time.time() - self.state["tick"] > WATCHDOG:
+                _kill_children()
+                self.state["tick"] = time.time()
+
+    def stop(self):
+        self.alive = False
+
+
+def _coarse(vid, state, b, xf):
     set_xf(xf)
+    a = state["t"]
     pl = S.Player()
     pl.goto(vid, a)
     hits, t = [], a
@@ -169,6 +225,9 @@ def coarse(job):
         if has_change(full) or _near(full, k_ref, *KEEP_POS) > 0.55:
             hits.append(round(pl.now(), 1))
         t += STEP
+        state["t"], state["tick"] = t, time.time()
+        if (t - a) % 600 < STEP:                     # 10分ぶん進むごとに進み具合をログに出す
+            print(f"  探索 {vid} {int(t)}秒 / {int(b)}秒", flush=True)
     pl.close()
     return hits
 
@@ -501,7 +560,44 @@ def _init(cls, xf=None):
     _CTX["cands"] = _CTX["pools"][cls]
 
 
+def _kill_children():
+    """このプロセスが起動したブラウザ（子孫プロセス）をすべて止める。
+    ブラウザが応答しなくなると、待っている処理が永遠に返らないため、外から止めて例外にする"""
+    import signal, subprocess
+    rows = subprocess.run(["ps", "-A", "-o", "pid=,ppid="], capture_output=True, text=True).stdout.split("\n")
+    kids = {}
+    for r in rows:
+        p = r.split()
+        if len(p) == 2:
+            kids.setdefault(int(p[1]), []).append(int(p[0]))
+    todo, mine = [os.getpid()], []
+    while todo:
+        for c in kids.get(todo.pop(), []):
+            mine.append(c)
+            todo.append(c)
+    for pid in mine:
+        try:
+            os.kill(pid, signal.SIGKILL)
+        except Exception:
+            pass
+
+
+WATCHDOG = 300     # 1試合の読み取りがこれ（秒）を超えたら、ブラウザを止めて次へ進む
+
+
 def work(job):
+    global _PL
+    vid, n, t0 = job
+    dog = threading.Timer(WATCHDOG, _kill_children)
+    dog.daemon = True
+    dog.start()
+    try:
+        return _work(job)
+    finally:
+        dog.cancel()
+
+
+def _work(job):
     global _PL
     vid, n, t0 = job
     try:
@@ -549,9 +645,7 @@ def main():
     h = svps_api.fetch(f"https://www.youtube.com/watch?v={args.vid}")
     length = int(re.search(r'"lengthSeconds":"(\d+)"', h).group(1))
     # ゲーム画面の縮尺と位置を、最初のマリガン画面で測る（全面に映っていれば補正しない）
-    pl = S.Player()
-    xf, calib = calibrate(pl, args.vid, length)
-    pl.close()
+    xf, calib = calibrate_safe(args.vid, length)
     set_xf(xf)
     print(f"画面の補正: {'なし（全面）' if not xf else xf}  測定: {calib}", flush=True)
     if args.hits:
