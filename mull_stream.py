@@ -658,6 +658,10 @@ def main():
             hits = sum(pool.map(coarse, jobs), [])
     evs = events_from(hits)
     print(f"マリガン画面 {len(evs)} 回", flush=True)
+    # 探した結果は保存しておく（読み取りの途中で止まっても、--hits で探し直さずに再開できる）
+    os.makedirs(os.path.join(HERE, "cache", "stream_hits"), exist_ok=True)
+    if not args.hits:
+        json.dump(sorted(hits), open(os.path.join(HERE, "cache", "stream_hits", f"{args.vid}.json"), "w"))
 
     os.makedirs(OUT_DIR, exist_ok=True)
     out_path = os.path.join(OUT_DIR, f"{args.vid}.json")
