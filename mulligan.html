@@ -97,6 +97,31 @@ section.refs li{margin:3px 0;overflow-wrap:anywhere}
 footer{color:var(--mute);font-size:11px;text-align:center;padding:18px 14px 30px}
 .printonly{display:none}
 
+/* プロの実戦マリガン */
+.kr{display:grid;grid-template-columns:22px 1fr 64px 70px;gap:6px;align-items:center;padding:3px 0;border-bottom:1px dashed #262e3a}
+.kr:last-child{border-bottom:0}
+.kr .cost{text-align:center;font-weight:700;color:#7fd37f}
+.kr .num{text-align:right;color:var(--mute);font-size:11px;white-space:nowrap}
+.rate{height:7px;background:#2a3341;border-radius:3px;overflow:hidden}
+.rate i{display:block;height:100%;background:#7fb13a}
+.rate.lo i{background:#c0566b}
+.mlist{border-top:1px solid var(--line)}
+.mlist>summary{padding:8px 12px;cursor:pointer;color:var(--mute);font-size:12px}
+.m{padding:7px 12px;border-top:1px dashed #262e3a}
+.mhead{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px}
+.mhead .who{font-weight:700}
+.mhead .vs{color:var(--mute)}
+.res{font-size:10px;border-radius:3px;padding:0 5px;font-weight:700}
+.res.w{background:#2d5a2d;color:#dfffdf}.res.l{background:#5a2d33;color:#ffdfe3}
+.hand{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px;align-items:center}
+.hand .hl{color:var(--mute);font-size:11px;min-width:4.2em}
+.cd{border:1px solid var(--line);border-radius:4px;padding:0 6px;font-size:11.5px;background:var(--bg3);white-space:nowrap}
+.cd .c{color:#7fd37f;font-weight:700;margin-right:3px}
+.cd.ret{text-decoration:line-through;opacity:.6}
+.cd.ret::after{content:"返";font-size:9px;margin-left:3px;text-decoration:none;display:inline-block;color:#e87a7a;font-weight:700}
+.cd.new{border-color:#7fb13a;background:#223018}
+.chk{font-size:10px;color:#e8b23a;margin-left:4px}
+
 @media (max-width:760px){
   .cols{grid-template-columns:1fr}
   .col+.col{border-left:0;border-top:1px solid var(--line)}
@@ -122,6 +147,14 @@ footer{color:var(--mute);font-size:11px;text-align:center;padding:18px 14px 30px
   .only.f,.side.first{background:#dbeaff;color:#0b3a6a}.only.s,.side.second{background:#ffe2d3;color:#6a2a0b}
   .flag.y{background:#dff5df;color:#133}.flag.p{background:#f7f0cf;color:#332}.flag.n{background:#eee;color:#333}
   .warn{color:#8a5a00}
+  .kr{border-bottom-color:#e2e5ea;padding:1px 0}
+  .kr .cost{color:#2d6a2d}
+  .rate{background:#e5e7eb}.rate i{background:#6aa12f}.rate.lo i{background:#c0566b}
+  .mlist>summary{display:none}
+  .m{border-top-color:#e2e5ea;padding:3px 10px;break-inside:avoid}
+  .cd{background:#f3f4f6;font-size:8pt}.cd .c{color:#2d6a2d}
+  .cd.new{background:#e6f4d9;border-color:#6aa12f}
+  .res.w{background:#dff5df;color:#133}.res.l{background:#fbe0e4;color:#511}
   /* A4の印字幅はスマホ用の1列レイアウトの条件に入ってしまうので、印刷では常に先攻・後攻を横に並べる */
   .cols{grid-template-columns:1fr 1fr}
   .col+.col{border-left:1px solid var(--line);border-top:0}
@@ -142,15 +175,17 @@ footer{color:var(--mute);font-size:11px;text-align:center;padding:18px 14px 30px
   <a class="btn" href="index.html">← 試合ビューア</a>
   <span class="grow"></span>
   <button class="pri" id="print">印刷 / PDFで保存</button>
-  <a class="btn" href="mulligan.pdf" download>PDFをダウンロード</a>
+  <a class="btn" id="pdflink" href="mulligan.pdf" download>PDFをダウンロード</a>
 </header>
 
 <main>
-  <div class="printonly"><h1 style="font-size:14pt;margin:0 0 6px">SVPS マリガン早見表</h1><div id="printmode" style="font-size:9pt;margin-bottom:6px"></div></div>
+  <div class="printonly"><h1 style="font-size:14pt;margin:0 0 6px" id="printtitle">SVPS マリガン早見表</h1><div id="printmode" style="font-size:9pt;margin-bottom:6px"></div></div>
+  <div class="bar" id="viewSel"></div>
   <div class="intro" id="intro"></div>
   <div class="bar" id="credSel"></div>
   <div class="bar" id="filter"></div>
   <div id="decks"><div class="none">読み込み中…</div></div>
+  <div id="pro" hidden></div>
   <section class="refs" id="refs"></section>
 </main>
 <footer id="foot"></footer>
@@ -407,8 +442,233 @@ function renderRefs(){
   $('#foot').textContent = `集計日 ${fmtDate(m.collectedAt)}。出典の記事・投稿は随時更新されるため、最新の内容は各出典で確認してください。カード名・デッキ名の権利は各権利者に帰属します。`;
 }
 
+/* ---------------- プロの実戦マリガン（プレミアシリーズの配信から読み取り） ---------------- */
+let PRO = null, SEGS = {}, ARCS = {}, view = 'sns', STREAMS = [];
+const CARD = {};                  // カード名・コスト（リーグと配信のデータを合わせたもの）
+
+const cardName = id => (CARD[id] || {}).name || '（読み取れず）';
+const cardCost = id => (CARD[id] || {}).cost ?? '';
+const segLabel = sid => {
+  const s = SEGS[sid] || {}, a = ARCS[s.vid] || {};
+  const m = /-R(\d+)B(\d+)$/.exec(sid) || [];
+  return `${a.label || ''} R${m[1] || '?'} B${m[2] || '?'}`;
+};
+const ytAt = (vid, t) => `https://www.youtube.com/watch?v=${vid}&t=${Math.max(0, Math.floor(t) - 3)}s`;
+
+// マリガン1回分（1人分）を集める。戻り値 [{sid, b, r, opp, seg, date}]
+function proMulligans(){
+  const out = [];
+  for (const [sid, b] of Object.entries(PRO.battles)){
+    if (b.status !== 'ok') continue;
+    const seg = SEGS[sid] || {};
+    for (const r of b.rows){
+      const opp = b.rows.find(x => x !== r);
+      out.push({ sid, b, r, opp, seg, date: (ARCS[b.vid] || {}).date || '' });
+    }
+  }
+  return out.sort((x, y) => (y.date.localeCompare(x.date)) || x.sid.localeCompare(y.sid) || (x.r.side === '先攻' ? -1 : 1));
+}
+
+function keepTable(ms, side){
+  const st = new Map();
+  let n = 0;
+  for (const m of ms){
+    if (m.r.side !== side) continue;
+    n++;
+    m.r.orig.forEach((cid, i) => {
+      if (cid == null) return;
+      const k = String(cid);
+      if (!st.has(k)) st.set(k, { seen: 0, kept: 0 });
+      const x = st.get(k);
+      x.seen++; if (!m.r.ret[i]) x.kept++;
+    });
+  }
+  const label = side === '先攻' ? '先 攻' : '後 攻';
+  if (!n) return `<div class="col"><h4>${label}</h4><div class="none">この手番のマリガンはまだありません</div></div>`;
+  const rows = [...st.entries()].sort((a, b) => (b[1].seen - a[1].seen) || (b[1].kept / b[1].seen - a[1].kept / a[1].seen))
+    .map(([cid, x]) => {
+      const p = Math.round(100 * x.kept / x.seen);
+      return `<div class="kr"><span class="cost">${esc(cardCost(cid))}</span><span>${esc(cardName(cid))}</span>`
+           + `<span class="rate${p < 50 ? ' lo' : ''}" title="キープ率 ${p}%"><i style="width:${p}%"></i></span>`
+           + `<span class="num">${x.kept}/${x.seen}枚 ${p}%</span></div>`;
+    }).join('');
+  return `<div class="col"><h4>${label}<span class="n">マリガン${n}回・初手に来たカード（キープした枚数／来た枚数）</span></h4>${rows}</div>`;
+}
+
+function handRow(label, cards, marks, cls){
+  return `<div class="hand"><span class="hl">${label}</span>` + cards.map((cid, i) =>
+    `<span class="cd${marks[i] ? ' ' + cls : ''}"><span class="c">${esc(cardCost(cid))}</span>${esc(cardName(cid))}</span>`).join('') + `</div>`;
+}
+
+function mulliganRow(m){
+  const { r, opp, seg, b, sid } = m;
+  const won = seg.win ? ((seg.win === 'L') === (r.who === '1')) : null;
+  const res = won === null ? '' : `<span class="res ${won ? 'w' : 'l'}">${won ? '勝ち' : '負け'}</span>`;
+  const sd = `<span class="side ${r.side === '先攻' ? 'first' : 'second'}">${r.side}</span>`;
+  const warn = [...(b.flags || []), ...(r.flags || [])];
+  const chk = warn.length ? `<span class="chk" title="${esc(warn.join(' / '))}">要確認</span>` : '';
+  const after = r.after ? handRow('交換後', r.after, r.ret, 'new')
+    : `<div class="hand"><span class="hl">交換後</span><span class="none">映像で確認できず</span></div>`;
+  return `<div class="m"><div class="mhead">${sd}<span class="who">${esc(r.player)}</span><span class="vs">（${esc(r.team)}）vs ${esc(opp.class)}・${esc(opp.player)}</span>${res}`
+       + `<span class="vs">${esc(segLabel(sid))}</span><a href="${esc(ytAt(b.vid, r.t))}" target="_blank" rel="noopener">▶ 映像</a>${chk}</div>`
+       + handRow('元の手札', r.orig, r.ret, 'ret') + after + `</div>`;
+}
+
+function renderPro(){
+  const box = $('#pro');
+  if (!PRO){ box.innerHTML = '<div class="none">mull_pro.json を読み込めませんでした。</div>'; return; }
+  const all = proMulligans();
+  let html = '';
+  for (const [cls] of CLASSES){
+    const ms = all.filter(m => m.r.class === cls);
+    if (!ms.length) continue;
+    const players = new Set(ms.map(m => m.r.player)).size;
+    html += `<div data-class="${esc(cls)}"><h2 class="classhead" style="border-left-color:${col(cls)}">${esc(cls)}</h2>`
+          + `<div class="deck"><div class="deckhead" style="border-left-color:${col(cls)}"><h3>キープ率</h3>`
+          + `<span class="agree">マリガン${ms.length}回・選手${players}人（${esc(cls)}のデッキをすべて合算）</span></div>`
+          + `<div class="cols">${keepTable(ms, '先攻')}${keepTable(ms, '後攻')}</div>`
+          + `<details class="mlist" open><summary>1試合ずつ見る（${ms.length}回）</summary>${ms.map(mulliganRow).join('')}</details></div></div>`;
+  }
+  box.innerHTML = html || '<div class="none">まだ読み取れたバトルがありません。</div>';
+}
+
+function renderProIntro(){
+  const bs = Object.values(PRO ? PRO.battles : {});
+  const ok = bs.filter(b => b.status === 'ok').length;
+  const ng = bs.length - ok;
+  const vids = new Set(bs.map(b => b.vid)).size;
+  $('#intro').innerHTML = `
+    <div class="meta"><span>対象：Shadowverse Premier Series 26-27 の公式配信 ${vids}本</span><span>読み取り：${ok}/${bs.length}バトル</span><span>更新：${esc((PRO && PRO.updatedAt) || '')}</span></div>
+    <h2>これは何か</h2>
+    <ul>
+      <li>プレミアシリーズの全バトルについて、配信に映るマリガン画面から、両プレイヤーの<b>元の手札4枚</b>・<b>返したカード</b>・<b>交換後の4枚</b>を読み取ったものです。SNSの早見表と違い、プロが実際の試合で何を残して何を返したかの記録です。</li>
+      <li><span class="cd ret"><span class="c">5</span>カード名</span> ＝返したカード　<span class="cd new"><span class="c">2</span>カード名</span> ＝交換で新しく来たカード</li>
+      <li>キープ率＝初手に来た枚数のうち、残した枚数の割合。同じカードが2枚来たときは2枚として数えます。</li>
+      <li>「▶ 映像」でそのマリガン画面の少し前から再生できます。</li>
+    </ul>
+    <h2>読み取り方と精度</h2>
+    <ul>
+      <li>配信を自動で再生してマリガン画面を撮り、カードの「コスト・攻撃力・体力・カード名」の部分を公式のカード画像と照合して、そのプレイヤーの公式デッキリストの中から当てています（別イラストのカードでも読めるように、絵柄は補助にしか使っていません）。</li>
+      <li>返したカードは、交換を確定したときに枠が空になったかどうかで判定しています。同じカードを引き直した場合も区別できます。</li>
+      <li>先攻・後攻は画面右の表示を読み取っています。</li>
+      <li>読み取った全バトルを確認用の画像で目視確認し、誤りは手で直しています。「要確認」の印は、自動判定で点差が小さかったなど、注意が必要な箇所です。${ng ? `読み取れなかったバトルが${ng}件あります（出典の欄に理由を載せています）。` : ''}</li>
+    </ul>
+    <h2>見るときの注意</h2>
+    <ul>
+      <li>同じクラスでも型の違うデッキを合算しています。キープ率はデッキの型・対面・その試合の状況で大きく変わるため、1試合ずつの記録と合わせて見てください。</li>
+      <li>1クラスあたりのマリガンは数十回です。キープ率の数%の差に意味はありません。</li>
+    </ul>`;
+  $('#printmode').textContent = '表示：プロの実戦マリガン（プレミアシリーズの配信から読み取り）';
+}
+
+function renderProRefs(){
+  const vids = [...new Set(Object.values(PRO ? PRO.battles : {}).map(b => b.vid))]
+    .sort((a, b) => ((ARCS[a] || {}).date || '').localeCompare((ARCS[b] || {}).date || ''));
+  let h = `<h2>出典（公式配信のアーカイブ）</h2><ul>` + vids.map(v => {
+    const a = ARCS[v] || {};
+    return `<li><a href="https://www.youtube.com/watch?v=${esc(v)}" target="_blank" rel="noopener">Shadowverse Premier Series 26-27 ${esc(a.label || v)}</a> ${fmtDate(a.date)}（Shadowverse Channel）</li>`;
+  }).join('') + `</ul>`;
+  h += `<h2>デッキリスト・カード画像</h2><ul><li><a href="https://ps.shadowverse-wb.com/" target="_blank" rel="noopener">Shadowverse Premier Series 公式サイト</a>の各試合のデッキリストと、<a href="https://shadowverse-wb.com/" target="_blank" rel="noopener">Shadowverse: Worlds Beyond 公式サイト</a>のデッキポータルのカード情報を使っています。</li></ul>`;
+  const ng = Object.entries(PRO ? PRO.battles : {}).filter(([, b]) => b.status !== 'ok');
+  if (ng.length){
+    const why = { notfound: 'マリガン画面が配信に映っていない（選手のカメラなどに切り替わっていた）', unreadable: '手札の画面を読み取れなかった', error: '読み取り中にエラー' };
+    h += `<h2>読み取れなかったバトル</h2><ul>` + ng.map(([sid, b]) =>
+      `<li>${esc(segLabel(sid))} — ${esc(why[b.status] || b.status)}${b.reason ? '（' + esc(b.reason) + '）' : ''}</li>`).join('') + `</ul>`;
+  }
+  $('#refs').innerHTML = h;
+  $('#foot').textContent = 'カード名・デッキ名・配信映像の権利は各権利者に帰属します。';
+}
+
+/* ---------------- プロの個人配信（ランクマッチ）から読み取ったマリガン ---------------- */
+function streamRow(s, n, e){
+  const sd = `<span class="side ${e.side === '先攻' ? 'first' : 'second'}">${e.side}</span>`;
+  const res = e.result ? `<span class="res ${e.result === '勝ち' ? 'w' : 'l'}">${esc(e.result)}</span>` : '';
+  const vs = e.vs ? `<span class="vs">vs ${esc(e.vs)}</span>` : '';
+  const chk = (e.flags || []).length ? `<span class="chk" title="${esc(e.flags.join(' / '))}">要確認</span>` : '';
+  const after = e.after ? handRow('交換後', e.after, e.ret, 'new')
+    : `<div class="hand"><span class="hl">交換後</span><span class="none">映像で確認できず</span></div>`;
+  return `<div class="m"><div class="mhead">${sd}<span class="who">${n}試合目</span>${vs}${res}`
+       + `<a href="${esc(ytAt(s.vid, e.t))}" target="_blank" rel="noopener">▶ 映像</a>${chk}</div>`
+       + handRow('元の手札', e.orig, e.ret, 'ret') + after + `</div>`;
+}
+
+function renderStream(){
+  const box = $('#pro');
+  if (!STREAMS.length){ box.innerHTML = '<div class="none">まだ読み取った配信がありません。</div>'; return; }
+  let html = '';
+  for (const [cls] of CLASSES){
+    const ss = STREAMS.filter(s => s.class === cls);
+    if (!ss.length) continue;
+    html += `<div data-class="${esc(cls)}"><h2 class="classhead" style="border-left-color:${col(cls)}">${esc(cls)}</h2>`;
+    for (const s of ss){
+      const evs = Object.entries(s.events).filter(([, e]) => e.status === 'ok');
+      const ms = evs.map(([, e]) => ({ r: e }));
+      html += `<div class="deck"><div class="deckhead" style="border-left-color:${col(cls)}"><h3>${esc(s.player)}：${esc(s.deck || cls)}</h3>`
+            + `<span class="agree">マリガン${evs.length}回・<a href="https://www.youtube.com/watch?v=${esc(s.vid)}" target="_blank" rel="noopener">${esc(s.title || s.vid)}</a> ${fmtDate(s.date)}</span></div>`
+            + `<div class="cols">${keepTable(ms, '先攻')}${keepTable(ms, '後攻')}</div>`
+            + `<details class="mlist" open><summary>1試合ずつ見る（${evs.length}回）</summary>${evs.map(([n, e]) => streamRow(s, n, e)).join('')}</details></div>`;
+    }
+    html += `</div>`;
+  }
+  box.innerHTML = html;
+}
+
+function renderStreamIntro(){
+  const n = STREAMS.reduce((a, s) => a + Object.values(s.events).filter(e => e.status === 'ok').length, 0);
+  $('#intro').innerHTML = `
+    <div class="meta"><span>対象：プロの個人配信 ${STREAMS.length}本</span><span>読み取れたマリガン：${n}回</span></div>
+    <h2>これは何か</h2>
+    <ul>
+      <li>プロ本人がYouTubeで配信したランクマッチから、本人の<b>元の手札4枚</b>・<b>返したカード</b>・<b>交換後の4枚</b>を読み取ったものです。映るのは配信者本人の手札だけで、相手の手札は分かりません。</li>
+      <li><span class="cd ret"><span class="c">5</span>カード名</span> ＝返したカード　<span class="cd new"><span class="c">2</span>カード名</span> ＝交換で新しく来たカード</li>
+      <li>キープ率＝初手に来た枚数のうち、残した枚数の割合。</li>
+    </ul>
+    <h2>読み取り方と精度</h2>
+    <ul>
+      <li>配信全体を4秒おきに見て本人視点のマリガン画面を探し、見つけた場面を0.25秒おきに撮って読んでいます。</li>
+      <li>デッキリストが公開されていないため、そのクラスとニュートラルの全カード（ローテーション）の中から、コスト・攻撃力・体力・カード名・カードの種類で当てています。別イラスト・コラボ絵柄も公式の画像で照合しています。リーグ配信（デッキリストあり）より誤判定が起きやすいので、全試合を確認用の画像で目視確認しています。</li>
+      <li>返したカードは、確定する直前に上段（CHANGE）に置かれていたカードです。</li>
+      <li>対戦相手のクラスは、対戦開始画面を目視で確認して入れています。</li>
+      ${STREAMS.map(s => s.resultNote ? `<li>勝敗（${esc(s.player)}）：${esc(s.resultNote)}</li>` : '').join('')}
+      ${STREAMS.map(s => s.checked ? `<li>確認（${esc(s.player)}）：${esc(s.checked)}</li>` : '').join('')}
+    </ul>
+    <h2>見るときの注意</h2>
+    <ul><li>1本の配信は数十試合です。キープ率はその日のその人の判断の記録で、一般的な正解ではありません。</li></ul>`;
+  $('#printmode').textContent = '表示：プロの個人配信（ランクマッチ）から読み取ったマリガン';
+}
+
+function renderStreamRefs(){
+  $('#refs').innerHTML = `<h2>出典（配信のアーカイブ）</h2><ul>` + STREAMS.map(s =>
+    `<li><a href="https://www.youtube.com/watch?v=${esc(s.vid)}" target="_blank" rel="noopener">${esc(s.title || s.vid)}</a>（${esc(s.player)}） ${fmtDate(s.date)}</li>`).join('') + `</ul>`
+    + `<h2>カード情報</h2><ul><li><a href="https://shadowverse-wb.com/ja/deck/cardslist/" target="_blank" rel="noopener">Shadowverse: Worlds Beyond 公式サイトのカード一覧</a>（カード名・画像・別イラスト）</li></ul>`;
+  $('#foot').textContent = 'カード名・配信映像の権利は各権利者に帰属します。';
+}
+
+function renderViewSel(){
+  const box = $('#viewSel');
+  box.innerHTML = '<span class="lbl">表示</span>';
+  // データがまだ無い表示は出さない（リーグの読み取りは全バトルの確認が済むまで ready にしない）
+  [['sns', 'SNS・攻略記事の早見表'], ['pro', 'プロの実戦マリガン（プレミアシリーズ）'], ['stream', 'プロの配信（ランクマッチ）']]
+    .filter(([v]) => v === 'sns' || (v === 'pro' && PRO && PRO.ready) || (v === 'stream' && STREAMS.length))
+    .forEach(([v, t]) => {
+    const b = document.createElement('div');
+    b.className = 'cs' + (view === v ? ' sel' : '');
+    b.textContent = t;
+    b.onclick = () => { view = v; try { localStorage.setItem('svps-mull-view', v); } catch(e){} renderAll(); };
+    box.appendChild(b);
+  });
+}
+
 function renderAll(){
-  renderIntro(); renderCredSel(); renderDecks(); renderRefs(); renderFilter();
+  renderViewSel();
+  const pro = view !== 'sns';
+  $('#credSel').hidden = pro; $('#decks').hidden = pro; $('#pro').hidden = !pro;
+  $('#printtitle').textContent = view === 'pro' ? 'SVPS プロの実戦マリガン' : view === 'stream' ? 'プロの配信のマリガン' : 'SVPS マリガン早見表';
+  $('#pdflink').href = { sns: 'mulligan.pdf', pro: 'mulligan_pro.pdf', stream: 'mulligan_stream.pdf' }[view];
+  if (view === 'pro'){ renderProIntro(); renderPro(); renderProRefs(); }
+  else if (view === 'stream'){ renderStreamIntro(); renderStream(); renderStreamRefs(); }
+  else { renderIntro(); renderCredSel(); renderDecks(); renderRefs(); }
+  renderFilter();
 }
 
 $('#print').onclick = () => window.print();
@@ -420,7 +680,27 @@ $('#print').onclick = () => window.print();
     $('#decks').innerHTML = '<div class="none">mulligan.json を読み込めませんでした。</div>';
     return;
   }
+  // プロの実戦マリガンは別ファイル。読めなくても早見表は使えるようにする
+  try {
+    const [p, d, a] = await Promise.all(['mull_pro.json', 'data.json', 'archives.json']
+      .map(f => fetch(f, { cache: 'no-store' }).then(r => r.json())));
+    PRO = p;
+    Object.assign(CARD, p.cards || {});
+    d.segments.forEach(s => { SEGS[s.id] = s; });
+    a.forEach(x => { ARCS[x.videoId] = x; });
+  } catch(e){ PRO = null; }
+  // 個人配信から読み取ったマリガン（stream/index.json に並んだファイル）
+  try {
+    const idx = await (await fetch('stream/index.json', { cache: 'no-store' })).json();
+    STREAMS = await Promise.all(idx.map(f => fetch('stream/' + f, { cache: 'no-store' }).then(r => r.json())));
+    STREAMS.forEach(s => Object.assign(CARD, s.cards || {}));
+  } catch(e){ STREAMS = []; }
   const qs = new URLSearchParams(location.search);
+  let savedView = null;
+  try { savedView = localStorage.getItem('svps-mull-view'); } catch(e){}
+  const VIEWS = ['sns', 'pro', 'stream'];
+  view = VIEWS.includes(qs.get('view')) ? qs.get('view') : (VIEWS.includes(savedView) ? savedView : 'sns');
+  if ((view === 'pro' && !(PRO && PRO.ready)) || (view === 'stream' && !STREAMS.length)) view = 'sns';
   const q = qs.get('class');
   let saved = null, savedCred = null;
   try { saved = localStorage.getItem('svps-mull-class') || null; savedCred = localStorage.getItem('svps-mull-cred'); } catch(e){}

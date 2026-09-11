@@ -1,0 +1,24 @@
+<!-- mull_scan.py が配信のフレームを撮るために開く、プレイヤーだけのページ（サイトからはリンクしない） -->
+<!doctype html>
+<meta charset="utf-8">
+<title>mull player</title>
+<style>html,body{margin:0;background:#000}#p{width:1920px;height:1080px}</style>
+<div id="p"></div>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  const q = new URLSearchParams(location.search);
+  window.ready = false;
+  function onYouTubeIframeAPIReady() {
+    window.player = new YT.Player('p', {
+      width: 1920, height: 1080, videoId: q.get('v'),
+      // 消音で自動再生すると YouTube が字幕を自動で出すため、プレイヤーは消音にしない
+      // （音はブラウザ側 --mute-audio で消している）
+      playerVars: { start: +q.get('t') || 0, autoplay: 1, mute: 0, controls: 0, rel: 0, cc_load_policy: 0,
+                    playsinline: 1, iv_load_policy: 3, disablekb: 1, modestbranding: 1 },
+      events: {
+        onReady: e => { e.target.unMute(); e.target.setPlaybackQuality('hd1080'); e.target.playVideo(); window.ready = true; },
+        onApiChange: e => { try { e.target.setOption('captions', 'track', {}); e.target.unloadModule('captions'); } catch (_) {} },
+      }
+    });
+  }
+</script>

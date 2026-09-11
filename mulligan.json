@@ -23,7 +23,8 @@
    "Xの投稿の略称（例：イスマル、ビバティー）は、プレミアシリーズで使われた全200デッキから作った公式カード名の辞書と照合して正式名に置き換えた。特定できなかったものは略称のまま注記している。",
    "画像のマリガン表は、カード上部に印字された名前を拡大して読み取った。",
    "カード名の表記揺れ（「・」や空白の有無など）は同じカードとして集計している。",
-   "2026-09-10 追加確認：Dexelの新着一覧とnote・YouTubeをWeb検索で再確認。基準を満たす出典のないデッキ（テンポエルフ、連携ロイヤル、ランプドラゴン、フェイスドラゴン、ラストワードナイトメア、進化ビショップ、AFネメシス、OTK人形ネメシス）について、今季の新しい出典は見つからなかった。"
+   "2026-09-10 追加確認：Dexelの新着一覧とnote・YouTubeをWeb検索で再確認。基準を満たす出典のないデッキ（テンポエルフ、連携ロイヤル、ランプドラゴン、フェイスドラゴン、ラストワードナイトメア、進化ビショップ、AFネメシス、OTK人形ネメシス）について、今季の新しい出典は見つからなかった。",
+   "2026-09-10 基準の変更：実力者の条件を「フォロワー1万人以上」から「BEYOND到達（過去・現在）」に変更した。これにより、それまで基準外だった8人のうち7人（もとやしき・やたぴりか・ritz・たらこ・トミー・ねむる・きるか）を実力者に含めた。solasola はBEYOND到達を確認できず基準外のまま。"
   ],
   "tierSources": [
    {
@@ -119,11 +120,6 @@
     "reason": "本人記載の実績がない（フォロワー1,076人）"
    },
    {
-    "label": "そっくん @sokkun123123（AFネメシス）",
-    "url": "https://x.com/sokkun123123",
-    "reason": "実績がULTIMATE到達で、上位の条件に届かない（フォロワー72人）"
-   },
-   {
     "label": "琥珀 @kohaku114204（ミッドレンジナイトメア）",
     "url": "https://x.com/kohaku114204",
     "reason": "マリガンは返信欄にあり本文にない。本人記載の実績もない"
@@ -174,6 +170,21 @@
     "reason": "2025-07-29公開で1年以上前の環境"
    },
    {
+    "label": "桜雨 @sakuratoame_0（進化ビショップの備忘録・マリガン編）",
+    "url": "https://x.com/sakuratoame_0",
+    "reason": "マリガンの記載はあるが、BEYOND到達の記載がプロフィール・投稿に見つからない（フォロワー2,916人）"
+   },
+   {
+    "label": "トッティ王子 @princetotti100（進化ビショップ）",
+    "url": "https://x.com/princetotti100",
+    "reason": "実績がアルティメット到達で、BEYONDに届かない"
+   },
+   {
+    "label": "そっくん @sokkun123123（AFネメシス・フェイスドラゴン）",
+    "url": "https://x.com/sokkun123123",
+    "reason": "どちらもULTIMATE到達の報告で、BEYONDに届かない"
+   },
+   {
     "label": "元プロの在籍名簿（RSPL 2025 選手ページ・Liquipedia）",
     "url": "https://pro-league.shadowverse-wb.com/2025/team/",
     "reason": "選手一覧のページが存在しない（404）、またはアクセスが拒否された（403）ため、元プロの判定は本人のプロフィール記載に頼った"
@@ -182,8 +193,8 @@
   "credPolicy": [
    "プロ：Shadowverse Premier Series 26-27 に所属する選手。公式サイトの選手データ（Xアカウント付き）で本人確認している。",
    "元プロ：過去のプロリーグ在籍を、本人のプロフィールまたは公式情報で確認できた人（今回は該当する投稿が見つからなかった）。",
-   "実力者：今季の実績（CR上位・BEYOND到達・大会優勝など）を、攻略メディア（Dexel）が確認して取り上げている人、または本人が明示していてXのフォロワーが1万人以上の人。",
-   "上位プレイヤー（基準外）：上位の実績は本人が記載しているが、上の基準を満たさない人。初期表示では集計に含めない。",
+   "実力者：BEYOND（最高ランク）に到達したことがある人、または現在BEYONDの人。本人のプロフィール・投稿、または攻略メディア（Dexel）の紹介で確認する。BEYONDの記載がなくても、公式大会の優勝など、それを上回る実績が公開されている人は含める。フォロワー数は問わない。",
+   "上位プレイヤー（基準外）：上位の実績は本人が記載しているが、BEYOND到達を確認できなかった人。初期表示では集計に含めない。",
    "攻略サイト：Game8・GameWith の記事（筆者不明）。初期表示では集計に含めない。"
   ],
   "xSearch": {
@@ -212,6 +223,18 @@
     {
      "label": "Dexel掲載者8名のアカウント指定 × 画像つき",
      "hits": 9
+    },
+    {
+     "label": "基準変更後の再検索：空いていたデッキ名＋マリガン（いいね数の下限なし、2グループ）",
+     "hits": 24
+    },
+    {
+     "label": "「マリガン」＋「BEYOND／ビヨンド」",
+     "hits": 6
+    },
+    {
+     "label": "基準外だった投稿者のBEYOND到達の確認（アカウント指定×BEYOND）",
+     "hits": 4
     }
    ]
   }
@@ -614,16 +637,17 @@
    "site": "note",
    "short": "NT",
    "author": "もとやしき",
-   "credential": "最高CR2235・最終BEYOND×4",
+   "credential": "最終BEYOND×4・最高CR2235（本人記載）",
    "title": "アズヴォルト・レヴナント環境 海賊ロイヤル雑記",
    "url": "https://note.com/motoyqsiki/n/nf5fb40f65b00",
    "date": "2026-09-01",
    "split": false,
-   "cred": "other",
+   "cred": "strong",
    "credBasis": "本人記載の実績（最高CR2235・最終BEYOND×4）。媒体掲載がなく、フォロワー467人で基準（1万人）に届かない",
    "person": "もとやしき",
    "handle": "motoyashiki",
-   "followers": 467
+   "followers": 467,
+   "note": null
   },
   "x-tbt-0907": {
    "site": "X",
@@ -685,13 +709,14 @@
    "person": "きるか",
    "author": "きるか",
    "handle": "_qxoxp_",
-   "cred": "other",
+   "cred": "strong",
    "followers": 2727,
-   "credential": "RAGE 2021 Autumn 優勝・RAGE JCS 2025 9位タイ（本人記載）",
+   "credential": "RAGE 2021 Autumn 優勝・Shadowverse World Grand Prix 2021 出場・RAGE JCS 2025 9位タイ（本人プロフィール）",
    "title": "魔手のマリガン",
    "url": "https://x.com/_qxoxp_/status/2096484939269296274",
    "date": "2026-09-06",
-   "split": false
+   "split": false,
+   "note": "BEYOND到達の記載は見つからなかったが、公式大会の優勝・世界大会出場という、BEYOND到達を上回る実績があるため実力者に含めた"
   },
   "x-nemuru-0827": {
    "site": "X",
@@ -699,9 +724,9 @@
    "person": "ねむる",
    "author": "ねむる",
    "handle": "nemuru_sv",
-   "cred": "other",
+   "cred": "strong",
    "followers": 1139,
-   "credential": "2025 OCS November 1位・PS最終選考（本人記載）",
+   "credential": "BEYONDから競技シーンに進みPS最終選考（Dexelのインタビュー記事・本人記載）、2025 OCS November 1位",
    "title": "魔手ウィッチ簡単解説（画像のマリガン表）",
    "url": "https://x.com/nemuru_sv/status/2093007650279825899",
    "date": "2026-08-27",
@@ -720,7 +745,8 @@
    "title": "クキシロのマリガン",
    "url": "https://x.com/subdomi_sora/status/2096535907633611131",
    "date": "2026-09-06",
-   "split": "partial"
+   "split": "partial",
+   "note": "今季クキシロでビショップ1位と本人が記載しているが、BEYOND到達をプロフィール・投稿で確認できなかったため基準外"
   },
   "x-yatapirika-0830": {
    "site": "X",
@@ -728,13 +754,14 @@
    "person": "やたぴりか",
    "author": "やたぴりか",
    "handle": "25o_clockWorld",
-   "cred": "other",
+   "cred": "strong",
    "followers": 1069,
-   "credential": "今季実験体ウィッチでBEYOND・瞬間1位、JCG優勝2回（本人記載）",
+   "credential": "今季実験体ウィッチでBEYOND到達・瞬間1位、JCG優勝2回（本人記載）",
    "title": "実験体ウィッチのメモ",
    "url": "https://x.com/25o_clockWorld/status/2093942235738132662",
    "date": "2026-08-30",
-   "split": false
+   "split": false,
+   "note": null
   },
   "x-tommy-0902": {
    "site": "X",
@@ -742,9 +769,9 @@
    "person": "トミー",
    "author": "トミー",
    "handle": "F29r5jTMEnlJ9nL",
-   "cred": "other",
+   "cred": "strong",
    "followers": 149,
-   "credential": "今季ドラゴンで6位・最高順位1位（本人記載）",
+   "credential": "今季フェイスドラゴンでBEYOND到達（2026-09-02 本人投稿）・ドラゴンで最高順位1位（本人記載）",
    "title": "2コス17枚ドラゴンで6位",
    "url": "https://x.com/F29r5jTMEnlJ9nL/status/2095170771215925539",
    "date": "2026-09-02",
@@ -757,9 +784,9 @@
    "person": "ritz",
    "author": "ritz",
    "handle": "ritz_kg",
-   "cred": "other",
+   "cred": "strong",
    "followers": 1490,
-   "credential": "今季ドラゴンでBEYOND（本人記載）",
+   "credential": "今季ドラゴンでBEYOND到達（本人記載）",
    "title": "ナイトメア対面のマリガン",
    "url": "https://x.com/ritz_kg/status/2095355932113076726",
    "date": "2026-09-03",
@@ -772,14 +799,14 @@
    "person": "たらこ",
    "author": "たらこ",
    "handle": "tarakokkkko",
-   "cred": "other",
+   "cred": "strong",
    "followers": 8191,
-   "credential": "シャドバWB初代最終1位（本人記載）",
+   "credential": "シャドバWB初代シーズン最終1位（本人記載）＝BEYONDの最上位",
    "title": "テンポエルフでアルティメット",
    "url": "https://x.com/tarakokkkko/status/2095720669741043873",
    "date": "2026-09-04",
    "split": false,
-   "note": "フォロワー8,191人で、基準（1万人）にわずかに届かない"
+   "note": null
   }
  },
  "decks": [
