@@ -596,15 +596,34 @@ function renderStream(){
   const box = $('#pro');
   if (!STREAMS.length){ box.innerHTML = '<div class="none">まだ読み取った配信がありません。</div>'; return; }
   let html = '';
+  const okEvents = s => Object.entries(s.events).filter(([, e]) => e.status === 'ok');
   for (const [cls] of CLASSES){
-    const ss = STREAMS.filter(s => s.class === cls);
+    const ss = STREAMS.filter(s => s.class === cls && okEvents(s).length);   // 読み取れた試合がない配信は出さない
     if (!ss.length) continue;
     html += `<div data-class="${esc(cls)}"><h2 class="classhead" style="border-left-color:${col(cls)}">${esc(cls)}</h2>`;
+    // 同じデッキを複数の配信で読んだときは、まず全員分を合わせた表を出す
+    const decks = [...new Set(ss.map(s => s.deck || cls))];
+    for (const dk of decks){
+      const group = ss.filter(s => (s.deck || cls) === dk);
+      if (group.length < 2) continue;
+      const ms = group.flatMap(s => okEvents(s).map(([, e]) => ({ r: e })));
+      const players = [...new Set(group.map(s => s.player))];
+      const rows = group.map(s => {
+        const ev = okEvents(s).map(([, e]) => e);
+        const w = ev.filter(e => e.result === '勝ち').length, l = ev.filter(e => e.result === '負け').length;
+        return `<li><b>${esc(s.player)}</b> ${fmtDate(s.date)}：${ev.length}試合${(w + l) ? `（${w}勝${l}敗）` : ''} <a href="https://www.youtube.com/watch?v=${esc(s.vid)}" target="_blank" rel="noopener">${esc(s.title || s.vid)}</a></li>`;
+      }).join('');
+      html += `<div class="deck"><div class="deckhead" style="border-left-color:${col(cls)}"><h3>${esc(dk)}：プロ${players.length}人の合計</h3>`
+            + `<span class="agree">マリガン${ms.length}回・配信${group.length}本</span></div>`
+            + `<div class="cols">${keepTable(ms, '先攻')}${keepTable(ms, '後攻')}</div>`
+            + `<div class="srclist"><ul>${rows}</ul></div></div>`;
+    }
     for (const s of ss){
       const evs = Object.entries(s.events).filter(([, e]) => e.status === 'ok');
       const ms = evs.map(([, e]) => ({ r: e }));
+      const note = s.deckNote ? `<div class="extra"><span class="warn">※${esc(s.deckNote)}</span></div>` : '';
       html += `<div class="deck"><div class="deckhead" style="border-left-color:${col(cls)}"><h3>${esc(s.player)}：${esc(s.deck || cls)}</h3>`
-            + `<span class="agree">マリガン${evs.length}回・<a href="https://www.youtube.com/watch?v=${esc(s.vid)}" target="_blank" rel="noopener">${esc(s.title || s.vid)}</a> ${fmtDate(s.date)}</span></div>`
+            + `<span class="agree">マリガン${evs.length}回・<a href="https://www.youtube.com/watch?v=${esc(s.vid)}" target="_blank" rel="noopener">${esc(s.title || s.vid)}</a> ${fmtDate(s.date)}</span></div>` + note
             + `<div class="cols">${keepTable(ms, '先攻')}${keepTable(ms, '後攻')}</div>`
             + `<details class="mlist" open><summary>1試合ずつ見る（${evs.length}回）</summary>${evs.map(([n, e]) => streamRow(s, n, e)).join('')}</details></div>`;
     }
@@ -615,8 +634,9 @@ function renderStream(){
 
 function renderStreamIntro(){
   const n = STREAMS.reduce((a, s) => a + Object.values(s.events).filter(e => e.status === 'ok').length, 0);
+  const used = STREAMS.filter(s => Object.values(s.events).some(e => e.status === 'ok'));
   $('#intro').innerHTML = `
-    <div class="meta"><span>対象：プロの個人配信 ${STREAMS.length}本</span><span>読み取れたマリガン：${n}回</span></div>
+    <div class="meta"><span>対象：プロの個人配信 ${used.length}本（${new Set(used.map(s => s.player)).size}人）</span><span>読み取れたマリガン：${n}回</span></div>
     <h2>これは何か</h2>
     <ul>
       <li>プロ本人がYouTubeで配信したランクマッチから、本人の<b>元の手札4枚</b>・<b>返したカード</b>・<b>交換後の4枚</b>を読み取ったものです。映るのは配信者本人の手札だけで、相手の手札は分かりません。</li>
@@ -638,7 +658,7 @@ function renderStreamIntro(){
 }
 
 function renderStreamRefs(){
-  $('#refs').innerHTML = `<h2>出典（配信のアーカイブ）</h2><ul>` + STREAMS.map(s =>
+  $('#refs').innerHTML = `<h2>出典（配信のアーカイブ）</h2><ul>` + STREAMS.filter(s => Object.values(s.events).some(e => e.status === 'ok')).map(s =>
     `<li><a href="https://www.youtube.com/watch?v=${esc(s.vid)}" target="_blank" rel="noopener">${esc(s.title || s.vid)}</a>（${esc(s.player)}） ${fmtDate(s.date)}</li>`).join('') + `</ul>`
     + `<h2>カード情報</h2><ul><li><a href="https://shadowverse-wb.com/ja/deck/cardslist/" target="_blank" rel="noopener">Shadowverse: Worlds Beyond 公式サイトのカード一覧</a>（カード名・画像・別イラスト）</li></ul>`;
   $('#foot').textContent = 'カード名・配信映像の権利は各権利者に帰属します。';
