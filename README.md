@@ -250,6 +250,10 @@ python3 update_archives.py && python3 build_data.py
 | `mulligan.html` / `mulligan.json` / `mulligan.pdf` | マリガン早見表（ページ・集計データ・PDF） |
 | `stream/` / `mulligan_stream.pdf` | プロの配信から読んだマリガン（配信ごとのJSON）とそのPDF |
 | `mull_stream.py` | 個人配信から配信者本人のマリガンを読む |
+| `mull_turns.py` | 個人配信の各試合で、配信者の1〜3ターン目の手札と盤面を撮る（作成中） |
+| `HANDOFF_SVPS.md` | 作業の引き継ぎ書（今の状態・次にやること・守ること） |
+| `WINDOWS移行.md` | Windows PC への移行手順 |
+| `*.bat` / `requirements.txt` | Windows 用（セットアップ・起動・更新・公開・PDF作成）と、必要な Python の部品 |
 | `mull_scan.py` | リーグ配信から両プレイヤーのマリガンを読む（作成中） |
 | `mull_read.py` | 映ったカードを公式画像と照合して当てる共通処理 |
 | `mull_cards.py` | 公式のデッキ・カード一覧・カード画像を取ってくる（`cache/` に保存。公開しない） |

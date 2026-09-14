@@ -99,9 +99,11 @@ class Player:
         from playwright.sync_api import sync_playwright
         self.port = _serve()
         self.pw = sync_playwright().start()
-        self.br = self.pw.chromium.launch(
-            channel="chrome", headless=True,
-            args=["--autoplay-policy=no-user-gesture-required", "--mute-audio"])
+        args = ["--autoplay-policy=no-user-gesture-required", "--mute-audio"]
+        try:                                    # 入っている Google Chrome を使う（動画の再生に強い）
+            self.br = self.pw.chromium.launch(channel="chrome", headless=True, args=args)
+        except Exception:                       # 無ければ Playwright 付属のブラウザ
+            self.br = self.pw.chromium.launch(headless=True, args=args)
         self.pg = self.br.new_page(viewport={"width": 1920, "height": 1080})
         self.vid = None
 
@@ -126,6 +128,18 @@ class Player:
 
     def rate(self, r):
         self.js(f"player.setPlaybackRate({r})")
+
+    def blocked(self):
+        """YouTubeがロボット対策の確認画面（ログインを求める画面）を出しているか。
+        出ていたら回避はせず、読み取りをすべて止める（呼び出し側で BLOCK_FLAG を立てる）"""
+        for fr in self.pg.frames[1:]:
+            try:
+                t = fr.evaluate("document.body ? document.body.innerText : ''")
+            except Exception:
+                continue
+            if "bot ではない" in t or "not a bot" in t:
+                return True
+        return False
 
     def now(self):
         return float(self.js("player.getCurrentTime()"))
@@ -353,7 +367,17 @@ def analyse(seg, frames):
 
 
 # ---------------- 確認用の画像 ----------------
-FONT = "/System/Library/Fonts/ヒラギノ角ゴシック W4.ttc"
+def _jp_font():
+    """確認用画像に日本語を書くためのフォント（Mac・Windowsの順に探す）"""
+    for p in ("/System/Library/Fonts/ヒラギノ角ゴシック W4.ttc",
+              r"C:\Windows\Fonts\meiryo.ttc", r"C:\Windows\Fonts\YuGothM.ttc",
+              r"C:\Windows\Fonts\msgothic.ttc", "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"):
+        if os.path.exists(p):
+            return p
+    return None
+
+
+FONT = _jp_font()
 
 
 def review_image(seg, res, frames, path):

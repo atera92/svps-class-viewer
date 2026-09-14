@@ -1,0 +1,8 @@
+# このツールで使う Python の部品（セットアップ.bat が入れる）
+opencv-python-headless>=4.8
+numpy>=1.23
+Pillow>=9.4
+playwright>=1.40
+pypdf>=3.0
+beautifulsoup4>=4.11
+psutil>=5.9

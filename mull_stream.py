@@ -42,6 +42,14 @@ CHANGE_POS = (780, 76)                  # 「CHANGE」の帯の見本を切り�
 KEEP_POS = (815, 962)                   # 「KEEP」の帯の見本を切り出した位置
 LABEL_BOX = (1650, 930, 1830, 1012)     # 右下「あなたの手番 先攻／後攻」の文字のあたり
 MARGIN_OK = 0.12
+BLOCK_FLAG = os.path.join(HERE, "cache", "YOUTUBE_BLOCKED")   # これがあれば、YouTubeへの自動アクセスをしない
+
+
+def stop_for_block(where):
+    """ロボット対策の確認画面が出た：印のファイルを作り、以後の読み取りを止める（回避はしない）"""
+    os.makedirs(os.path.dirname(BLOCK_FLAG), exist_ok=True)
+    open(BLOCK_FLAG, "w").write(f"{time.strftime('%Y-%m-%d %H:%M')} {where}\n")
+    print(f"!!! YouTubeのロボット対策の画面が出たため中止しました（{where}）", flush=True)
 
 
 @functools.lru_cache(maxsize=1)
@@ -211,7 +219,14 @@ def _coarse(vid, state, b, xf):
     hits, t = [], a
     cx, cy = 760, 56                          # 撮る範囲（帯2本を縦に含む細長い範囲）の左上
     c_ref, k_ref = change_ref(), keep_ref()
+    n_seen = 0
     while t < b:
+        if os.path.exists(BLOCK_FLAG):
+            break
+        n_seen += 1
+        if n_seen % 40 == 1 and pl.blocked():
+            stop_for_block(f"{vid} {int(t)}秒")
+            break
         pl.seek(t)
         time.sleep(0.35)
         if XF:
@@ -264,6 +279,9 @@ def capture(pl, vid, t0):
     """戻り値 (frames, before)。frames=[(時刻, JPEG)]（マリガン画面の間）、
     before=[(時刻, JPEG)]（その前の対戦開始画面。相手クラスの確認用）"""
     pl.goto(vid, max(0, t0 - 9))
+    if pl.blocked():
+        stop_for_block(f"{vid} {int(t0)}秒")
+        raise RuntimeError("YouTubeのロボット対策の画面")
     t_q = time.time()
     while time.time() - t_q < 6 and pl.js("player.getPlaybackQuality()") != "hd1080":
         time.sleep(0.3)
@@ -563,7 +581,17 @@ def _init(cls, xf=None):
 def _kill_children():
     """このプロセスが起動したブラウザ（子孫プロセス）をすべて止める。
     ブラウザが応答しなくなると、待っている処理が永遠に返らないため、外から止めて例外にする"""
-    import signal, subprocess
+    try:                                         # Mac・Windows どちらでも動く方法
+        import psutil
+        for c in psutil.Process(os.getpid()).children(recursive=True):
+            try:
+                c.kill()
+            except Exception:
+                pass
+        return
+    except ImportError:
+        pass
+    import signal, subprocess                    # psutil が無い Mac 用の予備
     rows = subprocess.run(["ps", "-A", "-o", "pid=,ppid="], capture_output=True, text=True).stdout.split("\n")
     kids = {}
     for r in rows:
@@ -639,6 +667,9 @@ def main():
     args = ap.parse_args()
 
     M.set_layout("player")
+    if os.path.exists(BLOCK_FLAG):
+        sys.exit(f"YouTubeのロボット対策で止まっています（{open(BLOCK_FLAG).read().strip()}）。"
+                 f"\n確認画面が出なくなったのを確かめてから {BLOCK_FLAG} を消して再開してください。")
     if args.vs_only:
         return vs_sheet(args.vid)
     import re, svps_api
